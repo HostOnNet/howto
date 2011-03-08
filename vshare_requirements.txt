@@ -135,9 +135,9 @@ cd /usr/local/src/yasm-0.7.2
 make && make install
 
 cd /usr/local/src
-wget http://www.kernel.org/pub/software/scm/git/git-1.7.0.tar.gz
-tar zxvf git-1.7.0.tar.gz
-cd git-1.*
+wget http://kernel.org/pub/software/scm/git/git-1.7.4.1.tar.bz2
+tar jxvf git-1.7.4.1.tar.bz2
+cd git-1.7.4.1
 make clean && make distclean
 make configure
 ./configure --prefix=/usr
@@ -168,26 +168,24 @@ sh ./configure
 make
 make install
 
+# http://sourceforge.net/projects/libdc1394/
+# updated on 08-Mar-2011 8:22 PM
+
 cd /usr/local/src
-wget -c http://www.kernel.org/pub/linux/libs/ieee1394/libraw1394-2.0.5.tar.gz
-tar zxfv libraw1394-2.0.5.tar.gz
-cd /usr/local/src/libraw1394-2.0.5
+wget -c http://downloads.sourceforge.net/project/libdc1394/libdc1394-2/libdc1394-2.1.3.tar.gz
+tar zxfv libdc1394-2.1.3.tar.gz
+cd /usr/local/src/libdc1394-2.1.3
 make clean && make distclean
 ./configure
 make dev
 make
 make install
 
-cd /usr/local/src
-wget -c http://downloads.sourceforge.net/sourceforge/libdc1394/libdc1394-2.1.2.tar.gz
-tar zxfv libdc1394-2.1.2.tar.gz
-cd /usr/local/src/libdc1394-2.1.2
-make clean && make distclean
-./configure
-make && make install
+# http://ffmpeg.org/download.html
+# ffmpeg moved to git repo
 
 cd /usr/local/src
-svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+git clone git://git.videolan.org/ffmpeg.git
 cd /usr/local/src/ffmpeg
 make clean && make distclean
 ./configure --prefix=/usr --enable-shared --enable-libxvid --enable-libvorbis --enable-libmp3lame --enable-gpl --enable-libfaac  --enable-nonfree --enable-libx264
@@ -208,7 +206,6 @@ ln -sf /usr/local/lib/codecs /usr/lib/codecs
 ln -sf /usr/local/lib/codecs /usr/local/lib/win32
 ln -sf /usr/local/lib/codecs /usr/lib/win32
 ldconfig
-
 
 cd /usr/local/src
 svn checkout svn://svn.mplayerhq.hu/mplayer/trunk mplayer
@@ -237,6 +234,9 @@ http://www.phpmotion.com/ffmpeg_sources/installffmpeg.sh
 wget -c http://hostonnet.com/downloads/mplayer.tar.gz && tar -zxvf mplayer.tar.gz
 wget -c http://hostonnet.com/downloads/ffmpeg.tar.gz && tar -zxvf ffmpeg.tar.gz
 
+
+08-Mar-2011
+mplayer	33056
 
 22-Sep-2010 
 mplayer svn update -r 32300
