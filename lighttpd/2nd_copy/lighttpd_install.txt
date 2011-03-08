@@ -1,0 +1,27 @@
+yum -y install glib2-devel openssl-devel pcre-devel bzip2-devel gzip-devel
+yum -y install gamin
+yum -y install gamin-devel
+yum -y install gcc gcc-c++
+
+
+
+cd /usr/local/src
+wget http://www.lighttpd.net/download/lighttpd-1.4.20.tar.gz
+tar -zxvf lighttpd-1.4.20.tar.gz
+cd lighttpd-1.4.20
+make clean && make distclean
+./configure --with-fam --prefix=/usr/lighttpd2 --exec-prefix=/usr/lighttpd2
+make
+make install
+
+sed -e 's/FOO/lighttpd/g' doc/rc.lighttpd.redhat > /etc/init.d/lighttpd2
+chmod a+rx /etc/init.d/lighttpd2
+cat etc/sysconfig/lighttpd
+echo "LIGHTTPD_CONF_PATH=/usr/lighttpd2/conf/lighttpd.conf" > /etc/sysconfig/lighttpd2
+cat /etc/sysconfig/lighttpd2
+mkdir /usr/lighttpd2/conf
+install -Dp ./doc/lighttpd.conf /usr/lighttpd2/conf/lighttpd.conf
+cat /usr/lighttpd2/conf/lighttpd.conf
+chkconfig lighttpd2 on
+service lighttpd2 status
+

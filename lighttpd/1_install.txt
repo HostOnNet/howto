@@ -1,0 +1,7 @@
+http://webhostingneeds.com/Install_lighttpd_from_source
+http://webhostingneeds.com/Auto_restart_lighttpd_if_down
+
+
+perl -i -p -e 's/#server.username            = "wwwrun"/server.username            = "lighttpd"/g;' /etc/lighttpd/lighttpd.conf
+perl -i -p -e 's/#server.groupname           = "wwwrun"/server.groupname           = "lighttpd"/g;' /etc/lighttpd/lighttpd.conf.txt
+

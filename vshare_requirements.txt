@@ -2,7 +2,6 @@ yum -y update
 yum -y install screen
 chmod 775 /var/run/screen
 screen
-unset HISTFILE
 uname -a
 # On 64 bit OS, run
 # CFLAGS="-fPIC";export CFLAGS

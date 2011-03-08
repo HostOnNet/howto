@@ -1,0 +1,99 @@
+==========================================================================
+http://ffmpeg-php.sourceforge.net/
+==========================================================================
+
+Make sure you have gd installed in php
+
+php -m | grep gd
+
+Only install ffmpeg-php after gd module is installed with php
+
+
+cd /usr/local/src/
+rm -rf ffmpeg-php
+svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php ffmpeg-php
+cd /usr/local/src/ffmpeg-php/trunk/ffmpeg-php
+make clean && make distclean
+phpize
+./configure --with-ffmpeg=/usr
+make && make install
+
+
+=================================================================================
+
+If you have two ffmpeg installation, specify its location so it take one one you need. This will help, if some one already installed and you are reinstalling. So it won't take OLD one, it take the one you specify.
+
+./configure --with-ffmpeg=/usr/local
+./configure --with-ffmpeg=/usr
+
+=================================================================================
+checking for ffmpeg libavcodec.so... configure: error: ffmpeg share libraries not found. Make sure you've built ffmpeg as shared libs using the --enable-shared option
+
+find / -name 'libavcodec.*'
+
+/usr/lib64/libavcodec.so
+
+ls -l /usr/lib64/libavcodec.so.51
+ls -l /usr/lib64/libavcodec.so.51.28.0
+
+cd /usr/lib
+ln -s /usr/lib64/libavcodec.so.51.28.0 libavcodec.so
+ln -s /usr/lib64/libavcodec.so /usr/lib/libavcodec.so
+
+/usr/lib64
+
+ld.so.conf
+
+
+
+=================================================================================
+
+if phpize not available (for servers with php instaleld with yum)
+
+yum -y install php-devel
+
+=================================================================================
+
+php -i|grep php.ini
+
+vi /usr/local/lib/php.ini
+
+FIND
+
+extension_dir
+
+Below add
+
+extension=ffmpeg.so
+
+
+
+max_execution_time = 600
+max_input_time = 6000
+memory_limit = 128M
+error_reporting = E_COMPILE_ERROR|E_ERROR|E_CORE_ERROR
+display_errors = On
+post_max_size = 800M
+upload_max_filesize = 800M
+file_uploads = On
+session.gc_maxlifetime = 14400
+
+
+
+history -c
+php -i |grep ffmpeg
+service httpd restart
+
+
+which ffmpeg
+which mencoder
+which mplayer
+which flvtool2
+which lame
+which yamdi
+php -i |grep ffmpeg
+
+
+Disable open_base_dir on plesk
+
+http://www.webhostingneeds.com/Disable_open_basedir_in_plesk
