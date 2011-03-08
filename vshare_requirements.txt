@@ -1,0 +1,247 @@
+yum -y update
+yum -y install screen
+chmod 775 /var/run/screen
+screen
+unset HISTFILE
+uname -a
+# On 64 bit OS, run
+# CFLAGS="-fPIC";export CFLAGS
+# echo "/usr/lib64/" >> /etc/ld.so.conf
+echo "/usr/local/lib" >> /etc/ld.so.conf
+echo "/usr/lib" >> /etc/ld.so.conf
+cat /etc/ld.so.conf
+ldconfig
+yum -y install subversion
+yum -y install ruby
+yum -y install lynx
+yum -y install nmap 
+yum -y install ncurses-devel
+yum -y install automake
+yum -y install autoconf
+yum -y install gcc
+yum -y install gmake
+yum -y install patch
+yum -y install make
+yum -y install libcpp
+yum -y install libgcc
+yum -y install libstdc++
+yum -y install gcc4
+yum -y install gcc4-c++
+yum -y install gcc4-gfortran
+yum -y install dos2unix
+yum -y install libtool
+yum -y install gcc-c++
+yum -y install gcc-c++ compat-gcc-32 compat-gcc-32-c++
+
+mkdir -p /usr/local/src/tmp
+chmod 777 /usr/local/src/tmp
+export TMPDIR=/usr/local/src/tmp
+
+# http://sourceforge.net/projects/faac/files/
+
+cd /usr/local/src/
+wget -c http://downloads.sourceforge.net/project/faac/faac-src/faac-1.28/faac-1.28.tar.gz
+tar -zxvf faac-1.28.tar.gz
+cd /usr/local/src/faac*
+./bootstrap
+./configure --prefix=/usr
+make && make install
+ldconfig
+
+cd /usr/local/src/
+wget -c http://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.7/faad2-2.7.tar.gz
+tar -zxvf faad2-2.7.tar.gz
+cd /usr/local/src/faad2*
+autoreconf -vif
+./configure --prefix=/usr
+make && make install
+
+# http://downloads.xiph.org/releases/ogg/?C=M;O=A
+
+cd /usr/local/src/
+wget -c http://downloads.xiph.org/releases/ogg/libogg-1.1.4.tar.gz
+tar zxvf libogg-1.1.4.tar.gz
+cd /usr/local/src/libogg-1.1.4
+./configure && make && make install
+ldconfig
+
+# http://downloads.xiph.org/releases/vorbis/?C=M;O=A
+
+cd /usr/local/src/
+wget -c http://downloads.xiph.org/releases/vorbis/libvorbis-1.2.3.tar.gz
+tar zxvf libvorbis-1.2.3.tar.gz
+cd /usr/local/src/libvorbis-1.2.3
+./configure && make && make install
+
+cd /usr/local/src/
+wget -c http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz
+tar -zxvf lame-3.98.4.tar.gz
+cd /usr/local/src/lame-3.98.4
+./configure --enable-shared --prefix=/usr
+make && make install
+
+# http://www.xvid.org/Downloads.43.0.html
+
+cd /usr/local/src/
+wget -c http://downloads.xvid.org/downloads/xvidcore-1.2.2.tar.gz
+tar -zxvf xvidcore-1.2.2.tar.gz
+cd /usr/local/src/xvidcore/build/generic/
+./configure --prefix=/usr && make && make install
+
+# http://rubyforge.org/projects/flvtool2/
+
+cd /usr/local/src
+wget http://rubyforge.org/frs/download.php/17497/flvtool2-1.0.6.tgz
+tar zxvf flvtool2-1.0.6.tgz
+cd /usr/local/src/flvtool2*/
+ruby setup.rb config --prefix=/usr
+ruby setup.rb setup
+ruby setup.rb install
+
+cd /usr/local/src
+wget -c http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz
+tar -zxvf a52dec-0.7.4.tar.gz
+cd /usr/local/src/a52dec*
+./configure 
+make && make install
+
+cd /usr/local/src
+wget -c http://www.ijg.org/files/jpegsrc.v7.tar.gz
+tar -zxvf jpegsrc.v7.tar.gz
+cd /usr/local/src/jpeg-7
+./configure
+make
+make install
+
+cd /usr/local/src/
+wget -c http://ftp.penguin.cz/pub/users/utx/amr/amrnb-7.0.0.2.tar.bz2
+tar jxvf amrnb-7.0.0.2.tar.bz2
+cd /usr/local/src/amrnb-7.0.0.2
+./configure
+make && make install
+
+cd /usr/local/src/
+wget -c http://ftp.penguin.cz/pub/users/utx/amr/amrwb-7.0.0.3.tar.bz2
+tar jxvf amrwb-7.0.0.3.tar.bz2
+cd /usr/local/src/amrwb-7.0.0.3
+./configure
+make && make install
+
+cd /usr/local/src
+wget -c http://www.tortall.net/projects/yasm/releases/yasm-0.7.2.tar.gz
+tar zfvx yasm-0.7.2.tar.gz
+cd /usr/local/src/yasm-0.7.2
+./configure
+make && make install
+
+cd /usr/local/src
+wget http://www.kernel.org/pub/software/scm/git/git-1.7.0.tar.gz
+tar zxvf git-1.7.0.tar.gz
+cd git-1.*
+make clean && make distclean
+make configure
+./configure --prefix=/usr
+make
+make install
+
+# http://www.videolan.org/developers/x264.html
+
+cd /usr/local/src
+git clone git://git.videolan.org/x264.git
+cd /usr/local/src/x264/
+git pull
+make clean && make distclean
+./configure --prefix=/usr --enable-shared
+make && make install
+
+cd /usr/local/src
+wget -c http://ftp6.nero.com/tools/NeroDigitalAudio.zip
+unzip NeroDigitalAudio.zip -d nero
+cd nero/linux
+install -D -m755 neroAacEnc /usr/local/bin
+
+cd /usr/local/src
+wget -c http://downloads.sourceforge.net/sourceforge/gpac/gpac-0.4.5.tar.gz
+tar -zxvf gpac-0.4.5.tar.gz
+cd /usr/local/src/gpac
+sh ./configure
+make
+make install
+
+cd /usr/local/src
+wget -c http://www.kernel.org/pub/linux/libs/ieee1394/libraw1394-2.0.5.tar.gz
+tar zxfv libraw1394-2.0.5.tar.gz
+cd /usr/local/src/libraw1394-2.0.5
+make clean && make distclean
+./configure
+make dev
+make
+make install
+
+cd /usr/local/src
+wget -c http://downloads.sourceforge.net/sourceforge/libdc1394/libdc1394-2.1.2.tar.gz
+tar zxfv libdc1394-2.1.2.tar.gz
+cd /usr/local/src/libdc1394-2.1.2
+make clean && make distclean
+./configure
+make && make install
+
+cd /usr/local/src
+svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+cd /usr/local/src/ffmpeg
+make clean && make distclean
+./configure --prefix=/usr --enable-shared --enable-libxvid --enable-libvorbis --enable-libmp3lame --enable-gpl --enable-libfaac  --enable-nonfree --enable-libx264
+make && make install
+
+--enable-libfaad
+
+cd /usr/local/src/
+wget -c http://www.mplayerhq.hu/MPlayer/releases/codecs/all-20071007.tar.bz2
+tar -jxvf all-20071007.tar.bz2
+cd /usr/local/src/all-20071007
+mv /usr/local/lib/codecs /usr/local/lib/codecs-$(date +%m%d%Y%H%N)
+mkdir -p /usr/local/lib/codecs
+cp -f *.* /usr/local/lib/codecs/
+chmod -R 755 /usr/local/lib/codecs/
+ls -l /usr/local/lib/codecs/
+ln -sf /usr/local/lib/codecs /usr/lib/codecs
+ln -sf /usr/local/lib/codecs /usr/local/lib/win32
+ln -sf /usr/local/lib/codecs /usr/lib/win32
+ldconfig
+
+
+cd /usr/local/src
+svn checkout svn://svn.mplayerhq.hu/mplayer/trunk mplayer
+cd /usr/local/src/mplayer
+make clean && make distclean
+./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/
+make && make install
+
+
+cd /usr/local/src
+wget -c http://downloads.sourceforge.net/sourceforge/yamdi/yamdi-1.4.tar.gz
+tar -zxvf yamdi-1.4.tar.gz
+cd /usr/local/src/yamdi-1.4
+gcc yamdi.c -o yamdi -O2 -Wall
+mv yamdi /usr/bin/
+
+http://blog.hostonnet.com/installing-pecl-uploadprogress
+http://blog.hostonnet.com/installing-yamdi-from-source
+
+
+./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/ --disable-mmx
+
+./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/ --disable-dvdread --disable-dvdread-internal --disable-dvdnav --enable-jpeg
+
+http://www.phpmotion.com/ffmpeg_sources/installffmpeg.sh
+wget -c http://hostonnet.com/downloads/mplayer.tar.gz && tar -zxvf mplayer.tar.gz
+wget -c http://hostonnet.com/downloads/ffmpeg.tar.gz && tar -zxvf ffmpeg.tar.gz
+
+
+22-Sep-2010 
+mplayer svn update -r 32300
+ffmpeg  25154
+
+
+svn update -r 16503
+svn info
