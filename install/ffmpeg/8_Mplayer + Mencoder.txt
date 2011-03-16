@@ -1,0 +1,147 @@
+mencoder
+mplayer -vo help
+mplayer -ac help | grep amr
+
+
+
+yum list|grep mplayer
+yum list|grep mencoder
+
+yum -y install mplayer mplayer-fonts mencoder
+
+
+==========================================================================================
+5.) Mplayer + Mencoder (http://www.mplayerhq.hu/design7/dload.html )
+==========================================================================================
+
+http://www3.mplayerhq.hu/MPlayer/releases/codecs/
+
+cd /usr/local/src
+wget http://www.mplayerhq.hu/MPlayer/releases/codecs/all-20061022.tar.bz2
+tar jxvf all-20061022.tar.bz2
+mkdir -p /usr/local/lib/codecs
+cd all-20061022
+cp --force *.* /usr/local/lib/codecs/
+chmod -R 755 /usr/local/lib/codecs/
+ls -l /usr/local/lib/codecs/
+ln -sf /usr/local/lib/codecs /usr/lib/codecs
+ln -sf /usr/local/lib/codecs /usr/local/lib/win32
+ln -sf /usr/local/lib/codecs /usr/lib/win32
+
+
+http://www3.mplayerhq.hu/MPlayer/releases/
+
+cd /usr/local/src
+wget http://www1.mplayerhq.hu/MPlayer/releases/MPlayer-1.0rc1.tar.bz2
+svn checkout svn://svn.mplayerhq.hu/mplayer/trunk mplayer
+cd mplayer
+
+tar jxvf MPlayer-1.0rc1.tar.bz2
+cd MPlayer-1.0rc1
+make distclean
+./configure --help
+./configure --prefix=/usr --enable-largefiles --with-codecsdir=/usr/local/lib/codecs/
+./configure --prefix=/usr --enable-largefiles --enable-jpeg --with-codecsdir=/usr/local/lib/codecs/
+
+
+NEW VERSION FROM SVN
+
+./configure --prefix=/usr --enable-largefiles --enable-jpeg --codecsdir=/usr/local/lib/codecs/
+./configure --prefix=/usr --enable-largefiles --codecsdir=/usr/local/lib/codecs/
+
+
+make 
+make install
+
+
+http://www.mplayerhq.hu/dload.html
+*** for OSD/Subtitles support and extract to /usr/local/share/mplayer/font/
+
+
+./configure --help
+./configure --help | grep xorg
+./configure --help | grep x11
+./configure --disable-x11
+./configure --disable-x11 --disable-gui
+
+
+CentOS 4.4 RPM
+
+
+This will install lot other RPM's
+
+==========================================================================================
+ERRORS
+==========================================================================================
+
+
+make[1]: *** [vo_jpeg.o] Error 1
+make[1]: Leaving directory `/usr/local/src/mplayer/libvo'
+make: *** [libvo/libvo.a] Error 2
+
+
+------------------------------------------------------------------------------------------
+
+
+root@mycitybusiness [/usr/local/src/MPlayer-1.0rc1]# mencoder
+mencoder: error while loading shared libraries: libmp3lame.so.0: cannot open shared object file: No such file or directory
+root@mycitybusiness [/usr/local/src/MPlayer-1.0rc1]#
+
+-----------------------
+
+find / -name 'libmp3lame.*'
+
+
+/usr/local/lib/libmp3lame.so.0
+
+
+vi /etc/ld.so.conf
+
+add line
+
+/usr/local/lib
+
+run
+
+ldconfig
+
+
+==========================================================================================
+COMMANDS
+==========================================================================================
+
+cd /usr/local/src
+
+wget http://www.troodi.com/video/1.wmv
+
+/usr/bin/mencoder 1.wmv -o 1.flv -of lavf -ovc lavc -oac lavc -lavcopts vcodec=flv:vbitrate=5400:autoaspect:mbd=2:mv0:trell:v4mv:cbp:last_pred=3:predia=2:dia=2:precmp=2:cmp=2:subcmp=2:preme=2:turbo:acodec=mp3:abitrate=56 -vf scale=320:240 -srate 22050 -af lavcresample=22050 -lavfopts i_certify_that_my_video_stream_does_not_use_b_frames
+
+/usr/bin/mencoder 1.wmv -o 1.flv -of lavf -ovc lavc -oac lavc -lavcopts vcodec=flv:vbitrate=5400:autoaspect:mbd=2:mv0:trell:v4mv:cbp:last_pred=3:predia=2:dia=2:precmp=2:cmp=2:subcmp=2:preme=2:turbo:acodec=mp3:abitrate=56 -vf scale=320:240 -srate 22050 -af lavcresample=22050 -lavfopts
+
+mencoder -ovc xvid -xvidencopts bitrate=400:me_quality=6:chroma_opt:vhq=0 -oac mp3lame -lameopts mode=1:vbr=2:q=6 -af volnorm -af-adv force=0 -vf scale=320:240 1.wmv -o 1.avi
+
+
+MAKE IMAGE FROM VIDEO
+
+
+/usr/bin/mplayer 1.wmv -ss 2 -nosound -vo jpeg:outdir=/root/1 -frames 3
+
+/usr/bin/mplayer -v /home/balajim/public_html/video/19.mpeg -nosound -vo jpeg:outdir=/home/balajim/public_html/thumb/ -frames 6
+
+
+
+=================================================================
+MAKE THUMBNAIL
+=================================================================
+
+mplayer -vo jpeg:outdir=/home/1 1.flv
+mplayer -vo jpeg:outdir=/home/1 movie.avi
+
+
+
+mencoder movie.wmv -o movie.avi -ovc lavc -oac lavc -lavcopts acodec=mp3
+mencoder 1.flv -o movie.avi -ovc lavc -oac lavc -lavcopts acodec=mp3
+
+
+mencoder 1.flv -ovc xvid -oac mp3lame -o 1.avi
+

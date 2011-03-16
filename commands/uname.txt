@@ -1,0 +1,7 @@
+1/20/2004
+---------
+
+On newly installed red hat linux 9
+
+[root@server2 root]# uname -a
+Linux server2.hosthat.com 2.4.24 #3 Mon Jan 19 13:26:34 EST 2004 i686 i686 i386 GNU/Linux

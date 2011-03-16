@@ -1,0 +1,86 @@
+FreeBSD
+
+In conjunction with the user change in the previous section, you should also change the permissions on the database files.  I used the opportunity to move the database files to another location.  By default, the database files are located in /var/db/mysql.  This can be changed by modifying the script /usr/local/bin/safe_mysqld.   But I prefer to leave scripts unchanged and just move the files.  So I did this:
+
+
+/usr/local/etc/rc.d/mysql-server.sh stop
+
+cd /var/db
+mv mysql /home/
+ln -s /home/mysql mysql
+
+Then I changed the permissions.
+
+cd /home
+chown -R mysql mysql
+
+And then restarted mysqld.
+
+/usr/local/etc/rc.d/mysql-server.sh start
+
+
+======================================
+
+
+
+If you want to move the mysql directories to another partion, you can safely do the following:
+
+1) Stop chkservd and mysql 
+
+2) mv /var/lib/mysql wherever you want to put it. 
+
+3) open my.cnf and check if the datadir is defined. If it is, it should say something like:
+
+datadir = /var/lib/mysql
+
+Change that to:
+
+datadir = /path/to/new/location
+
+If there isn't anything there for this variable in your my.cnf, simply add it below where it says [mysqld]
+
+Then restart your chkservd and mysql and you are back in business with mysql databases on another partition. 
+
+Cpanel won't overwrite this or know about it at all, since it's not really a matter of concern to how Cpanel operates.
+
+=======================
+When I restart mysql
+
+it shows can not find mysql.sock
+or can not find nameserver.pid
+
+my my.cnf look like this at the top of the file
+
+[mysqld]
+datadir=/home/mysql
+socket=/var/lib/mysql/mysql.sock
+
+=======================
+
+change it to:
+
+socket=/home/mysql/mysql.sock
+
+
+
+
+You can also create a symlink at /var/lib that points to /home/mysql, so anything looking for mysql at /var/lib/ will know where to find it.
+
+do:
+
+ln -s /home/mysql /var/lib/mysql
+
+===========================================
+
+/usr/local/etc/rc.d/mysql-server.sh stop
+
+cd /var/db
+
+my mysql mysql_old
+
+ln -s /home/mysql
+
+cd /home
+chown -R mysql:mysql mysql
+
+/usr/local/etc/rc.d/mysql-server.sh start

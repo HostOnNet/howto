@@ -1,0 +1,19 @@
+http://p1.video.blip.tv/0010000184124/Make-MakeYourOwnTrebuchetsMakeVideoPodcast689.3gp
+
+
+cd /usr/local/src
+wget http://ftp.penguin.cz/pub/users/utx/amr/amrnb-6.1.0.2.tar.bz2
+tar -jxvf amrnb-6.1.0.2.tar.bz2
+cd amrnb-6.1.0.2
+./configure
+make
+make install
+
+
+cd /usr/local/src/ffmpeg
+
+./configure --enable-shared --enable-xvid --enable-libvorbis --enable-libogg --enable-libmp3lame --enable-gpl --enable-libfaac --enable-libfaad --enable-liba52 --enable-amr-nb
+
+
+--enable-amr_wb 
+

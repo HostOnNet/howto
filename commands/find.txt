@@ -1,0 +1,103 @@
+================================================================================
+find
+================================================================================
+
+
+find /home/ -name log.txt
+find / -name 'named.conf' -print
+find -name 'rndc.key' -print
+
+
+
+================================================================================
+Find in Files in a Folder
+================================================================================
+
+find /home -name '*.php' -exec grep 'TEXT-TO-FIND-HERE' {} \; -print
+
+================================================================================
+Find in All files in a Folder
+================================================================================
+
+cd /usr/local/apache/domlogs
+find . -type f -print | xargs grep -l "te.txt"
+find . -type f -print | xargs grep -l "find"
+
+================================================================================
+Delete all files that are 6 months old.
+================================================================================
+
+
+find /mailarchive/ -name \*.txt -atime +$((6*30)) -exec rm -f {} \;
+find /mailarchive/ -mtime +30 -type f | xargs /bin/rm -f
+find /mailarchive/ -mtime +30 -type f -exec /bin/rm -rf {} \;
+rm -rf /mailarchive/`date -d '1 month ago' +%Y-%m`/`date -d '1 month ago' +%Y-%m-%d`
+
+
+Del old files 30 days old
+
+find /path/to/folder -mtime +30 | xargs rm -f
+
+
+================================================================================
+Find and list owner/permissions of suid binaries:
+================================================================================
+
+find / -perm +6000 -type f -exec ls --color -ald \{\} \;
+find / -perm +6000 -type f
+
+
+================================================================================
+Delete all files session* in /tmp folder
+================================================================================
+cd /tmp
+find /tmp -name 'session*' -delete
+find /tmp -name 'sess*' -delete
+find /tmp -name '*sess*' -delete
+rm -f cpanel.TMP*
+rm -f impat*
+rm -f 2006*
+
+find /home -name core.[0-9]* | xargs rm -f {} \;
+
+#!/bin/sh
+
+rm -f /tmp/2006*
+rm -f /tmp/impatt*
+find /tmp -name '*sess*' -delete
+
+================================================================================
+Delete too many files from a folder
+================================================================================
+
+for i in $(find /home/bizhatc/mailbox/); do echo $i; done
+
+for i in $(find /home/bizhatc/mailbox/); do rm -f $i; done
+
+
+================================================================================
+Removes all files with size 0
+================================================================================
+
+find /home/httpd/logs -size 0 -type f -print0 | xargs -0 rm –f
+
+
+================================================================================
+Find files with 777 permission
+================================================================================
+
+find / -type d -perm 777 -exec chmod 755 {} \;
+
+================================================================================
+Find BIG FILES
+================================================================================
+
+find / -size +1000000000c
+
+
+================================================================================
+find / -name file_name.extn
+
+find / -user username
+Replace username with a username of one of your account to find all the files that belong to them. Also useful to add the |more switch so you can scroll one screen at a time. Ever have a client who seems to show a lot more files than are actually in their home directory? This is how you find those files and fix them. Common problem is cpmove files that don't get properly deleted and get added to a users account.
+

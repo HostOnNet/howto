@@ -1,0 +1,174 @@
+emailreels@emailreels.com
+UhDjuLLj
+===========================================================================
+
+cd
+mkdir bin
+mkdir lib
+mkdir tmp
+chmod 777 tmp
+chmod 775 bin
+chmod 775 lib
+export TMPDIR=$HOME/tmp
+export PATH=$HOME/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH
+export CPATH=$HOME/include:/usr/local/include:$CPATH
+export LIBRARY_PATH=$HOME/lib:/usr/local/lib:$LIBRARY_PATH
+mkdir src
+cd src 
+
+
+===========================================================================
+AUTOCONF
+===========================================================================
+
+cd $HOME/src
+wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.60.tar.gz
+tar -zxf autoconf-2.60.tar.gz
+cd autoconf-2.60
+./configure --prefix=$HOME
+make
+make install
+
+
+===========================================================================
+INSTALL LAME
+===========================================================================
+
+cd $HOME/src
+wget http://nchc.dl.sourceforge.net/sourceforge/lame/lame-3.97.tar.gz
+tar -zxvf lame-3.97.tar.gz
+cd lame-3.97
+./configure --prefix=$HOME --enable-shared
+make
+make
+install
+
+===========================================================================
+LIBOGG
+===========================================================================
+
+cd $HOME/src
+wget http://downloads.xiph.org/releases/ogg/libogg-1.1.3.tar.gz
+tar -zxvf libogg-1.1.3.tar.gz
+cd libogg-1.1.3
+./configure --prefix=$HOME
+make
+make install
+
+
+===========================================================================
+LIBVORBIS
+===========================================================================
+
+cd $HOME/src
+wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.1.2.tar.gz
+tar -zxvf libvorbis-1.1.2.tar.gz
+cd libvorbis-1.1.2
+./configure --prefix=$HOME
+make
+make install
+
+===========================================================================
+MPlayer + Mencoder
+===========================================================================
+
+cd $HOME/src
+wget http://www3.mplayerhq.hu/MPlayer/releases/codecs/essential-20061022.tar.bz2
+bunzip2 essential-20061022.tar.bz2
+tar -xvf essential-20061022.tar
+mv essential-20061022 $HOME/lib
+wget http://www3.mplayerhq.hu/MPlayer/releases/MPlayer-1.0rc1.tar.bz2
+bunzip2 MPlayer-1.0rc1.tar.bz2
+tar -xvf MPlayer-1.0rc1.tar
+cd MPlayer-1.0rc1
+./configure --prefix=$HOME --with-codecsdir=$HOME/lib/essential-20061022
+make
+make install
+
+
+===========================================================================
+RUBY
+===========================================================================
+
+cd $HOME/src
+wget ftp://ftp.ruby-lang.org/pub/ruby/stable-snapshot.tar.gz
+tar -zxvf stable-snapshot.tar.gz
+cd ruby
+make distclean
+./configure --prefix=$HOME
+make
+make install
+
+
+
+
+===========================================================================
+FLVTOOL2
+===========================================================================
+
+cd $HOME/src
+wget http://rubyforge.org/frs/download.php/9225/flvtool2_1.0.5_rc6.tgz
+tar -zxvf flvtool2_1.0.5_rc6.tgz
+cd flvtool2_1.0.5_rc6
+ruby setup.rb config --prefix=$HOME
+ruby setup.rb setup
+ruby setup.rb install
+
+
+===========================================================================
+GD2
+===========================================================================
+
+cd $HOME/src
+wget http://www.boutell.com/gd/http/gd-2.0.33.tar.gz
+tar -zxf gd-2.0.33.tar.gz
+cd gd-2.0.33
+./configure --prefix=$HOME
+make
+make install
+
+
+===========================================================================
+PHP
+===========================================================================
+
+cd $HOME/src
+wget http://in.php.net/get/php-4.4.6.tar.gz/from/this/mirror
+tar -zxvf php-4.4.6.tar.gz
+cd php-4.4.6
+./configure --prefix=$HOME --libdir=$HOME/lib --bindir=$HOME/bin --with-ffmpeg=$HOME
+make
+make install
+
+
+===========================================================================
+FFMPEG-PHP
+===========================================================================
+
+cd $HOME/src
+wget http://superb-east.dl.sourceforge.net/sourceforge/ffmpeg-php/ffmpeg-php-0.5.0.tbz2
+bunzip2 ffmpeg-php-0.5.0.tbz2
+tar -xf ffmpeg-php-0.5.0.tar
+cd ffmpeg-php-0.5.0
+phpize
+
+./configure --prefix=$HOME --libdir=$HOME/lib --bindir=$HOME/bin --with-ffmpeg=$HOME
+make
+make install
+
+
+
+
+cd $HOME/lib
+cp $HOME/lib/extensions/no-debug-non-zts-20020429/ffmpeg.so ./
+cp $HOME/src/php-4.4.6/php.ini-recommended php.ini
+vi php.ini
+
+find
+
+extension=
+
+after add
+
+extension=ffmpeg.so

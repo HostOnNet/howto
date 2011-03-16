@@ -1,0 +1,29 @@
+DROPING IP
+==========
+
+iptables -I INPUT -s ###.###.###.### -j DROP
+
+iptables -I INPUT -s 207.45.24.0/24 -j DROP
+
+
+As for blocking the entire 200.42.x.x you would want something like
+iptables -A INPUT -p tcp -s 200.42.0.0/12 -j DENY
+iptables -A INPUT -p udp -s 200.42.0.0/12 -j DENY
+
+
+iptables -I OUTPUT -s 202.88.227.108/24 -j DROP
+
+
+iptables -I INPUT -s 203.200.63.209/24 -j DROP
+
+netstat -an|grep 203.200.63.209
+
+
+==========================================================================
+Disable Default Rules
+==========================================================================
+
+cd /etc/sysconfig
+mv iptables iptables.bak
+service iptables restart
+iptables -L

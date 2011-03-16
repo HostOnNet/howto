@@ -1,0 +1,42 @@
+==========================================================================================
+Running ffmpeg
+==========================================================================================
+
+ffmpeg --help
+ffmpeg -formats
+ffmpeg -formats | fgrep -i mp
+ffmpeg -version
+
+==========================================================================================
+
+
+cd /usr/local/src
+wget http://www.troodi.com/video/1.wmv
+
+/usr/local/bin/ffmpeg -i 1.wmv -acodec mp3 -ar 22050 -ab 32 -f flv 1.flv
+
+lame -V2 1.wmv 1.mp3
+
+
+http://www.linuxjournal.com/article/8517
+
+ffmpeg -i 1.wmv -f flv -s 320x240 1.flv
+
+IF the return value of this is != 0 I use this command instead:
+
+ffmpeg -i 1.wmv -f flv -s 320x240 -ar 44100 1.flv
+
+The second command is a lot more likly to work but has fixed bitrate and may be more wasteful.
+
+
+ffmpeg -i movie.[avi] -s 320x240 -ar 44100 -r 12 movie.flv
+cat movie.flv | flvtool2 -U stdin movie.flv
+
+watermark
+
+ffmpeg -i input.avi -vhook '/usr/lib/vhook/watermark.so -f watermark_video.gif' output.mpeg 
+
+http://groups.google.com/group/ffmpeg-php/browse_thread/thread/d6e8c1726ae49b54/53b5f4271a66cd14?lnk=gst&q=watermark&rnum=1#53b5f4271a66cd14
+
+
+ffmpeg-user

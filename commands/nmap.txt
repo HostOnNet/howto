@@ -1,0 +1,27 @@
+server22# nmap server16.hosthat.com
+
+Starting Nmap 4.01 ( http://www.insecure.org/nmap/ ) at 2006-06-15 16:39 EDT
+Interesting ports on 218.166.36.72.server16.hosthat.com (72.36.166.218):
+(The 1654 ports scanned but not shown below are in state: closed)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+80/tcp   open     http
+130/tcp  filtered cisco-fna
+131/tcp  filtered cisco-tna
+132/tcp  filtered cisco-sys
+133/tcp  filtered statsrv
+134/tcp  filtered ingres-net
+135/tcp  filtered msrpc
+136/tcp  filtered profile
+137/tcp  filtered netbios-ns
+138/tcp  filtered netbios-dgm
+139/tcp  filtered netbios-ssn
+445/tcp  filtered microsoft-ds
+3128/tcp filtered squid-http
+3306/tcp open     mysql
+3333/tcp open     dec-notes
+4444/tcp filtered krb524
+6969/tcp filtered acmsoda
+
+Nmap finished: 1 IP address (1 host up) scanned in 23.309 seconds
+server22#

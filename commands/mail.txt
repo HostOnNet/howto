@@ -1,0 +1,1 @@
+cat db.tos 2>&1 | mail -s "TOS" flashweb@asianetonline.net

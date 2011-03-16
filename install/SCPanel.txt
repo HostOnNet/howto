@@ -1,0 +1,35 @@
+SCPanel
+
+
+http://www.scpanel.net/manual.html
+
+# RRDTool Installation - RRDTool is needed for SCPanel to 
+generate radio usage statistic graphs. Follow the below steps to install RRDTool on your server logged in as 'root' through SSH:
+
+mkdir /home/temp
+
+cd /home/temp/
+wget http://www.scpanel.net/base/install/rrdtool.tar.gz
+tar -zxvf rrdtool.tar.gz
+cd rrdtool-1.0.50
+./configure --prefix=/usr/local/rrdtool --enable-shared
+make
+make install
+make site-perl-install
+
+
+
+INSTALL ZEND
+
+
+cd /home/temp
+wget http://downloads.zend.com/optimizer/2.6.2/ZendOptimizer-2.6.2-linux-glibc21-i386.tar.gz
+tar -zxvf ZendOptimizer-2.6.2-linux-glibc21-i386.tar.gz
+cd ZendOptimizer-2.6.2-linux-glibc21-i386
+./install.sh
+
+
+cd public_html
+wget http://www.scpanel.net/base/install/auto.zip
+unzip auto.zip
+rm -f auto.zip

@@ -1,0 +1,168 @@
+# http://php.net/
+# http://www.gnu.org/software/libiconv/
+# http://sourceforge.net/project/showfiles.php?group_id=87941&package_id=91774&release_id=487459
+# http://xmlsoft.org/sources/
+# http://xmlsoft.org/sources/
+# http://mhash.sourceforge.net/
+# http://www.zlib.net/
+# http://curl.haxx.se/download.html
+# http://www.gnu.org/software/libidn/
+# http://freetype.sourceforge.net/index2.html
+
+yum -y install screen
+screen
+unset HISTFILE
+uname -a
+# On 64 bit OS, run
+# CFLAGS="-fPIC";export CFLAGS
+echo "/usr/local/lib" >> /etc/ld.so.conf
+echo "/usr/lib" >> /etc/ld.so.conf
+cat /etc/ld.so.conf
+ldconfig
+
+rm -rf /usr/local/src/php-fcgi/
+export PATH=/usr/local/php-lighttpd/bin:$PATH
+
+mkdir -p /usr/local/src/php-fcgi/
+mkdir -p /usr/local/php-lighttpd
+mkdir -p /usr/local/src/php-src/
+cd /usr/local/src/php-src/
+
+wget -c http://us.php.net/get/php-5.2.9.tar.gz/from/this/mirror
+wget -c http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.12.tar.gz
+wget -c http://easynews.dl.sourceforge.net/sourceforge/mcrypt/libmcrypt-2.5.8.tar.gz
+wget -c ftp://xmlsoft.org/libxml2/libxml2-2.7.3.tar.gz
+wget -c ftp://xmlsoft.org/libxml2/libxslt-1.1.24.tar.gz
+wget -c http://superb-west.dl.sourceforge.net/sourceforge/mhash/mhash-0.9.9.9.tar.gz
+wget -c http://www.zlib.net/zlib-1.2.3.tar.gz
+wget -c http://curl.haxx.se/download/curl-7.19.4.tar.gz
+wget -c http://kent.dl.sourceforge.net/sourceforge/freetype/freetype-2.3.9.tar.gz
+wget -c ftp://alpha.gnu.org/pub/gnu/libidn/libidn-1.13.tar.gz
+
+cd /usr/local/src/php-fcgi/
+tar xzf /usr/local/src/php-src/php-5.2.9.tar.gz
+tar xzf /usr/local/src/php-src/libiconv-1.12.tar.gz
+tar xzf /usr/local/src/php-src/libmcrypt-2.5.8.tar.gz
+tar xzf /usr/local/src/php-src/libxml2-2.7.3.tar.gz
+tar xzf /usr/local/src/php-src/libxslt-1.1.24.tar.gz
+tar xzf /usr/local/src/php-src/mhash-0.9.9.9.tar.gz
+tar xzf /usr/local/src/php-src/zlib-1.2.3.tar.gz
+tar xzf /usr/local/src/php-src/curl-7.19.4.tar.gz
+tar xzf /usr/local/src/php-src/libidn-1.13.tar.gz
+tar xzf /usr/local/src/php-src/freetype-2.3.9.tar.gz
+
+cd /usr/local/src/php-fcgi/libiconv-1.12
+make clean
+./configure --enable-extra-encodings --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/libxml2-2.7.3
+./configure --with-iconv=/usr/local/php-lighttpd --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/libxslt-1.1.24
+make clean
+./configure --prefix=/usr/local/php-lighttpd \
+ --with-libxml-prefix=/usr/local/php-lighttpd \
+ --with-libxml-include-prefix=/usr/local/php-lighttpd/include/ \
+ --with-libxml-libs-prefix=/usr/local/php-lighttpd/lib/
+make
+make install
+
+cd /usr/local/src/php-fcgi/zlib-1.2.3
+make clean
+./configure --shared --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/libmcrypt-2.5.8
+make clean
+./configure --disable-posix-threads --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd  /usr/local/src/php-fcgi/libmcrypt-2.5.8/libltdl
+./configure --prefix=/usr/local/php-lighttpd --enable-ltdl-install
+make clean
+make
+make install
+
+cd /usr/local/src/php-fcgi/mhash-0.9.9.9
+make clean
+./configure --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/freetype-2.3.9
+make clean
+./configure --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/libidn-1.13
+make clean
+./configure --with-iconv-prefix=/usr/local/php-lighttpd --prefix=/usr/local/php-lighttpd
+make
+make install
+
+cd /usr/local/src/php-fcgi/curl-7.19.4
+make clean
+./configure --with-ssl=/usr/local/php-lighttpd --with-zlib=/usr/local/php-lighttpd \
+  --with-libidn=/usr/local/php-lighttpd --enable-ipv6 --enable-cookies \
+  --enable-crypto-auth --prefix=/usr/local/php-lighttpd
+make
+make install
+
+ 
+install  libpng-1.2.21, jpegsrc  ()
+
+
+--with-openssl=/usr/local/php-lighttpd \
+--enable-sqlite-utf8 \
+
+
+cd /usr/local/src/php-fcgi/php-5.2.9
+make clean
+./configure --prefix=/usr/local/php-lighttpd/ \
+ --with-config-file-path=/usr/local/php-lighttpd/etc \
+ --enable-fastcgi \
+ --enable-force-cgi-redirect \
+ --with-xml \
+ --with-libxml-dir=/usr/local/php-lighttpd \
+ --with-freetype-dir=/usr/local/php-lighttpd \
+ --enable-soap \
+ --with-mhash=/usr/local/php-lighttpd \
+ --with-mcrypt=/usr/local/php-lighttpd \
+ --with-zlib-dir=/usr/local/php-lighttpd \
+ --with-jpeg-dir=/usr/local \
+ --with-png-dir=/usr/local \
+ --with-gd \
+ --enable-gd-native-ttf \
+ --enable-memory-limit \
+ --enable-ftp \
+ --enable-exif \
+ --enable-sockets \
+ --enable-wddx \
+ --with-iconv=/usr/local/php-lighttpd \
+ --enable-calendar \
+ --with-curl=/usr/local/php-lighttpd \
+ --enable-mbstring \
+ --enable-mbregex \
+ --enable-bcmath \
+ --with-mysql=/usr \
+ --with-mysqli \
+ --without-pear \
+ --with-gettext
+
+
+
+make
+make install
+
+mkdir -p /usr/local/php-lighttpd/etc/
+cp /usr/local/src/php-fcgi/php-5.2.9/php.ini-dist /usr/local/php-lighttpd/etc/php.ini
+
+
+rm -rf /usr/local/src/php-fcgi /usr/local/src/php-src

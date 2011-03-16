@@ -1,0 +1,26 @@
+scp root@server22.hosthat.com:/root/mod_layout.so .
+ga6SJkhdjk783s
+
+history -c
+
+mv mod_layout.so /usr/local/apache/libexec
+
+vi /usr/local/apache/conf/httpd.conf
+
+
+Search for 
+
+LoadModule auth_passthrough_module libexec/mod_auth_passthrough.so
+
+Add below
+
+LoadModule layout_module libexec/mod_layout.so
+
+
+Search for 
+
+AddModule mod_auth_passthrough.c
+
+Add below
+
+AddModule mod_layout.c

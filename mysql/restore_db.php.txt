@@ -1,0 +1,10 @@
+<?php
+# This script will restore MySQL database on
+# servers with out SSH access, faster than phpMyAdmin
+
+
+system("mysql -ugershon_peace -pbaskimg gershon_peace < /home/gershon/public_html/gershon_peace.sql");
+
+echo "done";
+
+?>

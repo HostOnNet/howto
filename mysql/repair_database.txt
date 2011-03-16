@@ -1,0 +1,21 @@
+Repair and optimizing on all databases.
+
+mysqlcheck  -ro --all-databases
+mysqlcheck -uroot -p -ro --all-databases
+
+From time to time mySQL databases can get corrupt, whether it due to lack of disk space, power failure, or just an error. 
+
+Repairing MyISAM mySQL Tables/Databases:
+
+cd /var/lib/mysql/DBNAME 
+#^ Please note that we assume your mySQL data directory is /var/lib/mysql
+
+myisamchk *.MYI
+
+
+Repairing ISAM mySQL Tables/Databases:
+
+cd /var/lib/mysql/DBNAME 
+#^ Please note that we assume your mySQL data directory is /var/lib/mysql
+
+isamchk *.MYI

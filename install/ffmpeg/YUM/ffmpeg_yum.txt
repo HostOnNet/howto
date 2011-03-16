@@ -1,0 +1,40 @@
+http://dag.wieers.com/packages/ffmpeg/
+http://dag.wieers.com/packages/rpmforge-release/
+http://zod.freshrpms.net/rpm.html?id=585
+
+For CentOS 4.4
+
+wget http://dag.wieers.com/packages/rpmforge-release/rpmforge-release-0.3.4-1.el4.rf.i386.rpm
+rpm -ivh rpmforge-release-0.3.4-1.el4.rf.i386.rpm
+
+CentOS 3
+
+wget http://dag.wieers.com/packages/rpmforge-release/rpmforge-release-0.3.4-1.el3.rf.i386.rpm
+rpm -ivh rpmforge-release-0.3.4-1.el3.rf.i386.rpm
+
+FC4
+
+wget http://ftp.belnet.be/packages/dries.ulyssis.org/fedora/fc4/i386/RPMS.dries/rpmforge-release-0.2-2.2.fc4.rf.i386.rpm
+rpm -ivh rpmforge-release-0.2-2.2.fc4.rf.i386.rpm
+
+
+
+yum install mencoder
+
+yum list|grep faac
+yum install faac faac-devel
+
+yum list | grep faad
+yum install faad2 faad2-devel
+
+yum list |grep fmpeg
+yum install ffmpeg ffmpeg-devel
+
+yum install ffmpeg-devel
+yum install libpostproc
+
+/usr/bin/ffmpeg -version
+
+
+yum list|grep mplayer
+

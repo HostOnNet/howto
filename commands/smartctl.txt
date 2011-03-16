@@ -1,0 +1,44 @@
+====================================================================
+INSTALL
+====================================================================
+
+wget http://switch.dl.sourceforge.net/sourceforge/smartmontools/smartmontools-5.33-1.i386.rpm
+rpm -Uvh smartmontools-5.33-1.i386.rpm
+/etc/rc.d/init.d/smartd start
+/sbin/chkconfig --add smartd
+
+
+====================================================================
+Enable smart
+====================================================================
+
+smartctl --smart=on /dev/sda
+
+====================================================================
+Test the drive
+====================================================================
+
+smartctl -t short /dev/hda
+
+smartctl -q errorsonly -H -l selftest -l error /dev/hdb
+smartctl -q errorsonly -H -l selftest -l error /dev/hda
+
+
+
+====================================================================
+Get info from your HDD
+====================================================================
+
+smartctl -a /dev/hda
+
+SATA
+
+smartctl -a -d ata /dev/sda
+
+SCSI
+
+smartctl -a /dev/sda
+
+
+go here for more info http://www.linuxjournal.com/article/6983
+

@@ -1,0 +1,117 @@
+nagios
+
+Nagios is an Open Source host, service and network monitoring program.
+
+http://www.nagios.org/
+
+
+yum install nagios nagios-devel nagios-plugins nagios-plugins-nrpe
+
+service nagios start
+
+
+[root@server32 ~]# ps aux|grep nagios
+nagios    7932  0.0  0.1 74340 1872 ?Ssl  14:06   0:00 /usr/bin/nagios -d /etc/nagios/nagios.cfg
+root      7937  0.0  0.0 51080  668 pts/0    S+   14:06   0:00 grep nagios
+[root@server32 ~]#
+
+
+==================================================================
+Set up Apache
+==================================================================
+
+
+
+cd /etc/httpd/conf.d
+
+vi /etc/httpd/conf.d/nagios.conf
+
+------------------------------------------------------------------
+# Last Modified: 11-26-2005
+#
+# This file contains examples of entries that need
+# to be incorporated into your Apache web server
+# configuration file.  Customize the paths, etc. as
+# needed to fit your system.
+
+ScriptAlias /nagios/cgi-bin "/usr/lib64/nagios/cgi"
+
+<Directory "/usr/lib64/nagios/cgi">
+#  SSLRequireSSL
+   Options ExecCGI
+   AllowOverride None
+   Order allow,deny
+   Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+   AuthName "Nagios Access"
+   AuthType Basic
+   AuthUserFile /etc/nagios/htpasswd.users
+   Require valid-user
+</Directory>
+
+Alias /nagios "/usr/share/nagios"
+
+<Directory "/usr/share/nagios">
+#  SSLRequireSSL
+   Options None
+   AllowOverride None
+   Order allow,deny
+   Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+   AuthName "Nagios Access"
+   AuthType Basic
+   AuthUserFile /etc/nagios/htpasswd.users
+   Require valid-user
+</Directory>
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+Add First User
+------------------------------------------------------------------
+htpasswd -c /etc/nagios/htpasswd.users nagiosadmin
+bizhat123
+
+
+NOTE: -c option creates a password file
+
+------------------------------------------------------------------
+Add Additional Users
+------------------------------------------------------------------
+
+htpasswd /etc/nagios/htpasswd.users USERNAME
+
+------------------------------------------------------------------
+ensure that the web server can read the password file
+------------------------------------------------------------------
+
+chown apache:apache /etc/nagios/htpasswd.users
+
+------------------------------------------------------------------
+start nagios on boot
+------------------------------------------------------------------
+chkconfig nagios on
+chkconfig --list
+
+
+
+http://server32.hosthat.com/nagios/
+
+
+
+vi /etc/nagios/cgi.cfg
+
+show_context_help=1
+
+authorized_for_system_information=nagiosadmin
+authorized_for_configuration_information=nagiosadmin
+authorized_for_system_commands=nagiosadmin
+authorized_for_all_services=nagiosadmin,guest
+authorized_for_all_hosts=nagiosadmin,guest
+authorized_for_all_service_commands=nagiosadmin
+authorized_for_all_host_commands=nagiosadmin
+

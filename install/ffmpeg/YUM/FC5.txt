@@ -1,0 +1,13 @@
+http://dries.studentenweb.org/rpm/clientconfig.html
+
+
+
+
+[dries]
+name=Extra Fedora rpms dries - $releasever - $basearch
+baseurl=http://ftp.belnet.be/packages/dries.ulyssis.org/fedora/linux/$releasever/$basearch/dries/RPMS/
+gpgcheck=0
+
+
+
+http://dries.studentenweb.org/rpm/RPM-GPG-KEY.dries.txt

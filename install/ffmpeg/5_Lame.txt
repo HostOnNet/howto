@@ -1,0 +1,36 @@
+lame --help
+
+rpm -qa |grep lame
+yum -y install lame lame-devel
+
+
+==========================================================================================
+Lame mp3 Library
+==========================================================================================
+
+yum install ncurses-devel (required by lame)
+
+http://sourceforge.net/projects/lame
+
+cd /usr/local/src
+wget http://jaist.dl.sourceforge.net/sourceforge/lame/lame-3.97.tar.gz
+tar -zxvf lame-3.97.tar.gz 
+cd lame-3.97
+./configure --enable-shared --prefix=/usr
+make
+make install
+
+
+./configure --disable-brhist
+
+
+-----------------------------------------------------------------------------------
+ERROR: configure: error: C++ preprocessor "/lib/cpp" fails sanity check
+-----------------------------------------------------------------------------------
+
+Fixed with
+
+yum install gcc-c++
+
+-----------------------------------------------------------------------------------
+

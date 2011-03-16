@@ -1,0 +1,48 @@
+cd /usr/ports/audio/faac
+make
+make install
+
+cd /usr/ports/audio/faad
+make
+make install
+
+cd /usr/ports/audio/libogg
+make
+make install
+
+cd /usr/ports/audio/libvorbis
+make
+make install
+
+
+cd /usr/ports/audio/lame
+make
+make install
+
+cd /usr/ports/multimedia/xvid
+make
+make install
+
+cd /usr/ports/multimedia/mplayer
+make
+make install
+
+cd /usr/ports/multimedia/mplayer-fonts
+make
+make install
+
+cd /usr/ports/audio/liba52
+make
+make install
+
+cd /usr/ports/audio/liba52-devel
+make
+make install
+
+
+rehash
+screen
+
+cd /usr/ports
+make search name=ffmpeg
+

@@ -1,0 +1,31 @@
+RANT ALL ON customer.* TO 'francis'@'localhost'
+    ->     IDENTIFIED BY 'frank'
+    ->     WITH MAX_QUERIES_PER_HOUR 20
+    ->          MAX_UPDATES_PER_HOUR 10
+    ->          MAX_CONNECTIONS_PER_HOUR 5
+    ->          MAX_USER_CONNECTIONS 2;
+
+
+#mysql 
+use mysql;
+select * from user where User='freshers_phpbuse';
+
+update user set max_connections='0' where User='freshers_phpbuse';
+
+use mysql;
+
+
+mysql> update user set max_connections='80' where User='freshers_phpbuse';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> exit
+
+
+update user set max_connections='0' where User='masalata_talk';
+
+
+select * from user where User='masalata_talk';
+
+
+set-variable = max_user_connections = 30

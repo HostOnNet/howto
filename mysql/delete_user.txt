@@ -1,0 +1,16 @@
+Delete A MySQL User
+
+DELETE FROM mysql.user WHERE User = 'MYSQL-USER-NAME';
+FLUSH PRIVILEGES;
+
+
+shell> mysql -u root
+mysql> DELETE FROM mysql.user WHERE User = '';
+mysql> FLUSH PRIVILEGES;
+
+shell> mysql -u root
+mysql> DELETE FROM mysql.user WHERE Host='localhost' AND User='';
+mysql> FLUSH PRIVILEGES;
+
+
+DELETE FROM mysql.user WHERE Host='%' AND User='root';

@@ -1,0 +1,103 @@
+cat /etc/redhat-release
+rpm --import http://mirror.nsc.liu.se/CentOS/4.2beta/os/sparc/RPM-GPG-KEY-centos4
+rpm --import /usr/share/rhn/RPM-GPG-KEY
+yum --exclude kernel* update
+
+cd /installers/apache
+wget http://www.apache.org/dist/httpd/apache_1.3.34.tar.gz
+tar xzvf apache_1.3.34.tar.gz
+cd apache_1.3.34
+vi src/include/httpd.h
+cd /home/installers/apache_1.3.34
+pwd
+./configure --with-layout=Apache --prefix=/usr/local/apache --enable-module=rewrite --enable-shared=rewrite --enable-module=status --enable-shared=status --enable-module=so
+make && make install
+
+cd /installers/php
+wget http://superb.dl.sourceforge.net/sourceforge/libpng/zlib-1.2.3.tar.gz
+wget http://www.boutell.com/gd/http/gd-2.0.33.tar.gz
+wget http://www.reviewpost.com/jpegsrc.v6b.tar.gz
+wget http://internap.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.8.tar.gz
+wget http://www.php.net/get/php-4.4.1.tar.gz/from/us2.php.net/mirror
+wget http://switch.dl.sourceforge.net/sourceforge/freetype/freetype-2.1.9.tar.gz
+tar xzvf zlib-1.2.3.tar.gz -C /usr/local/
+tar xzvf zlib-1.2.3.tar.gz -C /usr/local/
+tar xzvf libpng-1.2.8.tar.gz -C /usr/local/
+tar xzvf gd-2.0.33.tar.gz -C /usr/local/
+tar xzvf freetype-2.1.9.tar.gz -C /usr/local/
+mv zlib-1.2.3/ zlib
+ls -l
+cd /usr/local/
+mv zlib-1.2.3/ zlib
+mv jpeg-6b/ jpeg
+l s-l
+l s-l
+ls -l
+cd /installers/php/
+ls -l
+tar xzvf jpegsrc.v6b.tar.gz -C /usr/local/
+cd /usr/local/
+mv jpeg-6b/ jpeg
+mv libpng-1.2.8 libpng
+mv gd-2.0.33/ gd
+mv libpng-1.2.8 libpng
+mv gd-2.0.33/ gd
+mv freetype-2.1.9 freetype2
+cd zlib/
+make && make install
+cd ../jpeg
+./configure --enable-shared --enable-static
+make && make install
+cd ../libpng/
+cp scripts/makefile.linux makefile
+make && make install
+cd ../freetype2/
+gmake setup
+gmake && gmake install
+cd ../gd
+./configure
+make install
+cd /installers/php
+tar xzvf php-4.4.1.tar.gz
+cd php-4.4.1
+./configure --with-apxs=/usr/local/apache/bin/apxs --with-zlib-dir --with-mysql --with-gd=yes --with-ttf --with-jpeg-dir=/usr/local
+make && make install
+cp php.ini-dist /usr/local/lib/php.ini
+vi /usr/local/lib/php.ini
+vi /usr/local/lib/php.ini
+vi /usr/local/lib/php.ini
+vi /usr/local/apache/conf/httpd.conf
+cd /home/domains/
+vi test.php
+ls -l
+/usr/local/apache/bin/apachectl configtest
+/usr/local/apache/bin/apachectl restart
+/usr/local/apache/bin/apachectl configtest
+/usr/local/apache/bin/apachectl restart
+ls -al
+vi /usr/local/apache/conf/httpd.conf
+vi /usr/local/apache/conf/httpd.conf
+ifconfig
+ls -l
+vi test.php
+ls -l
+ls -alh
+chmod 777 test.php
+vi /usr/local/apache/conf/httpd.conf
+/usr/local/apache/bin/apachectl restart
+/usr/local/apache/bin/apachectl restart
+pwd
+cd ..
+l -l
+ls -l
+chmod 755 domains/
+cd domains/
+vi test.php
+cd /installers/php
+./configure --with-apxs=/usr/local/apache/bin/apxs --with-zlib-dir --with-mysql --with-gd=yes --with-ttf --with-jpeg-dir=/usr/local
+make
+cd php-4.4.1
+./configure --with-apxs=/usr/local/apache/bin/apxs --with-zlib-dir --with-mysql --with-gd=yes --with-ttf --with-jpeg-dir=/usr/local
+make
+make install
+/usr/local/apache/bin/apachectl restart

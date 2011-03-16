@@ -1,0 +1,120 @@
+==========================================================================================
+ffmpeg
+==========================================================================================
+
+wget http://video.bizhat.com/sw/ffmpeg.tar.gz
+tar -zxvf ffmpeg.tar.gz
+wget http://ffmpeg.mplayerhq.hu/ffmpeg-export-snapshot.tar.bz2
+tar jxvf ffmpeg-export-snapshot.tar.bz2
+cd ffmpeg-export-*
+
+
+
+http://ffmpeg.mplayerhq.hu/
+
+cd /usr/local/src
+svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+
+4/27/2007
+Checked out external at revision 23148.
+Checked out revision 8847.
+
+cd ffmpeg
+make clean
+./configure --enable-mp3lame --enable-gpl --enable-shared --enable-faad
+./configure --enable-shared --enable-xvid --enable-vorbis --enable-libogg --enable-mp3lame --enable-gpl --enable-faad --enable-faac --enable-a52
+
+
+cd /usr/local/src/ffmpeg
+./configure --enable-shared --enable-xvid --enable-libvorbis --enable-libogg --enable-libmp3lame --enable-gpl --enable-libfaac --enable-libfaad --enable-liba52
+
+
+ --enable-libgsm --enable-x264 --enable-a52bin --enable-dts --enable-pp --enable-pthreads --disable-opts --disable-strip
+
+make
+make install
+
+mkdir tmp
+export TMPDIR=/usr/local/src/ffmpeg/tmp
+
+ldd /usr/local/bin/ffmpeg
+
+ln -s /usr/local/bin/ffmpeg /usr/bin/ffmpeg
+
+
+
+http://dev.gemin-i.org/wiki/index.php/Ffmpeg_install_instructions
+http://flowplayer.sourceforge.net/encoding.html
+
+==========================================================================================
+==========================================================================================
+cd /usr/local/src/ffmpeg
+
+mkdir -p libavcodec/amr_float
+wget http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-510.zip
+unzip 26104-510.zip
+unzip 26104-510_ANSI_C_source_code.zip -d libavcodec/amr_float
+
+mkdir -p libavcodec/amr
+wget http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-510.zip
+unzip 26073-510.zip
+unzip 26073-510_ANSI-C_source_code.zip -d libavcodec/amr
+
+mkdir -p libavcodec/amrwb_float
+wget http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-510.zip
+unzip 26204-510.zip
+unzip 26204-510_ANSI-C_source_code.zip -d libavcodec/amrwb_float
+
+./configure --enable-shared --enable-xvid --enable-libvorbis --enable-libogg --enable-libmp3lame --enable-gpl --enable-libfaac --enable-libfaad --enable-liba52
+
+./configure --enable-amr_nb
+
+
+--enable-amr-nb-fixed
+--enable-amr_nb --enable-amr_nb-fixed  --enable-amr_wb
+
+
+==========================================================================================
+ffmpeg: error while loading shared libraries: libavformat.so.50: 
+cannot open shared object file: No such file or directory
+
+==========================================================================================
+
+find / -name libavcodec.so
+
+/usr/lib64/libavcodec.so
+
+If the libavformat.so is installed in /usr/local/lib you may need to 
+update /etc/ld.so.conf: add the line /usr/local/lib then type
+
+ffmpeg
+echo "/usr/local/lib" >> /etc/ld.so.conf
+ldconfig
+ffmpeg
+
+
+
+add line
+
+/usr/local/lib
+/usr/lib64
+
+[root@linux lib]# cat /etc/ld.so.conf
+include ld.so.conf.d/*.conf
+/usr/X11R6/lib
+/usr/local/lib
+[root@linux lib]#
+
+Run
+
+ldconfig
+
+
+
+====================================================================================
+RPM
+====================================================================================
+
+yum -y install ffmpeg ffmpeg-devel ffmpeg-libpostproc
+
+yum install ffmpeg.x86_64 ffmpeg-devel.x86_64

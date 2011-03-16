@@ -1,0 +1,28 @@
+vi /etc/my.cnf
+
+
+[mysqld]
+old_passwords=1
+safe-show-database
+skip-locking
+set-variable = max_connections=600
+set-variable = key_buffer=16M
+set-variable = myisam_sort_buffer_size=64M
+set-variable = join_buffer=2M
+set-variable = record_buffer=2M
+set-variable = sort_buffer=3M
+set-variable = table_cache=1024
+set-variable = thread_cache_size=1024
+set-variable = wait_timeout=10
+set-variable = connect_timeout=10
+set-variable = interactive_timeout=10
+set-variable = max_allowed_packet=16M
+set-variable = tmp_table_size=180M
+query_cache_limit = 1M
+query_cache_size = 32M
+query_cache_type = 1
+max_allowed_packet=32M
+#skip-networking
+#This will stop MySQL over TCP IP
+
+

@@ -1,0 +1,42 @@
+http://dag.wieers.com/packages/rpmforge-release/
+
+up2date -i yum
+
+
+i386/i686
+
+wget http://dag.wieers.com/rpm/packages/rpmforge-release/rpmforge-release-0.3.4-1.el4.rf.i386.rpm
+rpm -ivh rpmforge-release-0.3.4-1.el4.rf.i386.rpm
+
+up2date -l
+
+
+
+Install yum
+
+http://dag.wieers.com/rpm/packages/yum/
+
+wget ftp://ftp.freshrpms.net/pub/dag/dries/packages/python-elementtree/el4-i386/python-elementtree-1.2.6-7.el4.rf.i386.rpm
+rpm -ivh python-elementtree-1.2.6-7.el4.rf.i386.rpm
+
+wget ftp://ftp.freshrpms.net/pub/dag/redhat/el4/en/i386/dag/RPMS/sqlite-2.8.17-1.el4.rf.i386.rpm
+rpm -ivh sqlite-2.8.17-1.el4.rf.i386.rpm
+
+
+wget ftp://ftp.freshrpms.net/pub/dag/redhat/el4/en/i386/dag/RPMS/python-sqlite-1.0.1-1.2.el4.rf.i386.rpm
+rpm -ivh python-sqlite-1.0.1-1.2.el4.rf.i386.rpm
+
+up2date -i python
+
+wget ftp://ftp.freshrpms.net/pub/dag/dries/packages/python-urlgrabber/el4-x86_64/python-urlgrabber-2.9.7-1.2.el4.rf.noarch.rpm
+rpm -ivh python-urlgrabber-2.9.7-1.2.el4.rf.noarch.rpm
+
+wget http://dag.wieers.com/rpm/packages/yum/yum-2.4.2-0.4.el4.rf.noarch.rpm
+rpm -ivh yum-2.4.2-0.4.el4.rf.noarch.rpm
+
+yum list
+
+yum -y install up2date
+
+up2date -i ruby subversion lynx nmap ncurses-devel automake autoconf
+

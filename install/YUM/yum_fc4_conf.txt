@@ -1,0 +1,24 @@
+# http://www.fedorafaq.org/fc4/samples/yum.conf
+# Note: This file is no longer the entire yum configuration
+# for fedorafaq.org. See http://www.fedorafaq.org/#yumconf
+# for details on how to set up your system with the new
+# yum configuration.
+
+[main]
+cachedir=/var/cache/yum
+debuglevel=2
+logfile=/var/log/yum.log
+pkgpolicy=newest
+distroverpkg=redhat-release
+tolerant=1
+exactarch=1
+obsoletes=1
+# We don't want to gpg-check local, unsigned packages
+#gpgcheck=1
+# Changed this because some mirrors go down and then
+# re-trying takes forever.
+retries=1
+timeout=10
+
+# PUT YOUR REPOS HERE OR IN separate files named file.repo
+# in /etc/yum.repos.d

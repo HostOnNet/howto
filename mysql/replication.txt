@@ -1,0 +1,109 @@
+MySQL Replication HOWTO
+
+Submitted by scooter on Fri, 02/24/2006 - 23:44. 
+
+This is a little howto i found, that i've done a few times and had no issues getting mysql replication working. Works just fine.
+
+This guide only works with MyISAM table types (the default for MySQL).
+
+The Master Server
+
+MySQL replicates the data between the two databases by using binary logs stored on the master server. The first step is to setup the server so it creates them.
+
+Create a directory to store the binary logs
+
+This creates the directories and sets the permissions so only the mysql daemon can read/write to the logs.
+Code:
+$ mkdir /var/log/mysql/binary
+$ chown mysql: /var/log/mysql/binary
+$ chmod 770 /var/log/mysql/binary
+
+Edit the MySQL Configuration
+
+This turns on the binary logging, tells it where to store the logs, and creates a server id.
+
+Code:
+$ vim /etc/mysql/my.cnf
+
+Add under the [mysqld] section.
+It doesn't matter what the value for server-id is, as long as it is different from the slave's (which you will set later).
+Also make sure that "bind ip_address" and "skip-networking" are commented out, so that the slave user can log in remotely.
+
+Code:
+log-bin=/var/log/mysql/binary/mysql_binary_log
+binlog-do-db=database_name
+server-id=1
+
+Once you're done, restart the mysql server for the changes to take effect, and for the logging to start.
+
+Code:
+/etc/init.d/mysql restart
+
+If you were already using binary logging before this, you don't need to make any changes, except for adding a server-id. The slave can keep up with your current binary logs, so there's no reason to delete them or flush the logs.
+
+Setup a slave account
+
+This both creates a new account in mysql.user, and grants replication privileges only.
+
+Code:
+$ msyql
+mysql> GRANT REPLICATION SLAVE ON database_name TO 'slave_user_name'@'%' IDENTIFIED BY 'slave_password';
+
+Adding "@'%'" means that "slave_user_name" can connect from any host. Change yours to whatever host name options you want to use.
+
+AFAIK, you don't need to run FLUSH PRIVILEGES; in mysql for it to recognize the new account.
+
+Get a database dump
+
+There are two ways to get the data from the master to the slave -- this howto only covers one: exporting the actual data to a file, and then restoring it on the slave. The other option is LOAD DATA FROM MASTER; which does pretty much the same thing.
+
+Note that you will need to have two shells open at this point -- one mysql shell and one terminal shell. The mysql shell must stay open while you do the database dump to get a clean export.
+
+Switch to the database you want to replicate. FLUSH TABLES only locks the database you're currently using.
+
+Code:
+mysql> USE database_name;
+mysql> FLUSH TABLES WITH READ LOCK;
+
+Once again, do NOT close your mysql session until you do a mysqldump in another shell (screen comes in handy). If you do, the tables will be unlocked.
+
+Code:
+mysql> SHOW MASTER STATUS;
+
+Once you get the MASTER STATUS results, WRITE THEM DOWN because you'll need them in a minute. Should look something like this:
+
+Code:
++----------------------+----------+--------------+------------------+
+| File | Position | Binlog_do_db | Binlog_ignore_db |
++----------------------+----------+--------------+------------------+
+| mysql_binary_log.025 | 796947 | database_name| |
++----------------------+----------+--------------+------------------+
+1 row in set (0.00 sec)
+
+Get the db dump:
+
+Code:
+$ mysqldump --opt database_name > database_name.sql
+
+and unlock the tables
+
+Code:
+mysql> UNLOCK TABLES;
+
+You're done now with the master server.
+
+The Slave Server
+
+Import the mysqldump from the master server:
+
+Code:
+mysql database_name CHANGE MASTER TO MASTER_HOST='master_host_name', MASTER_USER='slave_user_name', MASTER_PASSWORD='slave_password', MASTER_LOG_FILE='mysql_binary_log.025', MASTER_LOG_POS=796947;
+
+Note that you don't put quotes around the value for MASTER_LOG_POS or mysql will give you an error.
+
+Now start slaving!
+
+Code:
+mysql> START SLAVE;
+
+Credits goto beandog over at the gentoo forums.

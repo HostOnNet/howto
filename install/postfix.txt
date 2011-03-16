@@ -1,0 +1,73 @@
+---------------------------------------------
+On Time
+---------------------------------------------
+adduser postfix
+groupadd postdrop
+
+---------------------------------------------
+Install
+---------------------------------------------
+
+cd /usr/local/src
+wget http://mirrors.rootservices.net/postfix/official/postfix-2.5.5.tar.gz
+tar -zxvf postfix-2.5.5.tar.gz
+cd postfix-2.5.5
+make tidy
+make -f Makefile.init makefiles
+make
+make install
+
+PRESS ENTER FOR ALL
+
+
+    Warning: you still need to edit myorigin/mydestination/mynetworks
+    parameter settings in 
+    
+/etc/postfix/main.cf
+
+    See also http://www.postfix.org/faq.html for information about dialup
+    sites or about sites inside a firewalled network.
+
+    BTW: Check your /etc/aliases file and be sure to set up aliases
+    that send mail for root and postmaster to a real person, then run
+    /usr/bin/newaliases.
+
+make tidy
+make -f Makefile.init makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql' 'AUXLIBS=-L/usr/lib/mysql -lmysqlclient -lz -lm'
+make
+
+
+find / -name 'mysql_version.h'
+
+[root@linux postfix-2.5.5]# find / -name 'mysql_version.h'
+/usr/include/mysql/mysql_version.h
+[root@linux postfix-2.5.5]#
+
+ find / -name 'libmysqlclient.so'
+
+[root@linux postfix-2.5.5]#  find / -name 'libmysqlclient.so'
+/usr/lib/mysql/libmysqlclient.so
+[root@linux postfix-2.5.5]#
+
+
+postqueue -p
+
+
+----------------------------------------------------------
+VERYFY MYSQL SUPPORT
+----------------------------------------------------------
+
+[root@linux postfix-2.5.5]# postconf -m
+btree
+cidr
+environ
+hash
+mysql
+nis
+proxy
+regexp
+static
+unix
+[root@linux postfix-2.5.5]#
+
+

@@ -1,0 +1,13 @@
+================================================================================
+
+/usr/local/src/ffmpeg/libavutil/internal.h:269: sorry, unimplemented: inlining failed in call to 'lrintf': redefined extern inline functions are not considered for inlining
+mpegvideo.c:2633: sorry, unimplemented: called from here
+make[1]: *** [mpegvideo.o] Error 1
+make[1]: Leaving directory `/usr/local/src/ffmpeg/libavcodec'
+make: *** [lib] Error 2
+
+================================================================================
+
+
+
+================================================================================

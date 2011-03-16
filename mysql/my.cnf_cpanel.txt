@@ -1,0 +1,18 @@
+# cat /etc/my.cnf
+[mysqld]
+set-variable = max_connections=500
+safe-show-database
+socket=/var/tmp/mysql.sock
+
+
+ADDED BY ME
+
+set-variable = wait_timeout=15
+set-variable = connect_timeout=10
+set-variable = interactive_timeout=10
+
+
+show variables;
+show variables like 'wait_timeout';
+
+

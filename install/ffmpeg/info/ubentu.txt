@@ -1,0 +1,40 @@
+root
+@l@man!75
+https://88.191.37.82:10000
+ 
+I would like to install Vshare for the installed domain:
+www.video-sexe-amateur.eu
+
+/home/vsa/www
+
+
+
+sudo apt-get install perl
+sudo apt-get install webmin
+dpkg --install webmin_1.300_all.deb
+sudo apt-get install libnet-ssleay-perl
+sudo apt-get -f install webmin
+apt-get update
+apt-get install mysql
+
+
+deb http://us.archive.ubuntu.com/ubuntu/ feisty multiverse
+deb http://security.ubuntu.com/ubuntu feisty-security multiverse
+
+
+en_US.UTF-8
+
+apt-get build-dep ffmpeg
+
+
+/home/slf/www
+
+
+rightservesolutions.com
+
+
+payments@tailoredservers.com
+
+mysqldump slf > slf.sql
+tar -cvf slf.sql.tar slf.sql
+gzip slf.sql.tar

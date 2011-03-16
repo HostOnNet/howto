@@ -1,0 +1,23 @@
+./configure --prefix=/usr --enable-largefiles --enable-jpeg --codecsdir=/usr/local/lib/codecs/
+
+On make, i get error
+
+
+GEFILE64_SOURCE    -c -o vo_fbdev2.o vo_fbdev2.c
+cc -I../libavcodec -I../libavformat -I. -I.. -I../libavutil -O4 -march=pentium4 -mcpu=pentium4 -pipe -ffast-math -fomit-frame-pointer -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE    -c -o vo_jpeg.o vo_jpeg.c
+vo_jpeg.c:26:21: jpeglib.h: No such file or directory
+vo_jpeg.c: In function `jpeg_write':
+vo_jpeg.c:176: error: storage size of `cinfo' isn't known
+vo_jpeg.c:177: error: storage size of `jerr' isn't known
+vo_jpeg.c:178: error: `JSAMPROW' undeclared (first use in this function)
+vo_jpeg.c:178: error: (Each undeclared identifier is reported only once
+vo_jpeg.c:178: error: for each function it appears in.)
+vo_jpeg.c:178: error: syntax error before "row_pointer"
+vo_jpeg.c:198: error: `JCS_RGB' undeclared (first use in this function)
+vo_jpeg.c:202: error: `TRUE' undeclared (first use in this function)
+vo_jpeg.c:224: error: `row_pointer' undeclared (first use in this function)
+make[1]: *** [vo_jpeg.o] Error 1
+make[1]: Leaving directory `/usr/local/src/mplayer/libvo'
+make: *** [libvo/libvo.a] Error 2
+[root@216-55-154-33 mplayer]#
+

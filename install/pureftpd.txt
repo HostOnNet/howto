@@ -1,0 +1,70 @@
+=============================================================
+1. Download
+=============================================================
+
+http://download.pureftpd.org/pub/pure-ftpd/releases/
+
+cd /usr/local/src
+wget http://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.21.tar.gz
+
+=============================================================
+2. Uncompress
+=============================================================
+
+tar -zxvf pure-ftpd-1.0.21.tar.gz
+
+=============================================================
+3. Compile and install
+=============================================================
+
+cd pure-ftpd-1.0.21/
+./configure
+make
+make check
+make install
+make clean
+
+--------------------------------------------------------------
+
+The software is now installed in /usr/local/sbin/pure-ftpd
+
+To launch the server, just type the following command:
+
+/usr/local/sbin/pure-ftpd &
+
+
+=============================================================
+4. make it a service
+=============================================================
+
+cp contrib/redhat.init /etc/init.d/pure-ftpd
+chmod 755 /etc/init.d/pure-ftpd
+chkconfig --add pure-ftpd
+chkconfig --level 3 pure-ftpd on
+
+
+
+=============================================================
+5. configuration file
+=============================================================
+cp configuration-file/pure-ftpd.conf /etc
+cp configuration-file/pure-config.pl /usr/local/sbin/pure-config.pl
+chmod 744 /etc/pure-ftpd.conf
+chmod 755 /usr/local/sbin/pure-config.pl
+
+vi /etc/pure-ftpd.conf
+
+
+# PAMAuthentication yes 
+UnixAuthentication            yes
+
+#MinUID                      100
+
+
+=============================================================
+6. Start pureftpd
+=============================================================
+
+service pure-ftpd start
+service pure-ftpd stop
+service pure-ftpd status

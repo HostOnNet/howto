@@ -1,0 +1,18 @@
+vshare
+/usr/bin/mencoder '1.mpg' -o 1.flv -of lavf -oac mp3lame -lameopts abr:br=56 -ovc lavc -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -srate 22050 -ofps 24 -vf harddup
+
+adultwatch
+/usr/bin/mencoder '1.mpg' -o 2.flv -of lavf -oac mp3lame -lameopts abr:br=56 -ovc lavc -lavcopts vcodec=flv:vbitrate=800:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -srate 22050 -vf scale=450:375
+
+adultwatch have extra
+
++ scale=450:375
+-  -ofps 24
+vbitrate=500 > vbitrate=800
+
+
+
+/usr/bin/mencoder '1.mpg' -o 3.flv -of lavf -oac mp3lame -lameopts abr:br=56 -ovc lavc -lavcopts vcodec=flv:vbitrate=800:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -srate 22050 -vf harddup
+/usr/bin/mencoder '1.mpg' -o 4.flv -of lavf -oac mp3lame -lameopts abr:br=56 -ovc lavc -lavcopts vcodec=flv:vbitrate=800:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -srate 22050 -vf harddup -ofps 24
+
+

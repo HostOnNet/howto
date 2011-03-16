@@ -1,0 +1,63 @@
+mkdir /usr/local/php4-lighttpd
+
+cd /usr/local/src
+wget http://www.php.net/get/php-4.4.9.tar.gz/from/a/mirror
+tar -zxvf php-4.4.9.tar.gz
+
+cd /usr/local/src/php-4.4.9
+make clean && make distclean
+
+./configure --prefix=/usr/local/php4-lighttpd \
+--with-config-file-path=/usr/local/php4-lighttpd/etc \
+--enable-fastcgi \
+--enable-discard-path \
+--enable-force-cgi-redirect \
+--with-mysql=/usr \
+--with-zlib \
+--with-gettext \
+--enable-ftp  \
+--enable-calendar \
+--enable-bcmath \
+--enable-sockets \
+--with-zlib \
+--enable-magic-quotes \
+--with-curl --with-gd \
+--with-jpeg-dir=/usr/local \
+--enable-mbstring \
+--with-freetype-dir=/usr/local
+
+make
+make install
+/usr/local/php4-lighttpd/bin/php -v
+
+
+[root@server26 php-4.4.9]# make install
+Installing PHP CLI binary:        /usr/local/php4-lighttpd/bin/
+Installing PHP CLI man page:      /usr/local/php4-lighttpd/man/man1/
+Installing PEAR environment:      /usr/local/php4-lighttpd/lib/php/
+[PEAR] Archive_Tar    - installed: 1.3.2
+[PEAR] Console_Getopt - installed: 1.2.1
+[PEAR] HTML_Template_IT- installed: 1.1
+[PEAR] Net_UserAgent_Detect- installed: 2.0.1
+warning: pear/PEAR requires package "pear/Structures_Graph" (recommended version 1.0.2)
+pear/PEAR can optionally use package "pear/XML_RPC" (version >= 1.4.0)
+[PEAR] PEAR           - installed: 1.5.0
+Wrote PEAR system config file at: /usr/local/php4-lighttpd/etc/pear.conf
+You may want to add: /usr/local/php4-lighttpd/lib/php to your php.ini include_path
+[PEAR] Structures_Graph- installed: 1.0.2
+Installing build environment:     /usr/local/php4-lighttpd/lib/php/build/
+Installing header files:          /usr/local/php4-lighttpd/include/php/
+Installing helper programs:       /usr/local/php4-lighttpd/bin/
+  program: phpize
+  program: php-config
+Installing man pages:             /usr/local/php4-lighttpd/man/man1/
+  page: phpize.1
+  page: php-config.1
+[root@server26 php-4.4.9]#
+ 
+ 
+ [root@server26 php-4.4.9]# /usr/local/php4-lighttpd/bin/php -v
+PHP 4.4.9 (cgi-fcgi) (built: Mar 27 2009 15:29:27)
+Copyright (c) 1997-2008 The PHP Group
+Zend Engine v1.3.0, Copyright (c) 1998-2004 Zend Technologies
+[root@server26 php-4.4.9]#

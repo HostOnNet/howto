@@ -1,0 +1,560 @@
+vim
+===
+
+vim have 3 mods
+
+i - insert mod
+esc - normal mod
+
+d2w				(delete) (2) (words)
+d2b				(delete) (2) (words Back)
+w				one word forward
+b				1 word backward
+hjkl				move cursor
+d2j				delete 2 lines down
+d2k				delete 2 lines up
+d3h				(delete) (3) (to the left)
+d3l				(delete) (3) (to the right)
+cw				(change) (word)	c2w
+cb				(change) (word Back)	c2b
+Ctrl + p			auto complete
+Ctrl + n			auto complete
+v				visual mode - select
+v3w				(in visual mode select) (3) (words)
+y				yank, copy
+p				paste
+
+
+
+VIM MODES
+=========
+
+Normal Mode: This is the mode VIM starts in. In this mode, most keys on the keyboard are defined to be a specific command. At any time, pressing the ESC key returns the user to Normal mode.
+
+EX-Mode: This mode is sometimes referred as the command mode. To reach this mode, one must first be in Normal mode, then press colon (:). The command(s) may be issued when the colon appears at the bottom left corner of the screen. Then press enter to execute the command. One exception to that rule is the search command: a forward slash (/) is pressed instead of the colon.
+
+Insert Mode: To reach this mode, one must first be in Normal mode, then press i. This allows a user to start inputing data into file. 
+
+
+Commands
+========
+u - undo
+dw -  delete a word
+dd - Delete line (even if it wraps).
+Ctrl-r - redo
+Ctrl+d - Scroll down one half of a page
+CNTL+u - Scroll up one half of a page
+Ctrl+F - Forward one page.
+Ctrl+B - Back one page.
+
+:q - quit
+:set number - display number
+:w - Write changes to disk and continue editing.
+:wq - Write changes to disk and exit.
+:q! - Exit without saving changes.
+/text - Find text in the file.
+G - Go to the end of the file.
+nG - Go to line n.
+x  - Delete character that the cursor is on.
+i - Insert text at cursor.
+a - Insert text after cursor.
+
+
+
+Linux
+
+Basic vim Commands
+
+
+vim is a complex and capable editor.  These are some of the
+basic useful features of vim.  Look at :help in vim for a 
+comprehensive explanation of it's capabilities.
+
+To use the vim editor, type:
+
+vi [filename][Enter]  
+
+vim operates in modes.  These are some of the common modes:
+
+Normal Mode
+Command Mode
+Search Mode
+Visual Mode
+Insert Mode
+Replace Mode
+Record Mode
+   
+Normal Mode
+
+Normal mode is the default mode when you run vim.  All other 
+modes are entered by typing a command from the normal mode
+that instructs vim to change to the specified mode.
+
+Useful movement commands:
+
+j = move cursor 1 line down
+k = move cursor 1 line up
+h = move cursor 1 character to the left
+l = move cursor 1 character to the right
+
+[down-arrow]  = move cursor 1 line down
+[up-arrow]    = move cursor 1 line up
+[left-arrow]  = move cursor 1 character to the left
+[right-arrow] = move cursor 1 character to the right
+
+w = move 1 word right
+b = move 1 word left (backwards)
+
+vim has a buffer which data can be copied or moved to; data
+from this buffer can be pasted (inserted) into the document 
+into a position determined by the user.  
+
+Useful editing commands:
+
+x  = delete character under cursor into the data-buffer
+X  = delete character before cursor into the data-buffer
+dw = delete from the current position to the end of the word 
+     into the data-buffer
+D  = delete from current position to the end of the line,
+     placing the deleted data into the data-buffer
+dd = delete current line into the data-buffer
+yw = yank (copy) from the current position to the end of the
+     word into the data-buffer 
+yy = yank (copy) current line into the data-buffer
+p  = paste (insert) contents of the data-buffer after the
+     current position 
+P  = paste (insert) contents of the data-buffer before the
+     current position 
+
+Other useful editing commands:
+
+r[character] = replace the current character with the 
+               specified character
+J            = join the following line with the current line
+u            = undo last edit
+
+Executing commands over a range: 
+
+Normal mode commands can be executed over a range.  Specify
+the numeric range indicator before the command:
+
+[number][command]
+
+Note:  If [number] is not specified the default value is 1.
+
+Some examples:
+
+5j   = move down 5 lines
+4x   = delete 4 characters starting at the cursor position
+3dw  = delete 3 words starting at the cursor position
+2dd  = delete 2 lines 
+10yy = copy 10 lines 
+3p   = paste the contents of the data-buffer into the file 3
+       times after the current position 
+
+Command Mode
+
+The command mode is invoked by typing a colon (:) from 
+normal mode then executing a command line command 
+terminated with [Enter].
+
+Useful command mode commands:
+
+:w            = write (save) the current file to disk 
+:w [filename] = write (save) the contents to the specified 
+                file
+:w!           = write (save) the current file to disk, 
+                overriding protection
+:q            = quit (exit) editing the current file
+:q!           = quit (exit) without saving any file 
+                modifications to disk (all modications are 
+                lost)
+:wq           = write (save) the current file then quit 
+                (exit)
+:r [filename] = read the specified file into the editor
+:r ![command] = read in the output of executing the 
+                specified command
+
+:split [filename] = open the specified file in another window
+[Ctrl-w][Ctrl-w]  = move to next editor window
+:only             = close all other windows
+:help             = enter vim help in another window 
+                    (:q to quit help window)
+
+:s/[pattern1]/[pattern2]/[flags] [linecount] = 
+     substitute the first pattern with the second pattern 
+     using optional flags to control the substitution 
+     behavior over (optional) linecount number of lines 
+
+Search Mode
+
+From normal mode, enter into search mode by typing a 
+(forward) slash (/), then type the pattern to search for, 
+terminating (executing) the search command with [Enter].
+
+/[pattern] = search for the specified pattern in the file
+/          = repeat the last search
+
+Visual Mode
+
+The visual mode allows a user to highlight characters
+using the movement keys to define the highlighted area, 
+then perform an action on the highlighted characters by 
+specifying a visual command.
+
+To enter into visual mode from normal mode type:
+
+v 
+
+Useful visual mode commands are:
+
+y = yank (copy) the highlighted characters into the data-
+    buffer
+x = delete the highlighted characters into the data-buffer
+u = change highlighted characters' uppercasing to lower case
+U = change highlighted characters' uppercasing to upper case
+
+Insert Mode
+
+The insert mode is used to enter characters into the file.  
+
+You may enter insert mode from normal mode using various
+commands:
+
+i = enter into insert mode; leave the cursor in the current
+    position (insert text)
+a = enter into insert mode; move the cursor over 1 character
+    to the right (add text)
+I = enter into insert mode; move the cursor to the beginning 
+    of the current line
+A = enter into insert mode; move the cursor to the end of 
+    the current line
+o = enter into insert mode; open a new line below the 
+    current line and start inserting text on the new line
+O = enter into insert mode; open a new live above the 
+    current line and start inserting text on the new line
+
+After entering insert mode, keystrokes enter characters 
+into the file as text data.  
+
+The [Delete] key will delete the character under the cursor.
+The [BackSpace] key will delete the character to the left of 
+the cursor.
+
+You may use the arrow keys, [Page Up], [Page Down], [Home], 
+and [End] to navigate around the document.
+
+You must explicitly use the [Esc] key to return to normal 
+mode.
+
+Replace Mode
+
+The replace mode is used to replace characters that already
+exist in the file with new characters.  However, when you
+reach the end of a line, it will allow new characters to be
+typed in.
+
+To enter replace mode from normal mode:
+
+R = enter into replace mode
+
+The [Delete] key will delete the character under the cursor.
+
+You may use the arrow keys, [Page Up], [Page Down], [Home], 
+and [End] to navigate around the document.
+
+You must explicitly use the [Esc] key to return to normal 
+mode.
+
+Insert & Replace Mode Toggle
+
+You may toggle between the insert mode and the replace mode
+by using the [Insert] key.  This is a faster alternative to
+using [Esc] to return to normal mode from insert mode or 
+replace mode, then using a command to go into the other 
+mode.  From normal mode, the [Insert] key will put you 
+into the insert mode.
+
+Record Mode
+
+There is a record mode, used to record keystrokes into a
+macro.  This macro can be played back after it is recorded,
+in order to save typing the same editing commands in a
+situation that will occur frequently. 
+
+To record a macro, from normal mode:
+
+q[macroletter][keystrokes][normal-mode]q
+
+To play back a macro, from normal mode:
+
+@[macroletter]
+[repeatcount]@[macroletter]
+
+Macros are saved to disk by vim, and are still available
+after exiting vim, upon the future uses of vim.
+
+[Esc]
+
+[Esc] can be used to cancel a partial command in normal 
+mode, command mode, search mode, and visual mode.  As
+specified in the previous sections, [Esc] also exits
+insert mode and replace mode.  [Esc] places you back into
+normal mode.
+
+In record mode, [Esc] is taken as a recorded keystroke; it
+will not stop the recording.
+
+ 
+vi Basics	
+vi modes
+Two modes: Command mode, and input mode 
+Command mode is the default 
+In command mode, anything typed is interpreted as commands 
+To go to input mode, hit the letter i 
+Once in input mode, everything you type is interpreted as text 
+To return to command mode, hit the ESC key
+vi commands
+Case sensitive 
+Usually one or two characters 
+vi commands generally don't require hitting the ENTER or RETURN key 
+ex commands begin with colon (:) and require hitting the ENTER or RETURN key. ex is a line editor which underlies vi; vi is visual mode for ex. 
+Getting in and out of vi
+To edit a file, enter the vi command from the UNIX command prompt: vi filename 
+Once in vi, you are automatically placed in command mode 
+To go to input mode, hit letter i 
+Begin typing text 
+Return to command mode by hitting the ESC key 
+To save the file, enter :w 
+To quit the file, enter :q 
+To save and quit, enter :wq 
+To quit without saving, enter :q!
+Moving Around	
+Moving one character at a time
+Function 	Key sequence 	
+Move up one line 	Letter k, or up arrow key 	
+Move down one line 	Letter j or down arrow key 	
+Move left one character at a time 	letter h or left arrow key 	
+Move right one character at a time 	letter l or left arrow key 	
+Scrolling
+Function 	Key sequence 	
+Scroll up one line 	letter l or up arrow key 	
+Scroll down one line 	letter j or down arrow key 	
+Scroll forward one screen 	ctrl-f 	
+Scroll backward one screen 	ctrl-b 	
+Scroll down half screen 	ctrl-d 	
+Scroll up half screen 	ctrl-u 	
+Global movements
+Function 	Key sequence 	
+Go to a line, by line number 	nG or :n (where n is a line number) 	
+Go to the bottom of a file 	G 	
+Go to top of file 	1G or :1 	
+Display line numbers 	:set nu 	
+Suppress line numbers 	:set nonu 	
+Moving within a line 
+Function 	Key sequence 	
+Move right one character 	letter l, or right arrow key 	
+Move left one character 	letter h, or left arrow key 	
+Move to the beginning of a line 	0 (zero) 	
+Move to the end of a line 	$ (dollar sign) 	
+Moving by words
+Function 	Key sequence 	
+Move to the next word (treating punctuation as separate words) 	letter w (lower case) 	
+Move to the next word (treating punctuation as part of the word) 	letter W (upper case) 	
+Move to the previous word (treating punctuation as separate words) 	letter b (lower case) 	
+Move to the previous word (treating punctuation as part of the word) 	letter B (upper case) 	
+Moving by paragraph
+Move to the next paragraph 	} (right curly bracket) 	
+Move to the previous paragraph 	{ (left curly bracket) 	
+Locating text
+Function 	Key sequence 	
+Find a string 	Slash key (/) followed by string 	
+Find next occurrence 	Letter n 	
+Search backward for a string 	Question mark (?) followed by string 	
+Search backward for previous string 	Question mark (?) and enter key 	
+Editing Commands	
+Function 	Key sequence 	
+Insert 	letter i 	
+Append 	letter a 	
+Delete 	letter d (upper-case D will delete to the end of a line) 	
+Move 	delete (letter d) followed by put (letter p) 	
+Copy 	yank (letter y) followed by put (letter p) 	
+Adding text
+Function 	Key sequence 	
+Go into input mode 	letter i 	
+Go into append mode 	letter a 	
+Add a line and go into input mode 	letter o 	
+Return to command mode 	ESC key 	
+Deleting text
+
+Note: You must be in command mode to use the following commands. 
+Function 	Key sequence 	
+Delete a line 	dd 	
+Delete n lines 	ndd (where n is the number of lines to delete, e.g. 2dd) 	
+Delete a single character 	letter x 	
+Delete to the end of a line 	letter D (upper case) 	
+Delete a word 	dw 	
+Delete up to some string 	d/string/ 	
+Copying text
+Function 	Key sequence 	
+Get text into buffer (yank) 	letter y 	
+Put text from buffer onto screen (put) 	letter p 	
+Get a line into buffer 	yy 	
+Get n lines into buffer 	nyy (where n is a number, e.g. 3yy) 	
+Get all text from current cursor location, up to but not including some string 	y/string 	
+Get all text from cursor to bottom of file	yG	
+Moving text
+
+Moving text is done by first deleting it (d), then putting it (p). Please refer to the section above on deleting text. 
+Joining and splitting lines
+Function 	Key sequence 	
+Join the next line to the current line 	letter J (upper case) 	
+Join the next n lines 	nJ (where n is the number of lines) 	
+Split a line 	Hit letter i at location to split, then hit the enter key 	
+More ways to add and replace text
+
+Note: All the following commands (except r) leave you in input mode. Remember to hit the ESC key if you want to return to command mode. 
+Insert text at current cursor location 	letter i 	
+Insert text at beginning of line 	letter I (upper case) 	
+Append text after current cursor location 	letter a 	
+Append to end of current line 	letter A (upper case) 	
+Open new line below cursor 	letter o 	
+Open new line above cursor 	letter O (upper case) 	
+Substitute a single character at cursor 	letter s 	
+Substitute entire line at cursor 	letter S (upper case) 	
+Replace a single character (but don't go into input mode) 	letter r 	
+Replace current text 	letter R (upper case) 	
+Global replacements
+Function 	Key sequence 	
+Substitute first occurrence of a string on the current line 	:s/old/new/ 	
+Substitute all occurrence of a string on the current line 	:s/old/new/g 	
+Substitute all occurrence of a string within a range of lines 	:nn,mms/old/new/g (where nn,mm is a range of line numbers separated by comma) 	
+Substitute all occurrence of a string within a file 	:1,$s/old/new/g (where 1,$ indicates the range of line numbers from line 1 to the end of file) 	
+Same as previous (replace all occurrences in a file) 	:%s/old/new/g (where % is an abbreviation for 1,$) 	
+Global replacement, confirm substitutions 	:%s/old/new/gc (You will be prompted as to whether to perform each substitution. Enter y to confirm, or just hit enter to bypass) 	
+Repeating and undoing edits
+Function 	Key sequence 	
+Repeat 	period (.) 	
+Undo last change 	letter u 	
+Undo all changes on current line 	letter U (upper case) 	
+Edits Across Files	
+Reading and saving into other files
+Function 	Key sequence 	
+Read another file into current file at cursor location 	:r filename 	
+Read another file into current file, place it after some line number 	:nnr filename (where nn is a line number; $ is end of file) 	
+Write text from current file to a new file 	:w newfile 	
+Overwrite an existing file with the contents of the current file 	:w! some.file 	
+Use % (current filename) to create a new file 	:w %.new 	
+Append text from current file to another existent file 	:w >> newfile 	
+Write a range of lines from current file to another file 	:nn,mmw newfile (where nn,mm is a range of lines; $ means end of file) 	
+Editing multiple files
+
+To edit another file while editing a file, use :e :e filename Then use :e # to switch to the alternate file: :e # You can also specify two filename on the vi command: vi file1 file2 Initially you are placed in an edit session for the first file. To edit the second file in the sequence, use: :n To go back to the alternate (first) file, use: :e # 
+Using named buffers
+vi provides up to 26 named buffers (a-z) 
+You can store text from an edit command into a named buffer to be retrieved later. Precede an edit command with double quote and a buffer name. 
+Example: Yank a line into a named buffer, buffer b: "byy 
+Once the buffer has data stored into it, it can be retrieved using the put (p) command. Example: "bp 
+Copying is done by a sequence of yank and put; move is done by a sequence of delete and put. 
+Delete a line and store it into buffer b: "bdd You can then move your cursor, and use "bp to move the text to the new location. 
+Named buffers are stored across edit sessions. You can use the :e command to edit a second file while still inside the first. The use p to retrieve named buffers. 
+% and # refer to the current and alternate filenames. To switch from to the other file, enter: :e #
+Tailoring with vi	
+Set commands
+Function 	Key sequence 	Abbreviation 	Turn off 	
+Ignore case during a search 	:set ignorecase 	:set ic 	:set noic 	
+Display line numbers 	:set number 	:set nu 	:set nonumber 	
+Report changes larger than n lines (default is 5) 	:set report=n 	none 	none 	
+Show current mode (input, replace modes) 	:set showmode 	none 	:set noshowmode 	
+Searches will wrap around the end of file 	:set wrapscan 	:set ws 	:set nows 	
+
+Note: In general, you can always turn off an option by preceding it with no. 
+Creating a vi profile
+vi reads .exrc from your home directory as it's profile 
+set commands in the .exrc file should not include the colon
+Summary of Most Useful Commands	
+Function 	Key sequence 	
+Save current file 	:w 	
+Save and quit 	:wq 	
+Quit without saving latest changes 	:q! 	
+Go into input mode 	i 	
+Return to command mode 	ESC key 	
+Add a line and go into input mode 	o 	
+Go into replace mode 	R 	
+Replace a single character 	r 	
+Delete a single character 	x 	
+Delete a line 	dd 	
+Delete n lines 	ndd (e.g. 3dd, 5dd) 	
+Delete to end of current line 	D 	
+Delete to end of file 	dG 	
+Go to top of file 	:1 	
+Go to botton of file 	G 	
+Scroll forward one screen 	ctrl-f 	
+Scroll backward one screen 	ctrl-b 	
+Copy a line 	yy followed by p 	
+Copy n lines 	nyy followed by p 	
+Copy up to but not including some string 	y/string followed by p 	
+Global change 	:%s/oldstring/newstring/g 	
+Show modes 	:set showmode 	
+Show line numbers 	:set number (turn off with :set nonu) 	
+Exercises	
+Please note: Within vi, ex commands, or commands starting with a colon (:) require that you hit the return key to enter them. Other commands not starting with colon (:) don't require the return key.	
+Basic Editing	
+Edit the file from the previous workshop: vi test.file 
+Go to the bottom of the file: G 
+Pull the last line into an unnamed buffer: yy 
+Place the buffer contents after the current line (the last line): p 
+Go to line 10: :10 
+Pull 3 lines into the buffer: 3yy 
+Now move to the second line: :2 
+Place the contents of the buffer after the second line: p 
+Delete lines 15-20. First, go to line 15. :15 
+Now delete 6 lines: 6dd 
+Moving text is done by combininig deletion with placement. Move lines 25-26 to the bottom of the file as follows. :25 2dd G p 
+Join the top two lines as follows: :1 J 
+Join 3 lines (current plus next two): 3J 
+Move your cursor to somewhere in the middle of the newly joined line, and delete everything past the location of the cursor, by hitting capital D 
+Go to column 1 of the current line, by hitting number 0 
+Go to the end of the current line, by hitting the key $ 
+Go to the top of the file, by entering :1 
+Change all occurrences of the word line to stuff :%s/line/stuff/g 
+Turn line numbers on: :set nu 
+Turn them off again: :set nonu 
+Continue experimenting with basic editing commands as you like. 
+Save your changes periodically by entering :w 
+When you are through, save and quit by entering :wq 
+Editing Across Files	
+Edit test.file vi test.file 
+Turn line numbers on :set nu 
+Save lines 11-20 into a new file called new.file :11,20w new.file 
+From the first edit session, edit new.file, to verify that you correctly saved lines 11-20. :e new.file 
+Return to the first edit session for test.file :e # 
+Now use a named buffer, to transfer lines 1-10 from test.file to new.file. The buffer can be named a. 
+
+First, go to the top of test.file :1 
+Retrieve 10 lines into named buffer a. "a10yy 
+Edit new.file :e new.file 
+Go to the top of new.file :1 
+Retrieve the contents of buffer a, and place them prior to the top line "aP 
+Return to test.file :e # 
+Append lines 10-12 to the end of new.file :10,12w>> new.file 
+Verify that the new lines were appended, by editing the alternate file (new.file) and going to the bottom. :e # G 
+Save and quit: :wq 
+Create a vi Profile (.exrc)	
+At the UNIX command prompt, make sure you are in your home directory: cd $HOME 
+Create a .exrc file: vi .exrc 
+Go into input mode, by hitting letter i 
+Type the following text: set showmode 
+Optional: If you want line numbers to always be displayed, then hit the return key, and enter the text set nu. set nu 
+Return to command mode by hitting the ESC key 
+Save and quit by entering :wq 
+Now test your profile, by opening test.file: vi test.file 
+Go into input mode, by hitting letter i. You should see INPUT MODE in the bottom right. 
+Hit the ESC key to return to command mode. 
+Hit capital R (shift-R) to go to replace mode. You should see REPLACE MODE at the bottom right. 
+Return to command mode, by hitting the ESC key. 
+Save and quit by entering :wq 
+Log Out	
+If you are finished now, remember to logout at the UNIX command prompt:
+
+logout

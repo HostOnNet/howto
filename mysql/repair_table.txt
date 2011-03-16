@@ -1,0 +1,22 @@
+mysql> check table freebb.mithridates_sessions;
++-----------------------------+-------+----------+----------------------------------------------------------+
+| Table                       | Op    | Msg_type | Msg_text                                                 |
++-----------------------------+-------+----------+----------------------------------------------------------+
+| freebb.mithridates_sessions | check | warning  | Table is marked as crashed                               |
+| freebb.mithridates_sessions | check | warning  | 6 clients are using or haven't closed the table properly |
+| freebb.mithridates_sessions | check | error    | Record at pos: 9519 is not remove-marked                 |
+| freebb.mithridates_sessions | check | error    | record delete-link-chain corrupted                       |
+| freebb.mithridates_sessions | check | error    | Corrupt                                                  |
++-----------------------------+-------+----------+----------------------------------------------------------+
+5 rows in set (0.05 sec)
+
+mysql> repair table freebb.mithridates_sessions;
++-----------------------------+--------+----------+--------------------------------------+
+| Table                       | Op     | Msg_type | Msg_text                             |
++-----------------------------+--------+----------+--------------------------------------+
+| freebb.mithridates_sessions | repair | warning  | Number of rows changed from 94 to 95 |
+| freebb.mithridates_sessions | repair | status   | OK                                   |
++-----------------------------+--------+----------+--------------------------------------+
+2 rows in set (0.17 sec)
+
+mysql>

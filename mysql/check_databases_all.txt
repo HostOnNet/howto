@@ -1,0 +1,5 @@
+Optimize all your databases
+===========================
+mysqlcheck -o -u root -p --all-databases
+
+mysqlcheck -o --all-databases

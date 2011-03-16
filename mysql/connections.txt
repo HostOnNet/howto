@@ -1,0 +1,13 @@
+To see MySQL connections
+========================
+
+mysqladmin proc stat
+
+mysqladmin -u root -p proc stat
+
+# mysql
+
+show processlist;
+
+
+

@@ -1,0 +1,112 @@
+cd /usr/local/src
+wget http://www.tangent.org/download/mod_layout-3.2.1.tar.gz
+http://download.tangent.org/mod_layout-3.3.tar.gz
+tar zxvf mod_layout-3.2.1.tar.gz
+cd mod_layout-3.2.1
+chmod 777 Makefile
+history -c
+vi Makefile
+
+
+-DDEBUG
+
+
+ln -s /usr/local/apache/bin/apxs /usr/local/bin
+make
+make install
+rm -f /usr/local/bin/apxs
+cd ..
+rm -f mod_layout-3.2.1.tar.gz
+rm -rf mod_layout-3.2.1
+history -c
+vi /home/test.html
+
+i<TABLE width=100% bgcolor=#000000>
+<TR>
+<TD align=center><FONT SIZE="2" COLOR="#FFFF00"><B>ADVERTISEMENT</B></FONT></TD>
+</TR>
+</TABLE>
+
+
+vi /usr/local/apache/conf/httpd.conf
+
+LayoutFooter /home/test.html
+LayoutHeader /home/test.html
+
+
+AddOutputFilter LAYOUT html
+LayoutFooter /home/test.html
+LayoutHeader /home/test.html
+
+
+service httpd stop
+service httpd start
+libexec/mod_layout.so
+
+
+
+
+root@services [~/mod_layout-3.2.1]# make
+`apxs -q CC` -I`apxs -q INCLUDEDIR` `apxs -q CFLAGS`   -c mod_layout.c -Wall
+/bin/sh: apxs: command not found
+/bin/sh: apxs: command not found
+/bin/sh: apxs: command not found
+/bin/sh: -I: command not found
+make: *** [mod_layout.o] Error 127
+
+
+
+
+
+
+
+
+root@services [~/mod_layout-3.2.1]# make
+`apxs -q CC` -I`apxs -q INCLUDEDIR` `apxs -q CFLAGS`   -c mod_layout.c -Wall
+`apxs -q CC` -I`apxs -q INCLUDEDIR` `apxs -q CFLAGS`   -c utility.c -Wall
+`apxs -q CC` -I`apxs -q INCLUDEDIR` `apxs -q CFLAGS`   -c origin.c -Wall
+`apxs -q CC` -I`apxs -q INCLUDEDIR` `apxs -q CFLAGS`   -c layout.c -Wall
+apxs -c  mod_layout.o utility.o origin.o layout.o
+gcc -shared -o mod_layout.so mod_layout.o utility.o origin.o layout.o
+root@services [~/mod_layout-3.2.1]# make install
+strip mod_layout.so
+apxs -i -a -n 'layout' mod_layout.so
+[activating module `layout' in /usr/local/apache/conf/httpd.conf]
+cp mod_layout.so /usr/local/apache/libexec/mod_layout.so
+chmod 755 /usr/local/apache/libexec/mod_layout.so
+cp /usr/local/apache/conf/httpd.conf /usr/local/apache/conf/httpd.conf.bak
+cp /usr/local/apache/conf/httpd.conf.new /usr/local/apache/conf/httpd.conf
+rm /usr/local/apache/conf/httpd.conf.new
+root@services [~/mod_layout-3.2.1]#
+
+
+
+
+
+
+
+chmod -R 777 conf
+chmod -R 777 ads
+chmod 700 cron
+
+*/5 * * * * php /home/fourcom/public_html/ipanel/cron/httpd_conf.php
+
+fourcom_ipanel
+fourcom_ipanel
+netfreehost
+
+http://www.yourdomain.com/ipanel/install 
+http://www.yourdomain.com/ipanel/admin
+User: fourcom
+Password: o8kg4d
+
+
+/usr/local/apache/bin/apachectl configtest
+
+tail -f /usr/local/apache/logs/error_log
+vi /usr/local/apache/conf/httpd.conf
+
+LimitInternalRecursion 5
+
+
+www.macbethfiles.com

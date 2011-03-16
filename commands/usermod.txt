@@ -1,0 +1,12 @@
+usermod - Modify a user account
+
+
+       usermod [-c comment] [-d home_dir [-m]]
+               [-e expire_date] [-f inactive_time]
+               [-g initial_group] [[-a] -G group [,...]]
+               [-l login_name] [-p passwd]
+               [-s shell] [-u uid [-o]] [-L|-U] login
+
+
+usermod -d /var/www/xpanel/public_html xpanel
+

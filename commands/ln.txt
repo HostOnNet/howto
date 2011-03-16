@@ -1,0 +1,18 @@
+# ln -s index.htm index.html
+# ll index.*
+-rw-rw-r--    1 root     home        48590 Jun 18 23:43 index.htm
+lrwxrwxrwx    1 root     root            9 Jun 21 18:05 index.html -> index.htm
+#
+
+
+
+ln
+
+create's "links" between files and directories
+
+ln -s /usr/local/apache/conf/httpd.conf /etc/httpd.conf
+
+Now you can edit /etc/httpd.conf rather than the original. changes will affect the orginal, however you can delete the link and it will not delete the original.
+
+
+

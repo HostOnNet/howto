@@ -1,0 +1,229 @@
+.tar
+
+UNCOMPRESS: tar xvf FileName.tar
+
+COMPRESS: tar cvf FileName.tar DirName
+
+---------------------------------------------
+
+.gz
+
+UNCOMPRESS1: gunzip FileName.gz
+
+UNCOMPRESS2: gzip -d FileName.gz
+
+COMPRESS: gzip FileName
+
+.tar.gz
+
+UNCOMPRESS: tar zxvf FileName.tar.gz
+
+COMPRESS: tar zcvf FileName.tar.gz DirName
+
+---------------------------------------------
+
+.bz2
+
+UNCOMPRESS1: bzip2 -d FileName.bz2
+
+UNCOMPRESS2: bunzip2 FileName.bz2
+
+COMPRESS: bzip2 -z FileName
+
+.tar.bz2
+
+UNCOMPRESS: tar jxvf FileName.tar.bz2
+
+COMPRESS: tar jcvf FileName.tar.bz2 DirName
+
+---------------------------------------------
+
+.bz
+
+UNCOMPRESS1: bzip2 -d FileName.bz
+
+UNCOMPRESS2: bunzip2 FileName.bz
+
+COMPRESS: unknown
+
+.tar.bz
+
+UNCOMPRESS: tar jxvf FileName.tar.bz
+
+COMPRESS: unknown
+
+---------------------------------------------
+
+.Z
+
+UNCOMPRESS: uncompress FileName.Z
+
+COMPRESS: compress FileName
+
+.tar.Z
+
+UNCOMPRESS: tar Zxvf FileName.tar.Z
+
+COMPRESS: tar Zcvf FileName.tar.Z DirName
+
+---------------------------------------------
+
+.tgz
+
+UNCOMPRESS: tar zxvf FileName.tgz
+
+COMPRESS: unknown
+
+.tar.tgz
+
+UNCOMPRESS: tar zxvf FileName.tar.tgz
+
+COMPRESS: tar zcvf FileName.tar.tgz FileName
+
+---------------------------------------------
+
+.zip
+
+UNCOMPRESS: unzip FileName.zip
+
+COMPRESS: zip FileName.zip DirName
+
+---------------------------------------------
+
+.rar
+
+UNCOMPRESS: rar a FileName.rar
+
+COMPRESS: rar e FileName.rar
+
+
+RAR : http://www.rarsoft.com/download.htm 
+
+[root@www2 tmp]# cp rar_static /usr/bin/rar
+
+---------------------------------------------
+
+.lha
+
+UNCOMPRESS: lha -e FileName.lha
+
+COMPRESS: lha -a FileName.lha FileName
+
+
+lha : http://www.infor.kanazawa-it.ac.jp/~ishii/lhaunix/
+
+[root@www2 tmp]# cp lha /usr/bin/
+
+---------------------------------------------
+
+.rpm
+
+UNCOMPRESS: rpm2cpio FileName.rpm | cpio -div
+
+---------------------------------------------
+
+.deb
+
+UNCOMPRESS: dpkg -x FileName.deb
+
+
+
+COMPRESSING A FILE
+==================
+
+
+#tar -cvf temp.tar temp
+temp/
+temp/getmxrr.php
+temp/hs.php
+temp/index.php
+temp/mys.php
+temp/sm.php
+temp/cre.txt
+temp/dump.php
+temp/fn.php
+temp/ppi.php
+
+====code======
+cd /home/bizhatc/public_html/
+tar -cvf imagehost.tar imagehost
+gzip imagehost.tar
+ls -l image*.*
+chown bizhatc.bizhatc imagehost.tar.gz
+chmod 777 imagehost.tar.gz
+###on server 1
+cd /home
+wget http://www.bizhat.com/imagehost.tar.gz
+tar -zxvf imagehost.tar.gz
+====#code======
+
+
+
+DECOMPRESSING TAR
+=================
+tar -xvf filename.tar
+
+-x This mean extract the file. 
+-v This means verbose, it tells you what it's doing. 
+-f This is the file flag, the filename directly follows this flag.
+
+UNCOMPRESS TAR.GZ
+=================
+
+gzip -dc MamboV4.5-Stable.tar.gz |tar -x
+
+OR
+
+tar -zxvf filename.tar.gz
+tar -zxvf  skdetect-0.4b.tar.gz
+
+z This means run it through gzip before running it through tar.
+
+
+TO MAKE A .TAR
+==============
+
+tar -cv -f filename.tar file1 file2 file3 ..... fileN
+
+-c This is the flag that tells tar you are creating a new .tar archive. 
+-v Verbose so it tells you what it is doing. 
+-f This once again tells tar that the filename is the next name it sees.
+
+filename.tar You may make filename whatever you want to name the file.
+
+file1 through fileN the names of the N files you want to add. Use as many files as you want.
+
+ex: 
+tar -cv -f stories.tar first.doc second.txt nice.wri cup.zip wheel.exe
+Absolute tar -cv -f filename.tar /home/foouser/mail 
+Relative tar -cv -f filename.tar mail if I happened to be in the /home/foouser directory.
+
+
+tar -cv -f kosovair.tar /home/kosovair/
+tar -cv -f gwaymark_mlm.tar gwaymark_mlm
+tar -cv -f concept.tar /home/concept/public_html
+gzip concept.tar
+
+
+
+tar -cv -f hack.tar /tmp/.sh/
+
+tar -cv -f final.tar hack.tar logrotate.2jxBxN pinerc sh.tar
+
+###########
+cd /home/mailbiz/
+tar -cvf mailbox.tar mailbox
+#gzip movieclips.tar
+chown bizhatc.bizhatc movieclips.tar.gz
+chmod 777 movieclips.tar.gz
+
+on new server
+wget http://www.bizhat.com/movieclips.tar.gz
+tar -zxvf movieclips.tar.gz
+chmod -R 777 movieclips
+
+
+UnZip tar.bz2
+=============
+tar xvfj linux-2.6.7.tar.bz2
+

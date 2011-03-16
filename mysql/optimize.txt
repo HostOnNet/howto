@@ -1,0 +1,31 @@
+http://blog.circlesixdesign.com/2007/01/22/diggproof/
+http://spicefuse.com/Need-help-t-76.html#pid464
+http://rudd-o.com/archives/2006/03/02/tuning-a-mysql-server-in-5-minutes/
+http://highervisibilitywebsites.com/tuning-primer.txt
+http://gert.sos.be/demo/mysqlar/
+
+Repair and optimizing on all databases.
+
+mysqlcheck -uroot -p -ro --all-databases
+
+
+
+mysqladmin variables
+mysqladmin extended-status
+mysql> SHOW VARIABLES;
+mysql> SHOW STATUS;
+
+
+======================================================================
+http://dev.mysql.com/doc/refman/5.0/en/server-parameters.html
+
+
+Two most important variables to configure
+-----------------------------------------
+key_buffer_size
+table_cache
+
+
+
+
+======================================================================

@@ -1,0 +1,77 @@
+http://rpm.pbone.net/
+http://rpmfind.net
+http://download.fedora.redhat.com/pub/fedora/linux/core/updates/4/SRPMS/
+http://dag.wieers.com/packages/ffmpeg/
+http://dries.ulyssis.org/rpm/packages/faac/info.html
+
+http://mirror.centos.org/centos/4/updates/i386/RPMS/
+
+
+#rpm -e anonftp
+
+remove package
+
+# rpm -qa|grep apache
+
+find package with "apache" in name
+
+# rpm -q --whatprovides libmysqlclient.so.10
+
+Show package that provide the file
+
+# rpm -aV
+
+You can use rpm to check syste. This can be used to check if hacked.
+
+# rpm -Uvh httpd-2.0.48-1.2.i386.rpm
+
+Install/Upgrade httpd-2.0.48-1.2.i386.rpm
+
+
+rpm -Uvh MySQL-* --nodeps --force
+
+rpm -q RPMname : to check is a certain RPM is installed
+rpm -Uvh RPMname.rpm : install an RPM named 'RPMname.rpm'
+
+==========================================================================
+INSTALL
+==========================================================================
+
+# rpm -ivh perl-GD-2.15-0.ker.rhel3.i386.rpm
+
+==========================================================================
+UINSTALL
+==========================================================================
+
+rpm -e psa psa-proftpd psa-proftpd-xinetd
+
+#rpm -e --nodeps psa psa-proftpd psa-proftpd-xinetd
+
+==========================================================================
+LIST ALL FILES
+==========================================================================
+
+rpm -qpl ../RPMS/i386/zidrav-1.2.0-2.i386.rpm
+
+rpm -q --filesbypkg gd
+
+rpm -qpl php-gd-5.0.4-10.5.i386.rpm
+
+
+
+
+/etc/php.d/gd.ini
+/usr/lib/php/modules/gd.so
+
+
+/usr/local/bin/php
+/usr/bin/php
+
+
+  Removing  : php-pear                     ######################### [2/5]
+  Removing  : php-ldap                     ######################### [3/5]
+  Removing  : php-mysql                    ######################### [4/5]
+  Removing  : php-gd                       ######################### [5/5]
+
+Removed: php.i386 0:5.0.4-10.5
+

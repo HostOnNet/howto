@@ -1,0 +1,94 @@
+SYSTEM
+=======================================
+iostat
+free -m
+
+
+
+LINUX COMMANDS
+==============
+wget - download a file
+Usage: wget http://domain.extn/file.extn
+
+{Ctrl C}        Terminate running job.
+{Ctrl D}        Terminate input.
+{Ctrl Z}        Stop current job, leave it in memory.
+     bg          Used following a {Ctrl Z} to run job in background
+{Ctrl S}        Stop scrolling.
+{Ctrl Q}        Resume scrolling.
+
+
+
+netstat -tap |grep LISTEN
+=========================
+This will give us a list of all currently running servers as indicated by the keyword LISTEN, along with the "PID" and "Program Name" that started each particular service.
+
+
+lsop - List Open Files
+last | more - List all logins
+lastlog - last login's
+
+
+DELETE A USER
+=============
+# userdel gouki
+# userdel jason
+
+adduser spamfilter -s /sbin/nologin 
+
+
+Enable/Disable SSH
+==================
+usermod -s /bin/false username
+usermod -s /bin/bash username
+
+
+COMMANDS
+====================
+
+ls Displays everything in the current directory
+ls -a Displays all files, including hidden
+ls -l Displays all files, along with the size and timestamp
+tar -zxpf <file.tar.gz> Uncompresses tar.gz files
+tar -xpf <file.tar.gz> Uncompresses .tar files
+gunzip <file> Uncompresses .gz files
+cp <file> Copies a file to a new file
+mv <file> Moves a file to a new file, or rename
+mkdir <dir> Creates a directory
+rmdir <dir> Deletes a directory
+rm <file> Deletes a file
+rm -rf <dir> Deletes a directory
+cd <dir> Moves to a directory
+cd .. Moves to a lower directory
+cd ~ Moves to your home directory
+cd - Moves to the previous directory
+pwd Displays the current directory
+pico <file> Edits a file
+ftp <site> Connect to a FTP server
+lynx <site> View a webpage
+df Displays the hard drive stats
+quota Displays your quota
+uptime Displays the uptime of the server
+uname -a Displays the operating system stats
+whoami Displays your info
+who Displays others connected to the server
+last Displays the last login
+whereis <file> Tells where a file is located
+ps -x Displays processes your running
+ps -a Displays all processes running
+ps -ux Displays running processes, with CPU/Memory usage
+kill <pid> Kills a process
+kill -9 <pid> Kills an eggdrop process
+killall <program> Kills all running process of the same type
+whatis <command> Description of commands
+man <command> Displays help on the command
+nano <file> editor that's similar to pico
+Top gives an overall view of what is going on with the server including memory usage, server load and running processes "q" to exit top
+sar -q gives a report of the process list, 1 minute and 5 minute average load every 10 minutes since midnight server time
+tar -zcf filename.tar.gz file Tars up the file or directory of your choice, replace filename.tar.gz with the name you want your tar file to have...with the tar.gz extension on the end and replace file with the file or directory you want to tar up. You can also use a path/to/file for both.
+updatedb Updates the locate/search DB.
+find / -user <username> Finds all files that belong to a specific username.
+/scripts/pkgacct2 <username> Creates a full backup of a certain cPanel account.
+/scripts/restorepkg <username> Restores a full backup which must be located in /home.
+crontab -e Allows you to edit the crontab and also look to see what is in there.
+

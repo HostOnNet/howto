@@ -1,0 +1,95 @@
+netstat -tupl   :List internet services on a system
+
+netstat -tup     :List active connections to/from system
+ 
+# lsof -p $$    :List paths that process id has open
+
+# lsof ~   :List processes that have specified path open
+
+# last reboot   :Show system reboot history.
+
+# ls -lSr   :Show files, biggest last
+
+# du -s * | sort -k1,1rn | head    :Show top disk users in current dir. See also dutop
+
+# cat /proc/partitions   :Show all partitions registered on the system
+
+
+
+Linux Directory Structure 
+
+QUOTE  
+File System Layout 
+
+/ -----root/main directory 
+/root ----- root/admin home directory 
+/etc ----- config/start up files directory 
+/bin ----- binaries/commands directory 
+/sbin ----- superuser/admin commands directory 
+/usr ----- programs/application directory 
+/home ----- home directory for users 
+/var ----- logs/system checking programs 
+/dev ----- devices directory(floppy, cdrom, hd)   
+
+
+
+Linux File / Directory Color Coding 
+
+QUOTE  
+red ----- zip file 
+blue ----- directory 
+green ----- executable file 
+lightgreen ----- link file  
+
+
+
+User Symbol 
+
+QUOTE  
+
+# ---- shows that you are logged in as root 
+$ ---- shows that you are logged in as users  
+
+
+
+Linux Basic Commands 
+Always remember that linux is case sensetive.(must be lower case) 
+
+
+QUOTE  
+
+Linux ------------------------------- Windows 
+
+ls ------------------------------- dir (directory listing) 
+cd ------------------------------- cd (change directory) 
+ifconfig -------------------- ipconfig 
+mkdir ------------------------------- md or mkdir (make directory) 
+rm ------------------------------- rd (remove directory) 
+mv ------------------------------ ren (rename) 
+anycommand --help ------------------------------ anycommand /? (show help) 
+man ------------------------------ help (show help on a certain command) 
+cfdisk ------------------------------ fdisk (partitioning) 
+clear ------------------------------ cls (clearscreen) 
+chmod ------------------------------ attrib (modify a file permission) 
+
+*mv command can also be used to move a file or directory. 
+*rm command can also be used to remove a file. 
+
+pwd ----- show current location loaded 
+uname -a ----- show linux version 
+adduser name ----- adding user 
+userdel name ----- deleting user 
+ps ax ----- show processed files 
+kill or killall ----- specified termination of a processed file 
+ctrl+c ----- quit processed file 
+ctrl+z ----- suspend the processed file 
+fg ----- continue the suspended processed file 
+ls -la ----- show hidden files 
+chown ----- change ownership 
+chgrp ----- change group 
+reboot ----- restart 
+shutdown -h now ----- shutdown halt 
+
+ 
+
+

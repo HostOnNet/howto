@@ -1,0 +1,24 @@
+INSTALL FROM SOURCE
+
+
+
+==========================================================================================
+Installing Xvid
+==========================================================================================
+
+http://www.xvid.org/Downloads.43.0.html
+
+
+cd /usr/local/src
+wget http://downloads.xvid.org/downloads/xvidcore-1.1.2.tar.gz
+tar -zxvf xvidcore-1.1.2.tar.gz
+cd xvidcore-1.1.2/build/generic/
+./configure && make && make install
+
+==========================================================================================
+RPM
+==========================================================================================
+
+yum list | grep xvidcore
+yum -y install xvidcore xvidcore-devel
+

@@ -1,0 +1,35 @@
+=============================================================
+Install FlvTool2
+=============================================================
+
+flvtool2 -H
+
+-------------------------------------------------------------
+
+http://inlet-media.de/flvtool2
+http://rubyforge.org/frs/?group_id=1096&release_id=4615
+
+-------------------------------------------------------------
+
+cd /usr/local/src/
+wget http://rubyforge.org/frs/download.php/9225/flvtool2_1.0.5_rc6.tgz 
+tar -zxvf flvtool2_1.0.5_rc6.tgz 
+cd flvtool2_1.0.5_rc6
+ruby setup.rb config
+ruby setup.rb setup
+ruby setup.rb install
+
+------------------------ OR -----------------------------
+
+cd /usr/local/src
+svn checkout  http://svn.inlet-media.de/svn/flvtool2/trunk flvtool2
+cd flvtool2
+yum -y install ruby
+ruby setup.rb config
+ruby setup.rb setup
+sudo ruby setup.rb install
+ruby setup.rb all
+
+=============================================================
+
+yum list | grep flvtool

@@ -1,0 +1,37 @@
+============================================
+vi /root/.my.cnf
+============================================
+
+
+[client]
+user = DBUSERNAME
+password = DBPASSWORD
+host = DBSERVER
+
+[mysqladmin]
+user = root
+password = HyamHsjs89a
+
+[mysqldump]
+user = root
+password = GH543ajkaMMal
+
+
+
+Example .my.cnf for user root
+==============================
+
+[client]
+user = root
+password = HyamHsjs89a
+
+[mysqladmin]
+user = root
+password = HyamHsjs89a
+
+[mysqldump]
+user = root
+password = GH543ajkaMMal
+
+chmod 700 /root/.my.cnf
+

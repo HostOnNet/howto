@@ -1,0 +1,35 @@
+netstat -an
+netstat -pan
+netstat -a -n|grep -E "^(tcp)"| cut -c 68-|sort|uniq -c|sort -n
+
+
+# netstat -plan | grep ":80 " | awk {'print $5'} |awk -F: {'print $1'}|sort
+# cat /proc/net/ip_conntrack | grep "port=80" | wc -l
+
+netstat -ntu | awk '{print $5}'| cut -d: -f1 | sort | uniq -c | sort -nr | more
+
+# netstat -alntp
+#/sbin/ldconfig /usr/local/lib   - Update the system linker cache
+
+
+
+
+# This will give you a list of established connections
+netstat -an | grep EST
+
+iptables -L|grep 80.203
+
+
+netstat -n -p
+Useful to see who is connected to your server, this also resolves hostnames to IP addresses and the -p switch shows you what each person connected is doing and provides a PID for it if there is one... useful if you need to kill something
+
+
+
+
+
+iptables -A INPUT -s 80.203.34.194/16 -j DROP
+iptables -A INPUT -s 163.235.125.226/16 -j DROP
+iptables -A INPUT -s 124.94.95.253/16 -j DROP
+iptables -A INPUT -s 3.152.74.141/16 -j DROP
+iptables -A INPUT -s 141.156.162.9/16 -j DROP
+iptables -A INPUT -s 60.15.213.126/16 -j DROP

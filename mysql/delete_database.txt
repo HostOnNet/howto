@@ -1,0 +1,3 @@
+To Delete a Database
+
+DROP DATABASE `database_name`;

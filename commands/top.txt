@@ -1,0 +1,41 @@
+top - shows running processes
+pstree	-	list process in three view
+
+pstree -G
+top (-S)
+systat -vm 1 (A favorite) - freebsd
+iostat - freebsd
+
+
+
+Shift+M
+Shift+P
+
+
+When running top, press
+c	show path to the process
+h	show help
+q	quit top
+^L	Redraw the screen
+Space   Update display
+fF      Add and remove fields
+oO      Change order of displayed fields
+n or #  Set the number of processes to show
+u       Show only a specific user
+k       Kill a task (with any signal)
+r       Renice a task
+s       Set the delay in seconds between updates
+
+
+Toggle:
+    C:collapsed SMP CPU info    H:threads               l:load average
+    S:cumulative mode           i:idle processes        m:memory info
+    I:Irix/Solaris view (SMP)   c:command line          t:summary info
+Sort by:
+    A:age               M:resident memory usage
+    N:pid               T:time (or cumulative time)
+    P:CPU usage
+
+
+
+

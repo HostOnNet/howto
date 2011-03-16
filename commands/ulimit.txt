@@ -1,0 +1,34 @@
+ulimit
+ulimit -a
+
+Also refer (in cpanel to limit users)
+
+/etc/profile.d/limits.csh
+/etc/profile.d/limits.sh
+
+
+/etc/bashrc
+
+
+if [ "$LIMITUSER" != "root" ]; then
+        ulimit -n 100 -u 20 -m 200000 -d 200000 -s 8192 -c 200000 -v 200000 2>/dev/null
+else
+        ulimit -n 4096 -u 14335 -m unlimited -d unlimited -s 8192 -c 1000000 -v unlimited 2>/dev/null
+fi
+
+
+#cPanel Added Limit Protections -- BEGIN
+
+#unlimit so we can run the whoami
+ulimit -n 4096 -u 14335 -m unlimited -d unlimited -s 8192 -c 1000000 -v unlimited 2>/dev/null
+
+LIMITUSER=$USER
+if [ -e "/usr/bin/whoami" ]; then
+        LIMITUSER=`/usr/bin/whoami`
+fi
+if [ "$LIMITUSER" != "root" ]; then
+        ulimit -n 4096 -u 14335 -m unlimited -d unlimited -s 8192 -c 1000000 -v unlimited 2>/dev/null
+else
+        ulimit -n 4096 -u 14335 -m unlimited -d unlimited -s 8192 -c 1000000 -v unlimited 2>/dev/null
+fi
+#cPanel Added Limit Protections -- END

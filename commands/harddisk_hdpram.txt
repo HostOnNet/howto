@@ -1,0 +1,27 @@
+========================================================================================
+Know the performance of your HardDisk:
+========================================================================================
+
+
+
+hdparm -Tt /dev/sda
+
+[root@server32 log]# hdparm -Tt /dev/sda
+
+/dev/sda:
+ Timing cached reads:   3232 MB in  2.00 seconds = 1614.63 MB/sec
+ Timing buffered disk reads:   98 MB in  3.01 seconds =  32.56 MB/sec
+[root@server32 log]#
+
+
+[root@server10 etc]# hdparm -Tt /dev/sda
+
+/dev/sda:
+ Timing buffer-cache reads:   3648 MB in  2.00 seconds = 1824.55 MB/sec
+ Timing buffered disk reads:  140 MB in  3.01 seconds =  46.55 MB/sec
+[root@server10 etc]#
+
+
+
+========================================================================================
+

@@ -1,0 +1,8 @@
+You can increase this value in main config file (e.g., /etc/my.cnf) using this syntax:
+
+vi /etc/my.cnf
+
+
+[mysqld]
+set-variable=max_connections=250
+

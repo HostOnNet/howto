@@ -1,0 +1,7 @@
+wget http://samba.anu.edu.au/ftp/rsync/rsync-2.6.9.tar.gz
+tar -zxvf rsync-2.6.9.tar.gz
+cd rsync-2.6.9
+./configure
+make
+make install
+

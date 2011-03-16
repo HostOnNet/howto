@@ -1,0 +1,290 @@
+==============================================================================================
+Installing PHP
+==============================================================================================
+
+cd /usr/local/src
+wget http://in.php.net/get/php-4.4.4.tar.bz2/from/this/mirror
+tar -jxvf php-4.4.4.tar.bz2
+cd php-4.4.4
+
+
+BASIC
+
+./configure --prefix=/usr --with-config-file-path=/etc --with-apxs2=/etc/httpd/bin/apxs --with-mysql=/usr  --enable-force-cgi-redirect --disable-cgi --with-zlib --with-gettext --with-gdbm --with-xml --enable-ftp  --enable-calendar --enable-bcmath --enable-sockets --enable-track-vars --with-zlib --enable-magic-quotes
+
+With CURL
+
+./configure --prefix=/usr/local/apache/php4 --with-apxs=/usr/local/apache/bin/apxs --enable-versioning --enable-memory-limit --enable-fastcgi --with-regex=php --with-mysql=/usr/local/lib/mysql
+
+
+
+
+./configure 
+
+
+ --with-curl --enable-force-cgi-redirect --disable-cgi --with-zlib --with-gettext --with-gdbm --enable-ftp  --enable-calendar --enable-bcmath --enable-sockets --enable-track-vars --with-zlib --enable-magic-quotes --with-gd --with-jpeg=/usr/local
+
+
+
+
+
+mkdir /usr/local/lib/mysql
+cd /usr/local/lib/mysql
+ln -s /usr/include/mysql include
+ln -s /usr/lib64/mysql lib
+
+
+
+
+
+make
+make install
+
+cp php.ini-recommended /etc/php.ini
+
+
+==============================================================================================
+Modify httpd.conf
+==============================================================================================
+
+
+vi /usr/local/apache/conf/httpd.conf
+
+----------------------------------------------------------------------
+As CGI - Add at end
+----------------------------------------------------------------------
+
+AddType application/x-httpd-php php
+AddType application/x-httpd-php-source phps
+
+
+----------------------------------------------------------------------
+As Module
+----------------------------------------------------------------------
+
+LoadModule php5_module /usr/lib/httpd/modules/libphp5.so
+AddHandler php5-script .php
+AddType text/html .php
+
+
+==============================================================================================
+php.ini
+==============================================================================================
+
+
+cd /usr/local/src/php-4.4.2
+cp php.ini-recommended /etc/php.ini
+
+
+==============================================================================================
+Finish
+==============================================================================================
+
+After installing PHP, you need to restart apache
+
+service httpd restart
+
+
+==============================================================================================
+INSTALL PEAR
+==============================================================================================
+
+
+lynx -source http://go-pear.org/ | php
+
+
+==============================================================================================
+GD INSTALL
+==============================================================================================
+
+
+----------------------------------------------------------------------------------------------
+Install zlib
+----------------------------------------------------------------------------------------------
+
+cd /usr/local/src
+wget http://url/to/zlib-1.2.2.tar.gz
+tar -zxvf zlib-1.2.2.tar.gz
+cd zlib-1.2.2
+make clean
+./configure
+make test
+make install
+
+
+----------------------------------------------------------------------------------------------
+install libpng
+----------------------------------------------------------------------------------------------
+
+cd /usr/local/src
+wget http://url/to/libpng-1.2.8-config.tar.gz
+tar -zxvf libpng-1.2.8-config.tar.gz
+cd libpng-1.2.8-config
+./configure
+make
+make install
+
+
+----------------------------------------------------------------------------------------------
+install freetype-2.1.9.tar.gz
+----------------------------------------------------------------------------------------------
+
+cd /usr/local/src
+wget http://url/to/freetype-2.1.9.tar.gz
+tar -zxvf freetype-2.1.9.tar.gz
+cd freetype-2.1.9
+./configure
+make
+make install
+
+
+----------------------------------------------------------------------------------------------
+install jpegsrc.v6b.tar.gz
+----------------------------------------------------------------------------------------------
+cd /usr/local/src
+tar zxvf jpegsrc.v6b.tar.gz
+cd jpeg-6b
+./configure
+make
+make install
+
+
+----------------------------------------------------------------------------------------------
+install gd-2.0.33.tar.gz
+----------------------------------------------------------------------------------------------
+cd /usr/local/src
+tar -zxvf gd-2.0.33.tar.gz
+cd gd-2.0.33
+./configure --with-jpeg=/usr/local
+
+
+
+   Support for PNG library:          yes
+   Support for JPEG library:         yes
+   Support for Freetype 2.x library: yes
+   Support for Fontconfig library:   no
+   Support for Xpm library:          no
+   Support for pthreads:             yes
+
+
+
+make
+
+make install
+
+
+----------------------------------------------------------------------------------------------
+cd /usr/local/src
+wget http://curl.haxx.se/download/curl-7.15.5.tar.gz
+tar -zxvf curl-7.15.5.tar.gz
+cd curl-7.15.5
+./configure
+make
+make install
+
+----------------------------------------------------------------------------------------------
+configure: error: xpm.h not found.
+----------------------------------------------------------------------------------------------
+cd /usr/local/src
+wget http://koala.ilog.fr/ftp/pub/xpm/xpm-3.4k.tar.gz
+tar -zxvf xpm-3.4k.tar.gz
+cd xpm-3.4k
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+Recompile PHP
+----------------------------------------------------------------------------------------------
+
+cd /usr/local/src/php-5*
+
+./configure --prefix=/usr --with-config-file-path=/etc --with-apxs2=/etc/httpd/bin/apxs --with-mysql=/usr  --enable-force-cgi-redirect --disable-cgi --with-zlib --with-gettext --with-gdbm --with-xml --enable-ftp  --enable-calendar --enable-bcmath --enable-sockets --enable-track-vars --with-zlib --enable-magic-quotes --with-gd --with-jpeg-dir=/usr/local
+
+
+=/usr/local --with-jpeg-dir=/usr/local
+
+
+
+
+
+  --with-gd[=DIR]         Include GD support where DIR is GD install prefix.
+                          If DIR is not set, the bundled GD library will be used.
+  --with-jpeg-dir[=DIR]     GD: Set the path to libjpeg install prefix.
+  --with-png-dir[=DIR]      GD: Set the path to libpng install prefix.
+  --with-zlib-dir[=DIR]     GD: Set the path to libz install prefix.
+  --with-xpm-dir[=DIR]      GD: Set the path to libXpm install prefix.
+  --with-ttf[=DIR]          GD: Include FreeType 1.x support
+  --with-freetype-dir[=DIR] GD: Set the path to FreeType 2 install prefix.
+  --with-t1lib[=DIR]        GD: Include T1lib support.
+  --enable-gd-native-ttf    GD: Enable TrueType string function.
+  --enable-gd-jis-conv      GD: Enable JIS-mapped Japanese font support.
+
+
+------------------------------------------------
+phpinfo.php
+GD Support 	enabled
+GD Version 	bundled (2.0.28 compatible)
+GIF Read Support 	enabled
+GIF Create Support 	enabled
+PNG Support 	enabled
+WBMP Support 	enabled
+XBM Support 	enabled
+------------------------------------------------
+
+NOTE: No JPEG
+
+
+
+
+
+
+
+./configure --prefix=/usr/local --with-config-file-path=/etc --with-apxs2=/usr/local/apache/bin/apxs --with-mysql --enable-force-cgi-redirect --disable-cgi --with-zlib --with-gettext --with-gdbm --with-xml --enable-ftp  --enable-calendar --enable-bcmath --enable-sockets --enable-track-vars --with-zlib --enable-magic-quotes --with-gd --with-jpeg-dir=/usr/local
+
+
+NOTE: now got error "configure: error: libjpeg.(a|so) not found."
+
+---------------------------------------------------------------
+SOLUTION:
+---------------------------------------------------------------
+
+# find / -name libjpeg.*
+/usr/local/src/jpeg-6b/libjpeg.a
+/usr/local/src/jpeg-6b/libjpeg.doc
+/usr/lib/libjpeg.so.62
+/usr/lib/libjpeg.so.62.0.0
+#
+
+ln -s /usr/lib/libjpeg.so.62.0.0 /usr/lib/libjpeg.so
+
+---------------------------------------------------------------
+
+
+./configure --prefix=/usr/local --with-config-file-path=/etc --with-apxs2=/usr/local/apache/bin/apxs --with-mysql --enable-force-cgi-redirect --disable-cgi --with-zlib --with-gettext --with-gdbm --with-xml --enable-ftp  --enable-calendar --enable-bcmath --enable-sockets --enable-track-vars --with-zlib --enable-magic-quotes --with-gd
+
+
+
+make; make install
+
+cd /usr/local/src/php-4.4.2/ext/gd/libgd/
+vi gd_jpeg.c
+
+FIND :
+
+#include "jpeglib.h"
+#include "jerror.h"
+
+REPLACE :
+
+include "/usr/local/src/jpeg-6b/jpeglib.h"
+include "/usr/local/src/jpeg-6b/jerror.h"
+
+include "../jpeg-6b/jpeglib.h"
+include "../jpeg-6b/jerror.h"
+
+
+[root@linux ~]# find / -name jpeglib.h
+/usr/local/src/jpeg-6b/jpeglib.h
+[root@linux ~]#

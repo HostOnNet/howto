@@ -1,0 +1,2 @@
+wget http://mirror.centos.org/centos-5/5.2/os/i386/CentOS/perl-URI-1.35-3.noarch.rpm
+rpm -ivh perl-URI-1.35-3.noarch.rpm

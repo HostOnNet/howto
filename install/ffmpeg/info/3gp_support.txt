@@ -1,0 +1,12 @@
+3GP Support
+
+If you want to enable 3GP support you have to add the AMR audio codec. Download the TS26.104
+
+REL-5 V5.1.0 26104-5??.zip here.
+
+http://www.3gpp.org/ftp/Specs/latest/Rel-5/26_series/
+
+http://www.3gpp.org/ftp/Specs/latest/Rel-5/26_series/26104-540.zip
+
+
+Extract the codec into libavcodec/amr_float and add "--enable-amr_nb" to your configure command

@@ -1,0 +1,21 @@
+scp -r /path/to/files/ username@newserverthatneedsfiles.com:/path/to/newfiles
+
+-r Recursively copy entire directories.
+
+
+cd to the directory you want to transfer and use the scp option
+but using a wildcard and a -r instead of the -R (recursive) switch.
+
+scp -r * user@255.255.255.255:/home/user
+
+scp -r directory-name userid@hostname:directory-name2
+
+
+scp file-name1 userid@host-name:file-name2
+
+
+
+# split --help
+
+
+
