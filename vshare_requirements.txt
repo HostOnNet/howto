@@ -108,7 +108,7 @@ cd /usr/local/src
 wget -c http://www.ijg.org/files/jpegsrc.v7.tar.gz
 tar -zxvf jpegsrc.v7.tar.gz
 cd /usr/local/src/jpeg-7
-./configure
+./configure  --prefix=/usr
 make
 make install
 
@@ -213,6 +213,13 @@ make clean && make distclean
 ./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/
 make && make install
 
+### mplayer install from snapshot ###
+# cd /usr/local/src
+# wget http://www.mplayerhq.hu/MPlayer/releases/mplayer-export-snapshot.tar.bz2
+# tar jxvf mplayer-export-snapshot.tar.bz2
+# cd mplayer*
+# ./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/
+# make && make install
 
 cd /usr/local/src
 wget -c http://downloads.sourceforge.net/sourceforge/yamdi/yamdi-1.4.tar.gz
