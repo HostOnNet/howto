@@ -1,0 +1,21 @@
+Download
+=============================================
+
+
+mkdir -p /usr/local/src
+cd /usr/local/src
+
+wget http://qmail.org/netqmail-1.05.tar.gz
+wget ftp://cr.yp.to/ucspi-tcp/ucspi-tcp-0.88.tar.gz
+wget ftp://cr.yp.to/daemontools/daemontools-0.76.tar.gz
+
+
+
+
+umask 022
+mv netqmail-1.05.tar.gz ucspi-tcp-0.88.tar.gz /usr/local/src
+mkdir -p /package
+mv daemontools-0.76.tar.gz /package
+chmod 1755 /package
+
+

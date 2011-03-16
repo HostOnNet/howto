@@ -1,0 +1,69 @@
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_authenticated_header = yes
+broken_sasl_auth_clients = yes
+smtpd_sasl_local_domain =
+smtpd_sasl_security_options = noanonymous
+
+
+smtp_enforce_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/usr/local/etc/postfix/sasl_passwd
+smtp_sasl_path = smtp
+smtp_sasl_security_options = noanonymous, noplaintext
+smtp_sasl_tls_security_options = noanonymous
+
+smtp_sender_dependent_authentication = yes
+
+----------------------------------------------------------------
+
+
+
+http://www.postfix.org/SASL_README.html#server_dovecot
+
+
+
+vi /etc/postfix/main.cf
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_path = /var/spool/postfix/private/auth
+broken_sasl_auth_clients = yes
+
+
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+
+change to
+
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+
+
+vi /usr/local/etc/dovecot.conf
+
+
+auth default {
+  # Space separated list of wanted authentication mechanisms:
+  #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi
+mechanisms = plain login digest-md5 cram-md5 ntlm rpa apop
+
+userdb sql {
+args = /etc/dovecot-mysql.conf
+}
+
+passdb sql {
+args = /etc/dovecot-mysql.conf
+}
+
+# ADDED FOR SASL - START
+
+socket listen {
+client {
+path = /var/spool/postfix/private/auth
+mode = 0660
+user = postfix
+group = postfix
+}
+}
+
+# ADDED FOR SASL - END

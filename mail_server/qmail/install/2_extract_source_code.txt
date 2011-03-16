@@ -1,0 +1,13 @@
+Extract Source Code
+==============================================
+
+cd /usr/local/src
+tar -zxvf netqmail-1.05.tar.gz
+cd netqmail-1.05
+./collate.sh
+cd ..
+tar zxvf ucspi-tcp-0.88.tar.gz
+
+cd /package
+tar zxvf daemontools-0.76.tar.gz
+

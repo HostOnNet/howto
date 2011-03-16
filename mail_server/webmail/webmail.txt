@@ -1,0 +1,45 @@
+cd /usr/local/www
+wget http://squirrelmail.org/countdl.php?fileurl=http%3A%2F%2Fprdownloads.sourceforge.net%2Fsquirrelmail%2Fsquirrelmail-1.4.9a.tar.gz
+tar -zxvf squirrelmail-1.4.9a.tar.gz
+mv squirrelmail-1.4.9a webmail
+chmod -R 755 webmail
+
+
+
+http://www.uebimiau.org/
+
+cd /usr/local/www
+rm -rf webmail
+wget http://www.uebimiau.org/downloads/uebimiau-2.7.10-any.zip
+unzip uebimiau-2.7.10-any.zip
+chmod -R 755 webmail
+
+
+vi /usr/local/apache2/conf/httpd.conf
+
+Alias /webmail /usr/local/www/webmail
+<Directory /usr/local/www/webmail>
+Options Indexes FollowSymLinks
+AllowOverride All
+Order allow,deny
+Allow from all
+</Directory>
+
+
+
+http://69.64.72.45/webmail
+
+cd /usr/local/www/webmail
+
+inc.php
+
+Header("Expires: Wed, 11 Nov 1998 11:11:11 GMT");
+Header("Cache-Control: no-cache");
+Header("Cache-Control: must-revalidate");
+
+vi inc/class.uebimiau_mail.php
+
+$this->mail_connection = fsockopen("localhost", $this->mail_port, $errno, $errstr, 15);
+
+
+

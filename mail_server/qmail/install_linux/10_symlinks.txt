@@ -1,0 +1,4 @@
+ln -fs /var/qmail/bin/sendmail /usr/sbin/sendmail
+ln -fs /var/qmail/bin/sendmail /usr/bin/sendmail
+ln -fs /var/qmail/bin/qmail-qread /usr/bin/mailq
+ln -s /usr/bin/qmailctl /etc/init.d/qmail

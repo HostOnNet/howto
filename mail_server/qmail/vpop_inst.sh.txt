@@ -1,0 +1,116 @@
+#!/bin/sh
+
+#-------------------------------------------------------#
+#Section 1 - download packages to /usr/local/src        #
+#-------------------------------------------------------#
+SRCDIR="/usr/local/src/"
+AUTOURL="http://inter7.com/devel/autorespond-2.0.2.tar.gz"
+EZMLMURL="http://inter7.com/devel/ezmlm-0.53-idx-0.41.tar.gz"
+QADMURL="http://heanet.dl.sourceforge.net/sourceforge/qmailadmin/qmailadmin-1.2.3.tar.gz"
+AUTHURL="http://heanet.dl.sourceforge.net/sourceforge/courier/courier-authlib-0.55.tar.bz2"
+SQWEBURL="http://heanet.dl.sourceforge.net/sourceforge/courier/sqwebmail-5.0.1.tar.bz2"
+VPOPURL="http://heanet.dl.sourceforge.net/sourceforge/vpopmail/vpopmail-5.4.10.tar.gz"
+VQADMINURL="http://inter7.com/vqadmin/vqadmin-2.3.2.tar.gz"
+
+
+cd ${SRCDIR}
+
+wget ${AUTOURL}
+wget ${EZMLMURL}
+wget ${QADMURL}
+wget ${AUTHURL}
+wget ${SQWEBURL}
+wget ${VPOPURL}
+wget ${VQADMINURL}
+
+#-------------------------------------------------------#
+#Section 2 - Uncompress downloaded packages             #
+#-------------------------------------------------------#
+
+AUTOPACK="autorespond-2.0.2.tar.gz"
+EZMLMPACK="ezmlm-0.53-idx-0.41.tar.gz"
+QADMPACK="qmailadmin-1.2.3.tar.gz"
+AUTHPACK="courier-authlib-0.55.tar.bz2"
+SQWEBPACK="sqwebmail-5.0.1.tar.bz2"
+VPOPPACK="vpopmail-5.4.10.tar.gz"
+VQPACK="vqadmin-2.3.2.tar.gz"
+
+
+tar -xpzf ${AUTOPACK}
+tar -xpzf ${EZMLMPACK}
+tar -xpzf ${QADMPACK}
+tar -xpjf ${AUTHPACK}
+tar -xpjf ${SQWEBPACK}
+tar -xpzf ${VPOPPACK}
+tar -xpzf ${VQPACK}
+
+#-------------------------------------------------------#
+#Section 3 - Compile and install packages               #
+#-------------------------------------------------------#
+
+AUTODIR="autorespond-2.0.2"
+EZMLMDIR="ezmlm-0.53-idx-0.41"
+QADMDIR="qmailadmin-1.2.3"
+AUTHDIR="courier-authlib-0.55"
+SQWEBDIR="sqwebmail-5.0.1"
+VPOPDIR="vpopmail-5.4.10"
+VQADMDIR="vqadmin-2.3.2"
+
+cd ${SRCDIR}${AUTODIR}
+make
+make install
+
+#read B1
+
+cd ${SRCDIR}${EZMLMDIR}
+make
+make man
+make setup
+
+#read B2
+
+cd ${SRCDIR}${VPOPDIR}
+groupadd -g 89 vchkpw
+useradd -g vchkpw -u 89 vpopmail
+./configure
+make
+make install-strip
+
+#read B3
+
+cd ${SRCDIR}${AUTHDIR}
+./configure --with-redhat --without-authpwd --without-authshadow --without-authpam --without-authldap --without-authdaemon --with-authvchkpw
+make
+make install
+make install-migrate
+make install-configure
+
+/usr/local/sbin/authdaemond start
+echo "/usr/local/sbin/authdaemond start" >> /etc/rc.local
+
+#read B4
+
+cd ${SRCDIR}${SQWEBDIR}
+./configure --enable-cgibindir=/home/pop3/cgi-bin --enable-imagedir=/home/pop3/html/webmail --without-authpwd --without-authshadow --without-authpam --without-authldap --without-authdaemon --with-authvchkpw
+make configure-check
+make
+make check
+make install-strip
+make install-configure
+
+/usr/lib/sqwebmail/libexec/sqwebmaild.rc start
+echo "/usr/lib/sqwebmail/libexec/sqwebmaild.rc start" >> /etc/rc.local
+
+#read B5
+
+cd ${SRCDIR}${QADMDIR}
+./configure --enable-htmldir=/home/post/html/ --enable-cgibindir=/home/post/cgi-bin/
+make
+make install-strip
+
+#read B6
+
+cd ${SRCDIR}${VQADMDIR}
+./configure --enable-cgibindir=/home/admin/cgi-bin/
+make
+make install-strip

@@ -1,0 +1,8 @@
+Suspend
+
+update mailbox set active=0 where username='pmoreen@bizhat.com';
+
+Delete
+rm -rf /home/vmail/pmoreen
+delete from mailbox where username='pmoreen@bizhat.com';
+delete from users where username='pmoreen@bizhat.com';

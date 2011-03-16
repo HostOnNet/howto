@@ -1,0 +1,44 @@
+How to install mail scanner (Mail Scanner & ClamAV Installation)   
+This is an addon to Exim. Exim is still the MTA, Mail Scanner scans and clamav is the AV system.
+This will help in preventing the spread of virus's through your webserver. It will deny/block the virus's
+so that they do not reach the recipient. ClamAv can be used at the command line however the main purpose of this 
+software is the integration with mail servers (attachment scanning). Which is what Mail Scanner & ClamAV do.   
+Login to your server via SSH. 
+Type:
+wget http://layer1.cpanel.net/mailscanner-autoinstall-1.5.tar.gz 
+Type:
+tar zxvf mailscanner-autoinstall-1.5.tar.gz 
+Type:
+cd mailscanner* 
+Type:
+./install
+This make take up to 5 minutes to download, and install all the librarys require for Mail Scanner.
+
+If the above Finished and brought you back to prompt goto step #7 if not continue with step 6
+Press: CTRL-C
+Type: pico -w install
+Comment out these lines w/ a #
+
+print "Installing Perl Modules...";
+ssystem("/scripts/perlinstaller","MIME::Base64","File::Spec","HTML::Tagset","HTML::Parser","MIME::Tools","File::Temp","Convert::TNEF");
+print "Done\n";
+
+So they look like this: 
+
+#print "Installing Perl Modules...";
+#ssystem("/scripts/perlinstaller","MIME::Base64","File::Spec","HTML::Tagset","HTML::Parser","MIME::Tools","File::Temp","Convert::TNEF");
+#print "Done\n";
+
+Login to WHM as Root.
+Install the above Modules in WHM's Perl Module Installer.
+Type: ./install
+Then goto Step #7 when install finishes 
+
+Type:
+killall -9 MailScanner 
+Type:
+/usr/mailscanner/bin/check_mailscanner 
+If you want to look at the Mail Scanner configuration file you can do so by.
+Type: pico -w /usr/mailscanner/etc/MailScanner.conf
+DO NOT Enable anything to do with SpamAssin.
+ 

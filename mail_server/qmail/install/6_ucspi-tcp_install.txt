@@ -1,0 +1,25 @@
+Install ucspi-tcp
+===========================================
+
+
+cd /usr/local/src/ucspi-tcp-0.88
+
+Patch it 
+
+patch < /usr/local/src/netqmail-1.05/other-patches/ucspi-tcp-0.88.errno.patch
+
+
+more README
+
+http://cr.yp.to/ucspi-tcp.html
+http://cr.yp.to/ucspi-tcp/install.html
+
+
+Compile the ucspi-tcp programs: 
+
+make
+
+As root, install the ucspi-tcp programs under /usr/local: 
+
+make setup check
+

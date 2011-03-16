@@ -1,0 +1,16 @@
+connect = dbname=bizhat_mail user=root host=localhost password=os2winlinmysql
+
+
+# md5 encrypted password in MySQL
+
+default_pass_scheme = PLAIN-MD5
+
+
+
+Is MySQL login details
+
+user_query = SELECT 4444 AS uid, 4444 AS gid FROM mailbox WHERE username = '%u'
+
+4444 is uid of user vmail
+4444 is gid of group vmail
+

@@ -1,0 +1,7 @@
+openssl req -new -x509 -nodes -out /tmp/public.pem -keyout /tmp/private.pem -days 3650
+cp /tmp/public.pem /usr/share/ssl/certs/dovecot.pem
+cp /tmp/private.pem /usr/share/ssl/private/dovecot.pem
+
+
+http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL
+

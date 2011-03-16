@@ -1,0 +1,228 @@
+Deleting mail from the mail queue 
+
+Sendmail does not have a command-line flag to delete mail from the mail queue. If you are ever bombarded with spam from an invalid return address, it may be necessary to remove messages from the mail queue rather than allowing Sendmail to attempt delivery for 5 days (by default).
+
+
+The proper way to remove messages from the mail queue is to use the qtool.pl program included in the contrib subdirectory of the Sendmail source code distribution. qtool.pl uses the same file locking mechanism as Sendmail.
+
+
+Removing "double bounce" messages
+
+The following is an example double_bounce script that calls /usr/local/bin/qtool.pl to remove "double bounce" messages. A "double bounce" is a message that is addressed to a non-existent user and that is sent from an invalid return address. 
+
+
+The script below will delete a queued message (1) if it is "deferred" (unable to be returned to the sender), (2) if it is being sent from our postmaster email address (delivery failure notifications are sent from our postmaster email address), and (3) the subject is unique to delivery failure notifications.
+
+#!/usr/local/bin/perl
+
+$mqueue_directory = "/var/spool/mqueue";
+$messages_removed = 0;
+
+use File::Find;
+# Recursively find all files and directories in $mqueue_directory
+find(\&Wanted, $mqueue_directory);
+
+sub Wanted
+{
+   # Is this a qf* file?
+   if ( /^qf/ ) {
+      $QF_FILE = $_;
+      $deferred = 0;
+      $from_postmaster = 0;
+      $delivery_failure = 0;
+      open (QF_FILE, $_);
+      while(<QF_FILE>) {
+         if ( /^MDeferred/ ) { $deferred = 1; }
+         if ( /^H\?\?From: Postmaster\@our_domain.com/i ) { $from_postmaster = 1; }
+         if ( /^H\?\?Subject: DELIVERY FAILURE: (User|Recipient)/ ) { $delivery_failure = 1; }
+         if ( $deferred && $from_postmaster && $delivery_failure ) {
+            close (QF_FILE);
+            system "/usr/local/bin/qtool.pl", "-d", $QF_FILE;
+            $messages_removed += 1;
+            last;
+         }
+      }
+   }
+}
+
+print "$messages_removed total \"double bounce\" messages removed from mail queue.\n";
+
+
+Queued mail by domain
+The following mq_by_domain Perl script will show all queued mail by domain:
+
+#!/usr/local/bin/perl
+
+$mqueue_directory = "/var/spool/mqueue";
+
+use File::Find;
+# Recursively find all files and directories in $mqueue_directory
+find(\&Wanted, $mqueue_directory);
+
+sub Wanted
+{
+   # Is this a qf* file?
+   if ( /^qf/ ) {
+      open (QF_FILE, $_);
+      while(<QF_FILE>) {
+         # The line beginning with rRFC822; contains the envelope recipient
+         if ( /^rRFC822;\s.*@(.*)$/ ) {
+            # In %domain hash, add 1 to the key
+            $domain{"$1"} += 1;
+            # Exit the loop; begin processing the next file
+            last;
+         }
+      }
+   }
+}
+
+# Subroutine to sort hash by ascending value
+sub hashValueAscendingNum {
+   $domain{$a} <=> $domain{$b};
+}
+
+# Print sorted results
+foreach $key (sort hashValueAscendingNum (keys(%domain))) {
+   print "$domain{$key} $key\n";
+}
+
+
+Queued mail by email address
+The following mq_by_email Perl script will show all queued mail by email address:
+
+#!/usr/local/bin/perl
+
+$mqueue_directory = "/var/spool/mqueue";
+
+use File::Find;
+# Recursively find all files and directories in $mqueue_directory
+find(\&Wanted, $mqueue_directory);
+
+sub Wanted
+{
+   # Is this a qf* file?
+   if ( /^qf/ ) {
+      open (QF_FILE, $_);
+      while(<QF_FILE>) {
+         # The line beginning with rRFC822; contains the envelope recipient
+         if ( /^rRFC822;\s(.*)$/ ) {
+            # In %domain hash, add 1 to the value
+            $domain{"$1"} += 1;
+            # Exit the loop; begin processing the next file
+            last;
+         }
+      }
+   }
+}
+
+# Subroutine to sort hash by ascending value
+sub hashValueAscendingNum {
+   $domain{$a} <=> $domain{$b};
+}
+
+# Print sorted results
+foreach $key (sort hashValueAscendingNum (keys(%domain))) {
+   print "$domain{$key} $key\n";
+}
+
+
+Removing mail from the mail queue
+The following Perl script will remove queued mail to one or more recipients specified as command-line arguments.
+
+#!/usr/local/bin/perl
+
+$mqueue_directory = "/var/spool/mqueue";
+$messages_removed = 0;
+
+use File::Find;
+# Recursively find all files and directories in $mqueue_directory
+find(\&Wanted, $mqueue_directory);
+
+sub Wanted
+{
+   # Is this a qf* file?
+   if ( /^qf/ ) {
+      $QF_FILE = $_;
+      open (QF_FILE, $_);
+      while(<QF_FILE>) {
+         if ( /^rRFC822;\s(.*)$/ ) {
+            foreach (@ARGV) {
+               if ( $_ eq $1 ) {
+                  close (QF_FILE);
+                  system "/usr/local/bin/qtool.pl", "-d", $QF_FILE;
+                  $messages_removed += 1;
+                  last;
+               }
+            }
+            close (QF_FILE);
+            last;
+         }
+      }
+   }
+}
+
+print "$messages_removed total messages removed from mail queue.\n";
+
+If you would like to remove mail for one or more domains instead of individual email addresses, make the following change in the above script.
+
+Change:
+if ( $_ eq $1 ) {
+
+To:
+if ( $1 =~ $_ ) {
+
+
+Older notes
+Note: the preferred method of queue removal is to use qtool.pl as illustrated above.
+
+
+In order to remove mail from the queue, you have to delete the df* and qf* files from  your mail queue directory, generally /var/spool/mqueue. The qf* file is the header of the message and the control file, and the df* file is the body of the message.
+
+
+I wrote the following script to move undeliverable email in our /var/spool/mqueue mail queue to an alternate /tmp/mqueue directory.
+
+
+#!/bin/sh
+
+if [ -z $@ ] ; then
+   echo "Usage: $0 email_address"
+   exit 1
+fi
+
+for i in `(cd /var/spool/mqueue; grep -l "To:.*$1" qf* | cut -c3-)`
+do
+   mv /var/spool/mqueue/*$i /tmp/mqueue
+done
+
+
+If you have multiple mail queues, such as q1, q2, q3, q4, and q5, you can use the following script:
+
+
+#!/bin/sh
+
+if [ -z $@ ] ; then
+   echo "Usage: $0 email_address"
+   exit 1
+fi
+
+for i in q1 q2 q3 q4 q5
+do
+   for j in `(cd /var/spool/mqueue/$i; grep -l "To:.*$1" qf* | cut -c3-)`
+   do
+     mv /var/spool/mqueue/$i/*$j /tmp/mqueue
+   done
+done
+
+
+For example, running the script while passing the command-line argument badsender@baddomain.com will look for each qf* file in the mail queue containing To:.*badsender@baddomain.com. The regular 
+expression .* will match zero or more occurrences of any characters, numbers, or whitespace. For example, it would match:
+
+
+To: badsender@baddomain.com
+To: Bad Sender <badsender@baddomain.com>
+
+
+The script then moves any other files (i.e. the body of the message) in the mail queue with the same Sendmail message ID to the alternate directory. It does this with the cut -c3- command, as the Sendmail message ID is the 3rd through the last character.
+
+
+The mail is moved to /tmp/mqueue. If you are confident that you do not want the messages, you can delete them from this directory, or you could change the script to remove the files.

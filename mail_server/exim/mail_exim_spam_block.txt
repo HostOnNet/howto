@@ -1,0 +1,37 @@
+pico /etc/exim.conf
+
+Look for the following entry
+
+#!!# ACL that is used after the RCPT command
+check_recipient:
+# Exim 3 had no checking on -bs messages, so for compatibility
+# we accept if the source is local SMTP (i.e. not over TCP/IP).
+# We do this by testing for an empty sending host field.
+accept  hosts = :
+
+Add Following Lines
+===================
+
+
+require verify = sender
+
+# Spam control starts here:
+
+deny message = rejected because $sender_host_address is \
+                 is blacklisted at $dnslist_domain\n\
+                 $dnslist_text
+dnslists = sbl.spamhaus.org : \
+           bl.spamcop.net
+# Spam control stops here
+
+
+11/28/2003
+==========
+#Changes made because mail from asianet and server4.hosthat.com (windows) rejected saying
+#Remote SMTP Server Returned: 550-rejected because 69.56.130.2 is is blacklisted at
+#550 spamhaus.relays.osirusoft.com
+
+dnslists = sbl.spamhaus.org : \
+           relays.ordb.org
+
+

@@ -1,0 +1,40 @@
+Starting qmail
+=====================================================
+
+
+-------------------------------------------------------
+1. Set Delivery Mod
+-------------------------------------------------------
+
+
+echo ./Mailbox >/var/qmail/control/defaultdelivery
+
+
+
+
+-------------------------------------------------------
+2. Create start up script
+-------------------------------------------------------
+
+vi /var/qmail/rc
+
+----------------
+#!/bin/sh
+
+# Using stdout for logging
+# Using control/defaultdelivery from qmail-local to deliver messages by default
+
+exec env - PATH="/var/qmail/bin:$PATH" \
+qmail-start "`cat /var/qmail/control/defaultdelivery`"
+----------------
+
+
+
+-------------------------------------------------------
+3. Set permissions
+-------------------------------------------------------
+
+chmod 755 /var/qmail/rc
+mkdir /var/log/qmail
+
+

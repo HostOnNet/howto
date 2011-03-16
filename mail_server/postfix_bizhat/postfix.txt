@@ -1,0 +1,37 @@
+http://docs.huihoo.com/postfix/postfix-integrated-solution/x884.html#FTN.AEN892
+
+
+
+=====================================================================================
+
+printf 'info@bizhat.com' | mimencode
+dXNlcg==
+printf 'stefin123' | mimencode
+cGFzcw==
+
+
+telnet 0 25
+Trying 10.1.2.3...
+Connected to 10.1.2.3.
+Escape character is '^]'.
+220 my.mail.server ESMTP Postfix
+
+EHLO blah
+
+250-my.mail.server
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-AUTH LOGIN PLAIN CRAM-MD5 DIGEST-MD5
+250-AUTH=LOGIN PLAIN CRAM-MD5 DIGEST-MD5
+250-XVERP
+250 8BITMIME
+
+auth login
+
+334 VXNlcm5hbWU6
+dXNlcg==
+334 UGFzc3dvcmQ6
+cGFzcw==
+235 Authentication successful

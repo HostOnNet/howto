@@ -1,0 +1,15 @@
+Compile Qmail
+=============
+
+cd /usr/local/src/netqmail-1.05/netqmail-1.05
+
+make setup check
+
+# ./config-fast the.full.hostname
+
+./config-fast server24.hosthat.com
+
+
+
+qmail is now installed on your system and is ready to be run!
+-------------------------------------------------------------

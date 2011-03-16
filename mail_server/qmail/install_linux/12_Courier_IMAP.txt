@@ -1,0 +1,207 @@
+cd /downloads/qmailrocks/
+tar jxvf courier-authlib-0.55.tar.bz2
+cd courier-authlib-0.55
+
+./configure --prefix=/usr/local --exec-prefix=/usr/local --with-authvchkpw --without-authldap --without-authmysql --disable-root-check --with-ssl --with-authchangepwdir=/usr/local/libexec/authlib --with-redhat
+
+make && make check
+
+make install-strip && make install-configure
+
+
+
+
+vi /etc/rc.local
+
+Add the following line:
+
+/usr/local/sbin/authdaemond start
+
+
+
+
+=======================================================
+courier imap needs to be compiled by a NON-ROOT USER
+=======================================================
+
+[root@mail courier-authlib-0.55]# adduser admin
+[root@mail courier-authlib-0.55]# passwd admin
+Changing password for user admin.
+New UNIX password: yujin123
+Retype new UNIX password: yujin123
+passwd: all authentication tokens updated successfully.
+[root@mail courier-authlib-0.55]#
+
+
+cd /downloads/qmailrocks/
+tar jxvf courier-imap-4.0.2.tar.bz2
+chown -R admin:wheel courier-imap-4.0.2
+cd /downloads/qmailrocks/courier-imap-4.0.2
+su admin
+
+
+./configure --prefix=/usr/local --exec-prefix=/usr/local --with-authvchkpw --without-authldap --without-authmysql --disable-root-check --with-ssl --with-authchangepwdir=/usr/local/libexec/authlib --with-redhat
+
+make && make check
+
+==============================================
+back to ROOT
+==============================================
+
+exit
+cd /downloads/qmailrocks/courier-imap-4.0.2
+make install-strip && make install-configure
+
+/usr/local/sbin/mkimapdcert
+
+
+
+vi /usr/local/etc/imapd.cnf
+
+change postmaser@example.com an administrative email address
+
+Save and exit
+
+
+
+emailAddress=postmaster@example.com
+
+emailAddress=admin@xogger.com
+
+
+
+vi /usr/local/etc/imapd
+
+IMAPDSTART=YES
+
+vi /usr/local/etc/imapd-ssl
+
+IMAPDSSLSTART=YES
+
+TLS_CERTFILE=/usr/local/share/imapd.pem
+
+
+vi /usr/local/etc/authlib/authdaemonrc
+
+
+FIND
+
+authmodulelist="authuserdb authpam authcustom authvchkpw"
+
+REPLACE WITH
+
+authmodulelist="authvchkpw"
+
+===========================================================================
+Create Init Scripts
+===========================================================================
+cat /usr/local/libexec/imapd.rc
+cp /usr/local/libexec/imapd.rc /etc/rc.d/init.d/imap
+cp /usr/local/libexec/imapd-ssl.rc /etc/rc.d/init.d/imaps
+
+
+===========================================================================
+Start
+===========================================================================
+
+/usr/local/sbin/authdaemond stop
+/usr/local/sbin/authdaemond start
+/etc/rc.d/init.d/imap stop
+/etc/rc.d/init.d/imaps stop
+/etc/rc.d/init.d/imap start 
+/etc/rc.d/init.d/imaps start
+
+
+===========================================================================
+Check If running (Port 143 and 993)
+===========================================================================
+
+# nmap localhost
+
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+25/tcp   open  smtp
+80/tcp   open  http
+110/tcp  open  pop3
+143/tcp  open  imap
+993/tcp  open  imaps
+3306/tcp open  mysql
+
+Testing
+
+# telnet localhost 143
+
+a login info@domainstobuy.com edakunnu
+a logout
+
+Hint: The "a" that you see before my login commands is required. 
+
+
+[root@server12 ~]# telnet localhost 143
+Trying 127.0.0.1...
+Connected to localhost.localdomain (127.0.0.1).
+Escape character is '^]'.
+* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS] Courier-IMAP ready. Copyright 1998-2005 Double Precision, Inc.  See COPYING for distribution information.
+a login info@domainstobuy.com edakunnu
+a OK LOGIN Ok.
+a logout
+* BYE Courier-IMAP server shutting down
+a OK LOGOUT completed
+Connection closed by foreign host.
+[root@server12 ~]#
+
+
+
+===========================================================================
+===========================================================================
+
+
+
+cd /downloads/qmailrocks
+tar zxvf courierpassd-1.1.0-RC1.tar.gz
+cd courierpassd-1.1.0-RC1
+./configure
+make && make install
+
+
+
+
+
+If your server uses Xinetd, here's how you integrate Courierpassd into it:
+
+cd /etc/xinetd.d
+
+Here we create the xinetd script for courierpassd...
+
+vi courierpassd
+
+
+
+service courierpassd
+{
+port = 106
+socket_type = stream
+protocol = tcp
+user = root
+server = /usr/local/sbin/courierpassd
+server_args = -s imap
+wait = no
+only_from = 127.0.0.1
+instances = 4
+disable = no
+}
+
+
+
+Now let's add the Courierpassd service to the system's services file:
+
+vi /etc/services
+
+
+courierpassd 106/tcp #for /etc/xinetd.d/courierpassd
+
+
+/etc/rc.d/init.d/xinetd restart
+
+

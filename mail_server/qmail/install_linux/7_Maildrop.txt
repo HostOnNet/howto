@@ -1,0 +1,9 @@
+Maildrop is a mail filtering agent which can be used to filter messages as they arrive on the server.
+================
+
+
+cd /downloads/qmailrocks
+tar zxvf maildrop-1.6.3.tar.gz
+cd maildrop-1.6.3
+./configure --prefix=/usr/local --exec-prefix=/usr/local --enable-maildrop-uid=root --enable-maildrop-gid=vchkpw --enable-maildirquota
+make && make install-strip && make install-man

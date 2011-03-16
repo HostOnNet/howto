@@ -1,0 +1,7 @@
+mailq						show all mails in Q
+postqueue -p					show all mails in Q
+postcat -q ID					display content of mail in Q
+postsuper -d ALL				delete all mails in Q
+
+
+

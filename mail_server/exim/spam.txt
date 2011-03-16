@@ -1,0 +1,40 @@
+Remove all mails from que
+=========================
+cd /var/spool/exim/input
+
+
+Delete all mails to aol
+------------------------
+
+exiqgrep -ir aol.com | xargs exim -Mrm
+
+
+
+
+Delete 24 Hours Old Mails
+-------------------------
+exiqgrep -f '^<>$' -o 86400 | xargs exim -Mrm
+exiqgrep -f '^<>$' -o 43200 | xargs exim -Mrm (12 Hours)
+exiqgrep - Search in the exim queue
+
+
+tail /var/log/messages
+tail /var/log/secure
+cd /etc/httpd/domlogs
+
+
+service chkservd stop
+
+
+killall -9 sendmail
+rm /var/spool/exim/input -rf
+ps -aux |grep sendmail
+======
+
+Its usually one of three things:
+
+1. User has reached disk quota to mail cannot be delivered. (/scripts/editquota)
+2. Permissions on mailbox are wrong (/scripts/mailperm) 
+3. The user's mailbox quota has been reached (edit quota in cpanel)
+
+

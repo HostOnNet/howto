@@ -1,0 +1,36 @@
+
+http://www.squirrelmail.org/plugin_view.php?id=39
+
+cd /home/bizhat/mail/plugins
+wget http://www.squirrelmail.org/plugins/email_footer-0.4-1.4.2.tar.gz
+tar -zxvf email_footer-0.4-1.4.2.tar.gz
+cd email_footer
+more INSTALL
+cp config.php.sample config.php
+vi config.php
+
+
+$enter_your_message_here = "\n\n"
+."-----------------------------------------\n"
+."Get Free Email @BizHat.com\n"
+."Report Spam: http://bizhat.com/contact.php\n";
+    
+
+
+$enter_your_message_here_in_HTML = "<br /><br />"
+."<hr />"
+."Get Free Email <b>@BizHat.com</b>.<br />"
+."Report Spam: <a href=\"http://bizhat.com/contact.php\">http://bizhat.com/contact.php</a><br />";
+
+
+Enable the Plugin
+
+cd ../../config/
+./conf.pl
+
+
+8.  Plugins
+
+email_footer
+
+

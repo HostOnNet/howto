@@ -1,0 +1,11 @@
+Starting qmail
+==============
+
+/downloads/qmailrocks/scripts/util/qmr_inst_check
+
+qmailctl stop
+qmailctl start
+
+
+qmailctl stat
+

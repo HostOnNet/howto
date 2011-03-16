@@ -1,0 +1,45 @@
+Qmail Tweaks
+
+Below are some tweaks you can use for qmail, (including qmail for plesk) just put the files in /var/qmail/control
+
+After adding these, besure to restart qmail.
+
+bouncefrom - sets the From line in a bounce message
+Example: MAILER-DAEMON
+
+bouncehost - sets the hostname (bounce it somewhere else)
+Example: yourdomain.com
+
+concurrencylocal - sets the max number of local deliveries to attempt
+Example: 50
+
+concurrencyremote - max number of remote delieveries to attempt
+Example: 200
+
+defaulthost - ever wanted to set the hostname your server sends as? This is where you do it
+Example: mail.yourdomain.com
+
+doublebouncehost - double bounces get sent to this host
+Example: mail2.yourdomain.com
+
+doublebounceto - user it goes to
+Example: #
+(above would /dev/null double bounces, note that means it goes through the queue twice!)
+
+idhost - Message-ID host name
+Example: mail.yourdomain.com
+
+localiphost - Local IP address to send from [I've never tested this)
+Example: 10.10.10.1
+
+queuelifetime - amount of time in seconds to keep something in the queue before it is discarded. Default is 604800 seconds
+Example: 500000
+
+timeoutconnect - SMTP client connection timeout in seconds
+Example: 60
+
+timeoutremote - SMTP outbound client connection time in seconds
+Example: 1200
+
+timeoutsmtpd - SMTP outbound server connection time in seconds
+Example: 1200

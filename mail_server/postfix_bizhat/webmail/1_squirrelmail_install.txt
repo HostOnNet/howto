@@ -1,0 +1,10 @@
+wget http://switch.dl.sourceforge.net/sourceforge/squirrelmail/squirrelmail-1.4.7.tar.gz
+tar -zxvf squirrelmail-1.4.7.tar.gz
+mv squirrelmail-1.4.7 mail
+rmdir /home/bizhat/mail
+mv mail /home/bizhat/
+cd /home/bizhat/mail
+chmod 777 data
+cd config
+perl config.pl
+

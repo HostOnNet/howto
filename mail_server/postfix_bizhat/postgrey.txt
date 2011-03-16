@@ -1,0 +1,81 @@
+
+
+cat /var/log/maillog | grep postgrey
+
+
+
+ar 30 09:20:38 server52 postfix/virtual[20048]: warning: connect to mysql server localhost: Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+
+vi /etc/postfix/virtual_alias_maps
+
+
+
+
+http://isg.ee.ethz.ch/tools/postgrey/
+
+cd /usr/local/src
+wget http://isg.ee.ethz.ch/tools/postgrey/pub/postgrey-1.27.tar.gz
+tar -zxvf postgrey-1.27.tar.gz
+cd postgrey-1.27
+
+cp postgrey /usr/local/sbin
+cp postgrey_whitelist_clients /etc/postfix/
+cp postgrey_whitelist_recipients /etc/postfix/
+
+mkdir /var/spool/postfix/postgrey
+pw useradd postgrey -s /sbin/nologin -k /var/spool/postfix/postgrey
+
+chown postgrey:postgrey /var/spool/postfix/postgrey
+
+
+vi /etc/rc.local
+
+# postgrey (postfix access policy server) start
+
+if [ -x /usr/local/bin/postgrey ]; then
+/usr/local/sbin/postgrey --inet=10023 -d --pidfile=/var/run/postgrey.pid
+fi
+echo -n 'postgrey'
+
+
+perldoc postgrey
+
+
+
+
+vi /etc/postfix/main.cf
+
+            smtpd_recipient_restrictions =
+                          permit_mynetworks
+                          ...
+                          reject_unauth_destination
+                          check_policy_service inet:127.0.0.1:10023
+
+
+
+Aug  9 22:20:03 server14 postfix/smtpd[628]: warning: problem talking to server 127.0.0.1:10023: Connection refused
+Aug  9 22:20:04 server14 postfix/smtpd[628]: warning: connect to 127.0.0.1:10023: Connection refused
+Aug  9 22:20:04 server14 postfix/smtpd[628]: warning: problem talking to server 127.0.0.1:10023: Connection refused
+
+
+
+server14# /usr/local/sbin/postgrey --inet=10023 -d --pidfile=/var/run/postgrey.pid
+Can't locate Net/Server/Multiplex.pm in @INC (@INC contains: /usr/local/lib/perl5/5.8.8/BSDPAN /usr/local/lib/perl5/site_perl/5.8.8/mach /usr/local/lib/perl5/site_perl/5.8.8 /usr/local/lib/perl5/site_perl/5.8.7 /usr/local/lib/perl5/site_perl/5.8.6 /usr/local/lib/perl5/site_perl/5.8.5 /usr/local/lib/perl5/site_perl /usr/local/lib/perl5/5.8.8/mach /usr/local/lib/perl5/5.8.8) at /usr/local/sbin/postgrey line 13.
+BEGIN failed--compilation aborted at /usr/local/sbin/postgrey line 13.
+server14#
+
+telnet localhost 10023
+
+
+from ports
+
+cd /usr/ports/mail/postgrey
+make install
+
+
+vi /etc/rc.conf
+
+postgrey_enable="YES"
+
+
+

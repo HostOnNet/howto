@@ -1,0 +1,12 @@
+mailq Ac			Shows mail que
+sendmail -bp			Shows mail que, same as mailq -Ac
+mailq
+mailq -v
+sendmail -q			flush que
+sendmail -Ac -q			flush the client mail queue
+/var/spool/clientmqueue		Location of email Q
+/var/spool/mqueue		Mail Q (can delete all mails)
+/usr/sbin/sendmail -q -v	force a queue to run, if queue is clogged for some reason
+
+
+find /var/spool/clientmqueue | xargs rm -f {} \;

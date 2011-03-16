@@ -1,0 +1,22 @@
+svstat - stats for qmail service and its logs
+=============================================
+
+
+freebsd# svstat /service/*
+/service/qmail-pop3d: up (pid 493) 13055 seconds
+/service/qmail-send: up (pid 494) 13055 seconds
+/service/qmail-smtpd: up (pid 492) 13055 seconds
+
+freebsd# svstat /service/*/log
+/service/qmail-pop3d/log: up (pid 496) 13087 seconds
+/service/qmail-send/log: up (pid 491) 13087 seconds
+/service/qmail-smtpd/log: up (pid 495) 13087 seconds
+
+
+freebsd# svstat /service/* /service/*/log
+/service/qmail-pop3d: up (pid 493) 15057 seconds
+/service/qmail-send: up (pid 494) 15057 seconds
+/service/qmail-smtpd: up (pid 492) 15057 seconds
+/service/qmail-pop3d/log: up (pid 496) 15057 seconds
+/service/qmail-send/log: up (pid 491) 15057 seconds
+/service/qmail-smtpd/log: up (pid 495) 15057 seconds

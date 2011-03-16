@@ -1,0 +1,6 @@
+cd /downloads/qmailrocks
+tar zxvf vpopmail-5.4.13.tar.gz
+cd vpopmail-5.4.13
+
+./configure --enable-logging=p
+make && make install-strip

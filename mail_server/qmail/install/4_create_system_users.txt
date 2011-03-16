@@ -1,0 +1,28 @@
+Create users and groups
+============================================================
+
+Read
+
+/usr/local/src/netqmail-1.05/netqmail-1.05/INSTALL.ids
+
+
+
+FreeBSD 2.2:
+------------
+
+pw groupadd nofiles
+pw useradd alias -g nofiles -d /var/qmail/alias -s /nonexistent
+pw useradd qmaild -g nofiles -d /var/qmail -s /nonexistent
+pw useradd qmaill -g nofiles -d /var/qmail -s /nonexistent
+pw useradd qmailp -g nofiles -d /var/qmail -s /nonexistent
+pw groupadd qmail
+pw useradd qmailq -g qmail -d /var/qmail -s /nonexistent
+pw useradd qmailr -g qmail -d /var/qmail -s /nonexistent
+pw useradd qmails -g qmail -d /var/qmail -s /nonexistent
+
+Verify
+-------
+cat /etc/group
+cat /etc/passwd
+
+

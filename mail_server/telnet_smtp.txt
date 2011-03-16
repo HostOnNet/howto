@@ -1,0 +1,105 @@
+telnet server28.hosthat.com 25
+HELO server22.hosthat.com
+MAIL FROM: <info@netfreehost.com>
+RCPT TO: admin@flashwebhost.com
+DATA
+QUIT
+
+
+
+
+Using Telnet to send mail by SMTP
+
+
+.
+
+
+The December 2001 issue of i.t. magazine carried an article about how to recieve email using Telnet. Due to the response and requests to know about how to send email as well, we bring you a step by step guide on how to send email using SMTP - the standard protocol used to send email.Introduction
+
+
+
+We shall again be using Telnet to talk to our remote server here, like POP. The principle behind sending an email is simple - your local computer connects to the remote mail server, talks to it using SMTP - "Simple Mail Transfer Protocol". When the mail is sent, the session is over and the remote server closes the connection.
+
+When you use an email client like Outlook or Eudora, the mail client does all this for you. It automates the process of talking to your mail server to send and recieve emails. But what if you don't have, or don't want to use, a mail client? We can use Telnet!
+
+First choose "Run" in yor Start menu and type in Telnet. Telnet is an application that allows us to communicate with remote computers. In this example, we shall be communicating with Yahoo's SMTP mail server. Choose "Remote System" from the "Connect" Menu. This will give you a box, with 3 input boxes. Type in the host name - the address of the mail server. For my Yahoo, the SMTP mail server is at smtp.mail.yahoo.com .
+
+Now about the port: The port is a sort of a "gateway" to a computer. On the internet, each protocol, by convention has one or two port numbers assigned for itself. The HTTP connection is usually done using ports 80 and 8080; while POP transactions are done using port 110. For SMTP, port 25 is used. So type in 25 for the port.
+
+
+Converstion with the Server
+
+
+
+Now Click on connect. Once you're connected to the mail server, the mail server will respond with something like this:
+
+220 smtp017.mail.yahoo.com ready. 
+Now we need to introduce ourselves to the computer and specify the sender's address. Technically, it is possible to use any SMTP server to send a mail with any server's name as the sender. This is called "Message Relaying". Since almost all servers have this feature turned off, we will simply type in the name of the SMTP server itself. [Note that you will not be able to see what you type.]
+
+
+HELO smtp.mail.yahoo.com
+The server will respond with:
+250 Hello smtp.mail.yahoo.com, pleased to meet you.
+Now we specify the sender:
+
+MAIL From: 
+The server replies:
+
+250 ... OK 
+
+There are a few observations to be made here - note that you can specify any sender here. So if you wanted to cheat the server and send bogus mail, the SMTP will not stop you - it has no security provisions. To add security, they combine the SMTP with POP authentication. So, you will have to login using the POP protocol once before using SMTP. [see Dec 2001 issue for POP mail]
+Also note that whenever the server sends a message, there's a 3 digit code along with it. 
+
+For example, when it sends 250, it means that the Transaction's okay. If it's 220, it means Service Ready. If it's 500, it means there's been a syntax error in the command that you sent, and so on. There's lots of these codes, each having a specific meaning.
+
+This is a very useful thing, as mail program using the protocol will not need to read any of the English text - they will simply read the code to understand what the response is.
+
+Now we type in the recipient and the data, and then quit:
+
+RCPT To: info@bizhat.com
+
+250 ... Recipient ok
+
+DATA 
+
+354 Enter mail, end with "." on a line by itself 
+From: anaplexian@yahoo.com
+To: anaplexian@yahoo.com
+Subject: Hi there!
+
+This is a test message! 
+.
+
+250 Mail accepted
+
+QUIT 
+
+221 smtp.mail.yahoo.com delivering mail 
+[connection closed]
+
+Take a look at the format of the email - it had a bunch of details like From, To, and Subject listed, and then I left a line and then started my email. This is because a normal email comprises of minimum two parts, the header and the body, which are separated by a blank line.
+
+The moment you send this email and close transaction using QUIT, the mail server will send the mail off to it's destination.
+
+So now we can send email using SMTP, (and recieve using POP) all without the use of a mail client or a web browser. Note that the commands we did are only a part of the whole list - there's a lot more you can do with SMTP and POP.
+
+So next time you want to check your mail, do it the cool way - use Telnet!!
+
+
+SMTP CheatSheet
+
+
+
+List of Basic SMTP Commands: 
+HELO: identifies client
+
+MAIL: identifies the sender of the message.
+
+RCPT: identifies the recipient. More than one RCPT command can be issued if there are multiple recipients.
+
+DATA: To type in the message
+
+QUIT: terminates conversation and closes connection.
+
+
+

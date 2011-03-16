@@ -1,0 +1,76 @@
+cd /downloads/qmailrocks
+tar zxvf vqadmin-2.3.6.tar.gz
+cd vqadmin-2.3.6
+./configure --enable-cgibindir=/var/www/cgi-bin --enable-htmldir=/var/www/html
+
+make && make install-strip
+
+
+
+
+<Directory "/var/www/cgi-bin">
+    AllowOverride None
+    Options None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+
+vi /etc/httpd/conf/httpd.conf
+
+
+<Directory "/var/www/cgi-bin/vqadmin">
+deny from all
+Options ExecCGI
+AllowOverride AuthConfig
+Order deny,allow
+</Directory>
+
+
+
+vi .htaccess 
+
+AuthType Basic
+AuthUserFile /home/netfreehost/.vqadmin
+AuthName vQadmin
+require valid-user
+satisfy any
+
+
+chmod 644 .htaccess
+
+
+mkdir /home/netfreehost
+
+htpasswd -bc /home/netfreehost/.vqadmin admin HahskTham
+
+chmod 644 /home/netfreehost/.vqadmin
+
+
+htpasswd -bc /home/ceset/qmail/.htpasswd admin HahskTham
+
+
+http://219.117.228.251/cgi-bin/vqadmin/vqadmin.cgi
+
+User: admin
+Password: HahskTham
+
+
+
+
+<VirtualHost mail.xogger.com:80>
+    DocumentRoot /var/www/html/mail
+    ServerName mail.xogger.com
+ </VirtualHost>
+
+<VirtualHost mailbox.xogger.com:80>
+    DocumentRoot /var/www/html/mail
+    ServerName mailbox.xogger.com
+    Redirect / http://mail.xogger.com
+ </VirtualHost>
+
+<VirtualHost hotmail.xogger.com:80>
+    DocumentRoot /var/www/html/mail
+    ServerName hotmail.xogger.com
+    Redirect / http://mail.xogger.com
+ </VirtualHost>

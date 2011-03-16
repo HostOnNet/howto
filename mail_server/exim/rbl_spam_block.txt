@@ -1,0 +1,224 @@
+http://forum.ev1servers.net/showthread.php?p=216677&mode=linear#post216677
+
+Setup Exim4 to use Spam Blacklists 
+
+Below is a perfect method to setup exim to use several common spam blacklists such as spamhaus. Why can this be beneficial to you as a system admin? It can cut down incoming spam on your server by a great deal. This has saved me a lot of troubles and am bringing it here to help others.
+
+All credits for this goto Pat from talkroot.com.
+
+----------------------
+Creating lsearch files
+----------------------
+Create three text files in the /etc directory:
+
+/etc/rblblacklist
+/etc/rblbypass
+/etc/rblwhitelist
+
+# touch /etc/rblblacklist; touch /etc/rblbypass; touch /etc/rblwhitelist
+
+
+SAMPLE DATA
+/etc/rblblacklist is a manual blacklist, it rejects specific spammer hosts BEFORE they can send more email to your server:
+domain1.com
+domain2.com
+domain3.com 
+
+/etc/rblbypass bypasses RBL email testing for specific destination (local) domains that don't want RBL filtering or prefer SpamAssassin tagging:
+domain1.com
+domain2.com
+domain3.com 
+
+/etc/rblwhitelist blocks RBL email testing for listed incoming hosts, (wildcards allowed), in case an important client's mailserver is listed on an RBL you use, also automatically excludes relayhosts:
+mail.domain1.com
+*.domain2.com
+*.domain3.com 
+
+
+-------------------------------
+EXIM CONFIGURATION EDITOR
+-------------------------------
+
+If you use the WHM-based Exim Configuration Editor, all of your modifications will be reproduced after each update. If you edit exim.conf directly, cPanel updates MAY overwrite your changes! Because of this, the following changes should be entered using the Exim Configuration Editor.
+
+------------------------
+Setting up lsearch files
+------------------------
+
+
+At the top of the editor, in the window below:
+#!!# cPanel Exim 4 Config
+
+Enter these lines: 
+
+domainlist rbl_blacklist = lsearch;/etc/rblblacklist
+domainlist rbl_bypass = lsearch;/etc/rblbypass
+hostlist rbl_whitelist = lsearch;/etc/relayhosts : partial-lsearch;/etc/rblwhitelist
+
+====
+NOTE
+====
+
+change line
+
+hostlist rbl_whitelist = lsearch;/etc/relayhosts : partial-lsearch;/etc/rblwhitelist
+
+to
+
+hostlist rbl_whitelist = lsearch;/etc/relayhosts : net-iplsearch;/etc/rblwhitelist
+
+So that you can blacklist or white list per IP
+
+
+
+----------------------------
+RBL entries in ACL Section
+----------------------------
+
+
+RBL selection depends on many factors, be sure to edit the list below to reflect your priorities... Postmaster and abuse bypass allows blocked users to contact admin.
+
+In the center window of the ACL section, directly below the line:
+
+accept hosts = :
+
+Enter these lines: 
+#**#
+#**# RBL List Begin
+#**#
+#
+# Always accept mail to postmaster & abuse for any local domain
+#
+accept domains = +local_domains
+local_parts = postmaster:abuse
+#
+# Check sending hosts against DNS black lists.
+# Reject message if address listed in blacklist.
+deny message = Message rejected because $sender_fullhost \
+is blacklisted at $dnslist_domain see $dnslist_text
+dnslists = dnsbl.njabl.org : \
+bl.spamcop.net : \
+sbl.spamhaus.org
+# RBL Bypass Local Domain List
+!domains = +rbl_bypass
+# RBL Whitelist incoming hosts
+!hosts = +rbl_whitelist
+# Don't scan outgoing
+!hosts = +relay_hosts
+#**#
+#**# RBL List End
+#**# 
+
+
+
+--------------------------------
+RBL entries in ROUTERS Section
+**************************
+
+In the ROUTERS section window, directly below the line:
+# in the "local_domains" setting above.
+
+Enter these lines:
+
+# Deny and send notice to list of rejected domains.
+reject_domains:
+driver = redirect
+# RBL Blacklist incoming hosts
+domains = +rbl_blacklist
+allow_fail
+data = :fail: Connection rejected: SPAM source $domain is manually blacklisted.
+
+
+-----------------------------
+RBL Testing and Verification
+***********************
+
+Once your file changes are in place, be sure to keep an eye out for errors... missing files and other errors will be listed here:
+tail -50 /var/log/exim_paniclog 
+
+You can view your spam filtering by reviewing the reject log:
+tail -50 /var/log/exim_rejectlog 
+
+If your RBL tests include sbl.spamhaus.org, you can test the blacklist and whitelist functions by sending an email, USING THE MAILSERVER YOU WISH TESTED, to:
+nelson-sbl-test@crynwr.com 
+
+It will attempt to send an email from mailserver sbl.crynwr.com, which is blacklisted in sbl.spamhaus.org
+
+If the blacklist works, you'll get an email that looks something like this:
+
+Subj: Your SBL test report
+Testing your SBL block. See http://www.crynwr.com/spam/ for more info.
+Please note that this test will not tell you if your server is open for
+relaying. Instead, it tests to see if your server blocks email from IP
+addresses listed in various blocking lists; in this case, the SBL list.
+
+Here's how the conversation looked from sbl.crynwr.com.
+Note that some sites don't apply the SBL block to postmaster, so
+I use your envelope sender as the To: address.
+
+I connected to 64.246.24.14 and here's the conversation I had:
+
+220-whm.yourserver.com ESMTP Exim 4.24 #1 Thu, 16 Oct 2003 08:23:23 -0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+helo sbl.crynwr.com
+250 whm.yourserver.com Hello sbl.crynwr.com [192.203.178.107]
+mail from:<>
+250 OK
+rcpt to:<eMtnMan@yourdomain.com>
+550-Message rejected because sbl.crynwr.com [192.203.178.107] is blacklisted at
+550 sbl.spamhaus.org see http://www.spamhaus.org/SBL/sbl.lasso?query=SBLTEST
+Terminating conversation
+
+If the RBL block fails, you'll receive TWO emails:
+
+Subj: Your SBL test report
+Testing your SBL block. See http://www.crynwr.com/spam/ for more info.
+Please note that this test will not tell you if your server is open for
+relaying. Instead, it tests to see if your server blocks email from IP
+addresses listed in various blocking lists; in this case, the SBL list.
+
+Here's how the conversation looked from sbl.crynwr.com.
+Note that some sites don't apply the SBL block to postmaster, so
+I use your envelope sender as the To: address.
+
+I connected to 64.246.24.14 and here's the conversation I had:
+
+220-whm.yourserver.com ESMTP Exim 4.24 #1 Thu, 16 Oct 2003 08:19:44 -0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+helo sbl.crynwr.com
+250 whm.yourserver.com Hello sbl.crynwr.com [192.203.178.107]
+mail from:<>
+250 OK
+rcpt to:<eMtnMan@yourdomain.com>
+250 Accepted
+data
+354 Enter message, ending with "." on a line by itself
+From: nelson-SBL-test@crynwr.com
+To: eMtnMan@yourdomain.com
+Date: Thu, 16 Oct 2003 15:19:46 -0000
+Message-Id: <1066317586@sbl.crynwr.com>
+
+Test message
+.
+250 OK id=1AA9uj-0005xq-2l
+quit
+Successful termination. As far as I can tell, the email was delivered.
+That might not be what you want.
+
+Subj: (BLANK)
+Uh-oh, your SBL block is not working!
+
+
+
+
+dnslists = dnsbl.njabl.org : \
+bl.spamcop.net : \
+blackholes.easynet.nl : \
+dynablock.easynet.nl : \
+proxies.blackholes.easynet.nl : \
+sbl.spamhaus.org : \
+list.dsbl.org : \ 
+cbl.abuseat.org : \
+relays.ordb.org

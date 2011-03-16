@@ -1,0 +1,4 @@
+cd /downloads/qmailrocks
+tar zxvf autorespond-2.0.5.tar.gz
+cd autorespond-2.0.5
+make && make install

@@ -1,0 +1,8 @@
+user = rootzz
+password = os2winlinmysql
+hosts = localhost
+dbname = bizhat_mail
+table = mailbox
+select_field = maildir
+where_field = username
+additional_conditions = and active = '1'

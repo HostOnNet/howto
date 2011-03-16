@@ -1,0 +1,33 @@
+echo "test" |mail hostonnet@gmail.com
+tail -f /var/log/exim_mainlog
+
+2006-12-24 22:28:19 1GygVf-0006g5-I2 ** hostonnet@gmail.com R=fail_remote_domains: unrouteable mail domain "gmail.com"
+unrouteable mail domain
+
+
+exim -bt anyvalidid@yahoo.com
+
+/scripts/eximup --force
+
+
+/usr/sbin/sendmail
+rm -f /usr/sbin/sendmail
+ln -s /usr/sbin/exim /usr/sbin/sendmail
+chattr +i /usr/sbin/sendmail
+
+
+MAIN CONFIGURATION SETTINGS
+
+to mail configuration section
+
+allow_mx_to_ip = true
+
+rm -f /etc/eximtrap
+
+
+vi /var/cpanel/cpanel.config
+
+eximmailtrap=0
+
+
+

@@ -1,0 +1,28 @@
+Uninstalling Sendmail/Postfix
+
+
+rpm -qa | grep sendmail
+
+
+[root@mail qmailadmin-1.2.3]# rpm -qa | grep sendmail
+sendmail-8.13.1-2
+sendmail-cf-8.13.1-2
+[root@mail qmailadmin-1.2.3]#
+
+[root@server12 alias]# rpm -qa | grep sendmail
+sendmail-8.13.1-3.RHEL4.5
+[root@server12 alias]#
+
+
+
+/etc/rc.d/init.d/sendmail stop
+
+
+rpm -e --nodeps sendmail-8.13.1-2
+rpm -e --nodeps sendmail-cf-8.13.1-2
+
+SymLINKS
+
+ln -s /var/qmail/bin/sendmail /usr/lib/sendmail
+ln -s /var/qmail/bin/sendmail /usr/sbin/sendmail
+

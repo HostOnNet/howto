@@ -1,0 +1,31 @@
+/downloads/qmailrocks/scripts/finalize/linux/finalize_linux.script
+
+
+vi /var/qmail/supervise/qmail-pop3d/run
+
+
+Find "mail.example.com" and change it to your server's hostname. For example: mail.mydomain.com.
+
+
+
+vi /var/qmail/supervise/qmail-smtpd/run
+
+Find "mail.example.com" and change it to your server's hostname. For example: mail.mydomain.com
+
+
+qmailctl stop
+
+echo '127.:allow,RELAYCLIENT=""' >> /etc/tcp.smtp
+qmailctl cdb
+
+
+
+echo info@domainstobuy.com > /var/qmail/alias/.qmail-root
+echo info@domainstobuy.com> /var/qmail/alias/.qmail-postmaster
+echo info@domainstobuy.com> /var/qmail/alias/.qmail-mailer-daemon
+ln -s /var/qmail/alias/.qmail-root /var/qmail/alias/.qmail-anonymous
+chmod 644 /var/qmail/alias/.qmail*
+
+
+echo info@domainstobuy.com> /var/qmail/alias/.qmail-apache
+chmod 644 /var/qmail/alias/.qmail-apache

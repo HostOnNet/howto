@@ -1,0 +1,71 @@
+/etc/init.d/qmail
+/etc/init.d/qmail stop
+/etc/init.d/qmail start
+/etc/init.d/qmail status
+
+
+/var/qmail/bin/qmail-qstat
+/var/qmail/bin/qmail-qread
+/var/qmail/bin/qmail-showctl
+
+echo "Test Mail" | mail -s "test" hostonnet@gmail.com
+echo "Test Mail" | mail -s "test" info@netfreehost.com
+echo "Test Mail" | mail -s "test" bizhat@aol.com
+
+
+cd /var/qmail
+
+log file
+
+echo "test" | mail -s test yujin@jobbusters.com
+tail -f /usr/local/psa/var/log/maillog
+
+
+echo > /usr/local/psa/var/log/maillog
+tail -f /usr/local/psa/var/log/maillog
+cat /usr/local/psa/var/log/maillog
+
+-----------------------------------
+LOG OF SENDING A MAIL WITH SMTP
+-----------------------------------
+Nov 21 11:38:33 ldc348 qmail: 1164127113.473004 new msg 2590054
+Nov 21 11:38:33 ldc348 qmail: 1164127113.473076 info msg 2590054: bytes 638 from <todd@rochhomeplace.com> qp 9027 uid 2020
+Nov 21 11:38:33 ldc348 qmail: 1164127113.477523 starting delivery 5: msg 2590054 to remote hostonnet@gmail.com
+Nov 21 11:38:33 ldc348 qmail: 1164127113.477561 status: local 0/10 remote 1/20
+Nov 21 11:38:41 ldc348 qmail: 1164127121.908860 delivery 5: success: 72.14.205.27_accepted_message./Remote_host_said:_250_2.0.0_OK_1164131469_e17si12327342qbe/
+Nov 21 11:38:41 ldc348 qmail: 1164127121.908990 status: local 0/10 remote 0/20
+Nov 21 11:38:41 ldc348 qmail: 1164127121.909043 end msg 2590054
+-----------------------------------
+
+
+/var/qmail/mailnames
+
+
+/usr/local/psa/admin/sbin/mchk			rebuild mailbox
+
+netstat -l|grep smtp
+
+/var/qmail/bin
+
+ps aux|grep qmail
+
+cat /usr/local/psa/version
+
+tail /var/log/messages
+
+
+http://webhostingtalk.com/showthread.php?p=3745340
+http://forum.plesk.com/showthread.php?s=&threadid=31830
+
+
+setting hostname
+------------------
+cd /var/qmail/control
+
+#cat me
+SmartBusiness.prod.phx1.secureserver.net
+#
+
+change it to the rdns value of servers main IP
+
+ip-68-178-193-174.ip.secureserver.net

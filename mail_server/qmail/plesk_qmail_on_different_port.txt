@@ -1,0 +1,25 @@
+cd /etc/xinetd.d
+
+cp smtp_psa smtp_additional
+
+(this makes a copy of smtp_psa called smtp_additional)
+
+vi smtp_additional
+
+(so we edit it now)
+
+make the first line say "service submission"
+
+Type :wq! to save your file.
+
+
+Explanation 'submission' is an alias for port 587.
+
+To make the changes take effect you must restart xinetd
+
+
+/etc/rc.d/init.d/xinetd restart
+
+That will make qmail (rather, xinetd) respond to smtp requests on port 587 as well as 25.
+
+Cheers

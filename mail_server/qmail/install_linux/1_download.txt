@@ -1,0 +1,4 @@
+mkdir /downloads
+cd /downloads
+wget http://www.qmailrocks.org/downloads/qmailrocks.tar.gz
+tar zxvf qmailrocks.tar.gz

@@ -1,0 +1,27 @@
+Mail Error
+==========
+
+
+There was a problem logging onto your mail server. Your Password was rejected. Account: 'hostonnet.com', Server: 'hostonnet.com', Protocol: POP3, Server Response: '-ERR Sorry cannot find an owner for that domain (hostonnet.com)', Port: 110, Secure(SSL): No, Server Error: 0x800CCC90, Error Number: 0x800CCC92
+
+
+problem
+-------
+/etc/userdomains
+
+file size become Zero
+
+Solution
+--------
+run following at shell prompt
+
+#/scripts/updateuserdomains
+#/scripts/mailperm
+
+
+
+
+
+
+
+

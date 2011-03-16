@@ -1,0 +1,47 @@
+/downloads/qmailrocks/scripts/install/qmr_install_linux-s1.script
+/downloads/qmailrocks/scripts/util/qmail_big_patches.script
+cd /usr/src/qmail/qmail-1.03
+make man && make setup check
+./config-fast server12.hosthat.com
+
+
+make cert
+
+
+chown -R vpopmail:qmail /var/qmail/control/clientcert.pem /var/qmail/control/servercert.pem
+
+
+Now we build ucspi-tcp...
+=============================
+
+
+cd /usr/src/qmail/ucspi-tcp-0.88/
+patch < /downloads/qmailrocks/patches/ucspi-tcp-0.88.errno.patch
+make && make setup check
+
+
+
+Now we build the daemontools....
+===================================
+
+cd /package/admin/daemontools-0.76/src
+patch < /downloads/qmailrocks/patches/daemontools-0.76.errno.patch
+cd /package/admin/daemontools-0.76
+package/install
+
+
+
+NOTE
+==================================
+
+at this point ps aux will show
+
+root     10889  0.0  0.0  3376  316 ?        S    02:50   0:00 svscan /service
+
+
+[root@mail daemontools-0.76]# ps aux|grep sv
+root     10887  0.0  0.1  3444 1052 ?        Ss   02:50   0:00 /bin/sh /command/svscanboot
+root     10889  0.0  0.0  3376  316 ?        S    02:50   0:00 svscan /service
+root     10895  0.0  0.0  5052  640 pts/3    R+   02:52   0:00 grep sv
+[root@mail daemontools-0.76]#
+

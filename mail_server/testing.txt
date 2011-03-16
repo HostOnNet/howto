@@ -1,0 +1,18 @@
+echo > /var/log/exim_mainlog
+echo "testing" | mail -s "test" hostonnet@gmail.com
+tail -f /var/log/exim_mainlog
+
+echo "testing" | mail -s "test" bbassitt@habibis.com
+
+
+telnet localhost 25
+HELO mycitybusiness.tycohosting.com
+MAIL FROM: <bbassitt@habibis.com>
+RCPT TO: hostonnet@gmail.com
+DATA
+QUIT
+
+
+
+
+1GxQn3-0005P3-Bt

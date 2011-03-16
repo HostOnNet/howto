@@ -1,0 +1,6 @@
+Create Qmail directories
+==========================
+
+
+
+mkdir /var/qmail

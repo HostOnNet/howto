@@ -1,0 +1,38 @@
+mv /usr/local/sbin/exim /usr/local/sbin/exim_old
+mv /usr/sbin/exim /usr/sbin/exim_old
+
+mv /usr/local/sbin/exim_old /usr/local/sbin/exim
+mv /usr/sbin/exim_old /usr/sbin/exim
+
+
+/usr/local/sbin/exim_old -bpu | awk '{print $3}' | xargs /usr/local/sbin/exim_old -Mrm
+
+/usr/local/sbin/exim_old -bp
+/usr/local/sbin/exim_old -bp > spam.txt
+
+/usr/local/sbin/exim_old -Mvh 1GuJqv-00080e-4U
+/usr/local/sbin/exim_old -Mvh 1GuLcs-000CA3-PU
+/usr/local/sbin/exim_old -Mvh 1GuKog-000AHT-0r
+/usr/local/sbin/exim_old -Mvh 1GuMMD-000EAi-Ac
+/usr/local/sbin/exim_old -Mvh 1GuMrF-000I0x-4A
+/usr/local/sbin/exim_old -Mf 1GuLGb-000BIa-Ok
+
+echo > /var/log/exim/mainlog
+tail -f /var/log/exim/mainlog
+
+/scripts/restartsrv_exim
+
+
+/usr/local/sbin/exim  -bpu | awk '{print $3}' | xargs /usr/local/sbin/exim -Mrm
+
+camstech 50749  0.0  0.0   292   164  ??  R     4:53AM   0:00.00 df -P -k /home/camstech
+ 
+
+
+WHM 10.8.0 cPanel 10.9.0-R94  
+FreeBSD 5.4-RELEASE i386 - WHM X 
+
+
+
+find /home/learnhom/public_html -name '*.php' -exec grep 'mail(' {} \; -print
+find /home/learnhom/public_html -name '*.php' -exec grep 'server28' {} \; -print

@@ -1,0 +1,18 @@
+#!/bin/bash
+# remove_old_mail.sh
+# Removes queued mail with messages older then one hour
+# 15 * * * * /root/utils/remove_old_mail.sh > /dev/null 2>&1
+
+
+mailq () {
+        /usr/sbin/exiqgrep -o 3600 -b
+}
+
+for line in `mailq| awk '{ print $1 }'`; do /usr/sbin/exim -Mrm $line; done
+
+
+# Delete 1 day OLD mail
+# for line in `/usr/sbin/exiqgrep -o 86400 -b | awk '{ print $1 }'`; do /usr/sbin/exim -Mrm $line; done
+
+
+/etc/init.d/httpd graceful

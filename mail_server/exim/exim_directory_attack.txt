@@ -1,0 +1,61 @@
+Refer: http://www.configserver.com/free/eximdeny.html
+
+rm -f exim_deny.txt
+wget http://www.configserver.com/free/exim_deny.txt
+rm -f /etc/exim_deny.pl
+mv exim_deny.txt /etc/exim_deny.pl
+
+touch /etc/exim_deny
+touch /etc/exim_deny_whitelist
+chown mailnull:mail /etc/exim_deny /etc/exim_deny.pl /etc/exim_deny_whitelist 
+chmod 700 /etc/exim_deny.pl
+chmod 600 /etc/exim_deny /etc/exim_deny_whitelist
+
+
+===========================
+vi /etc/exim.conf
+Add below
+accept  hosts = :
+===========================
+
+
+# Dictionary Attack
+    drop hosts = /etc/exim_deny
+        !hosts = /etc/exim_deny_whitelist 
+        message = Connection denied after dictionary attack
+        log_message = Connection denied from $sender_host_address after dictionary attack 
+        !hosts = +relay_hosts
+        !authenticated = *
+
+
+    drop message = Appears to be a dictionary attack
+        log_message = Dictionary attack (after $rcpt_fail_count failures)
+        condition = ${if > {${eval:$rcpt_fail_count}}{3}{yes}{no}}
+        condition = ${run{/etc/exim_deny.pl $sender_host_address }{yes}{no}}
+        !verify = recipient
+        !hosts = /etc/exim_deny_whitelist 
+        !hosts = +relay_hosts
+        !authenticated = *
+# Dictionary Attack
+
+
+===============================
+TESTING
+===============================
+grep "dictionary attack" /var/log/exim_mainlog
+grep "dictionary attack" /var/log/exim/mainlog
+cat /etc/exim_deny
+tail -f /var/log/exim_mainlog
+
+
+
+REFER
+===============================
+http://www.configserver.com/free/eximdeny.html
+
+
+5/4/2005
+==========================
+Done on server2.hosthat.com
+Done on server10.hosthat.com
+Done on godislove.hosthat.com

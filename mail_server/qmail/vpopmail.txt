@@ -1,0 +1,9 @@
+orders@consolesandgadgets.co.uk
+/home/vpopmail/bin/vuserinfo orders@consolesandgadgets.co.uk
+
+
+
+2006-11-20 17:51:38 1GmDIY-00036e-Rd => orders <orders@consolesandgadgets.co.uk> R=boxtraper_autowhitelist T=boxtrapper_autowhitelist
+2006-11-20 17:51:46 1GmDIY-00036e-Rd => orders@consolesandgadgets.co.uk R=lookuphost T=remote_smtp H=pop3.domainsforall2.co.uk [80.244.180.196]
+2006-11-20 17:51:46 1GmDIY-00036e-Rd Completed
+

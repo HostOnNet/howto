@@ -1,0 +1,4 @@
+cd /downloads/qmailrocks/
+tar zxvf ezmlm-0.53-idx-0.41.tar.gz
+cd ezmlm-0.53-idx-0.41
+make && make setup

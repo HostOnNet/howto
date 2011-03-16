@@ -1,0 +1,28 @@
+qmailctl stop
+find /var/qmail/queue/mess -type f -exec rm {} \;
+find /var/qmail/queue/info -type f -exec rm {} \;
+find /var/qmail/queue/local -type f -exec rm {} \;
+find /var/qmail/queue/intd -type f -exec rm {} \;
+find /var/qmail/queue/todo -type f -exec rm {} \;
+find /var/qmail/queue/remote -type f -exec rm {} \;
+qmailctl start
+
+
+service qmail stop
+find /var/qmail/queue/mess -type f -exec rm {} \;
+find /var/qmail/queue/info -type f -exec rm {} \;
+find /var/qmail/queue/local -type f -exec rm {} \;
+find /var/qmail/queue/intd -type f -exec rm {} \;
+find /var/qmail/queue/todo -type f -exec rm {} \;
+find /var/qmail/queue/remote -type f -exec rm {} \;
+service qmail start
+
+
+
+OR
+===================================
+delete a mail
+===================================
+qmailctl stop
+/var/qmail/queue -name <message> -exec rm {} \;
+qmailctl start

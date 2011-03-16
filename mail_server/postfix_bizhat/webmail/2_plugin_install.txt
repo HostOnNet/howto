@@ -1,0 +1,58 @@
+=====================================================================
+Remember check box on Login Page
+=====================================================================
+
+Plugins - Login: Auto
+
+http://www.squirrelmail.org/plugin_download.php?id=33&rev=826
+
+fetch http://squirrelmail.org/plugins/login_auto-1.1-1.2.tar.gz
+
+
+
+=====================================================================
+Plugins - Compatibility
+=====================================================================
+
+http://squirrelmail.org/plugin_view.php?id=152
+
+
+cd /home/bizhat/mail/plugins
+wget http://squirrelmail.org/plugins/compatibility-2.0.4.tar.gz
+tar -zxvf compatibility-2.0.4.tar.gz
+patch -p0 < compatibility/patches/compatibility_patch-1.4.4.diff
+
+cd ../config
+./conf.pl
+
+Enable the plugin - option 8
+
+
+
+=====================================================================
+Plugins - Forced Preferences
+=====================================================================
+
+http://squirrelmail.org/plugin_view.php?id=220
+
+cd /home/bizhat/mail/plugins
+wget http://squirrelmail.org/plugins/forced_prefs-1.2-1.x.tar.gz
+cd forced_prefs
+cp config-sample.php config.php
+
+vi config.php
+
+$fp_forced_settings = array(
+    'show_html_default' => '1',
+    'attachment_common_show_images' => '1',
+    'custom_css' => 'verdana-10.css'
+);
+
+
+$fp_removed_optpage_urls=array('options_order.php','options_highlight.php','options.php?optpage=folder','options_identities.php');
+
+
+cd ../../config
+./conf.pl
+
+Enable the plugin - option 8

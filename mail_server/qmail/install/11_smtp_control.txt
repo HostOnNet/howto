@@ -1,0 +1,14 @@
+Allow the local host to inject mail via SMTP:
+
+echo '127.:allow,RELAYCLIENT=""' >>/etc/tcp.smtp
+qmailctl cdb
+
+
+
+
+freebsd# cat /etc/tcp.smtp
+127.:allow,RELAYCLIENT=""
+192.:allow,RELAYCLIENT=""
+freebsd#
+
+

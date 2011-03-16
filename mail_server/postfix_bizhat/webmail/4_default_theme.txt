@@ -1,0 +1,20 @@
+cd /home/bizhat/mail/config
+
+vi config.php
+
+
+Find Number of
+
+Classic Blue
+
+$theme[47]['PATH'] = SM_PATH . 'themes/classic_blue.php';
+$theme[47]['NAME'] = 'Classic Blue';
+
+
+FIND
+
+$theme_default = 0;
+
+REPLACE WITH
+
+$theme_default = 47;

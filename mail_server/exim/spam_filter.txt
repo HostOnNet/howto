@@ -1,0 +1,41 @@
+===========================================================================
+EDIT - /etc/antivirus.exim
+===========================================================================
+
+
+vi /etc/antivirus.exim
+
+
+===========================================================================
+FIND
+===========================================================================
+
+if $header_from: contains "@sexyfun.net"
+
+===========================================================================
+REPLACE WITH
+===========================================================================
+
+if $header_from: contains "@sexyfun.net"
+or $header_subject: contains "[SPAM]"
+or $header_subject: contains "Viagra"
+or $header_subject: contains "Cialis"
+or $header_subject: contains "Pharmacy"
+or $message_body contains "DS Team"
+or $message_body contains "WBRS"
+or $message_body contains "Micr0s0ft"
+or $message_body contains "cialis"
+or $message_body contains "Cia/lis"
+or $message_body contains "PHYA"
+or $message_body contains "Soft Tabs"
+or $message_body contains "online pharmacy"
+or $message_body contains "Big tits"
+or $message_body contains "your prescription"
+or $message_body contains "Replica Watches"
+
+
+===========================================================================
+
+/scripts/restartsrv_exim
+
+===========================================================================

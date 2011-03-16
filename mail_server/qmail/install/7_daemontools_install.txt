@@ -1,0 +1,37 @@
+Install daemontools
+=========================================================
+
+cd /package/admin/daemontools-0.76
+
+Patch it
+--------
+
+cd src
+patch < /usr/local/src/netqmail-1.05/other-patches/daemontools-0.76.errno.patch
+cd ..
+
+
+install
+-------
+
+package/install
+
+
+On BSD systems (no /etc/inittab), you'll need to reboot now
+svscan will start after reboot as it is added on
+
+#cat /etc/rc.local
+csh -cf '/command/svscanboot &'
+#
+
+Use "ps -ef | grep svscan" or "ps waux | grep svscan" to verify that svscan is running.
+
+
+After Reboot
+-------------
+
+freebsd# ps -ef | grep svscan
+  825  p0  RL+    0:00.00  grep svscan
+  457 con- IL     0:00.02  /bin/sh /command/svscanboot
+  467 con- SL     0:00.40  svscan /service
+freebsd#

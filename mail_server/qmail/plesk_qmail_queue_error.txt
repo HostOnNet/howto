@@ -1,0 +1,42 @@
+===============================================================================================
+QMAIL ADMIN
+===============================================================================================
+
+./configure --enable-cgibindir=/home/cgi-bin --enable-htmldir=/home --enable-autoresponder-path=/usr/local/bin/qmail-autoresponder
+
+
+make && make install-strip
+
+
+http://www/cgi-bin/qmailadmin
+
+---
+postmaster	netfreehost.com	123456
+info		netfreehost.com	123456
+
+===============================================================================================
+VQADMIN
+===============================================================================================
+cd /downloads/qmailrocks
+tar zxvf vqadmin-2.3.6.tar.gz
+cd vqadmin-2.3.6
+./configure --enable-cgibindir=/home/cgi-bin --enable-htmldir=/home
+make && make install-strip
+
+
+<Directory "/home/cgi-bin/vqadmin">
+deny from all
+Options ExecCGI
+AllowOverride AuthConfig
+Order deny,allow
+</Directory>
+
+
+vi /home/cgi-bin/vqadmin/.htaccess
+
+
+freebsd# cat /home/cgi-bin/vqadmin/.htaccess
+AuthType Basic
+AuthUserFile /usr/local/etc/vqadmin.passwd
+AuthName vQadmin
+require va

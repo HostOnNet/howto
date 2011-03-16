@@ -1,0 +1,11 @@
+#!/bin/bash
+# remove_null_sender.sh
+# Removes queued mail with a null ( <> ) sender
+# 15 * * * * /root/utils/remove_null_sender.sh > /dev/null 2>&1
+
+
+mailq () {
+        /usr/sbin/exiqgrep -b
+}
+
+for line in `mailq |awk '{print$1 " " $3}' | grep '<>' | awk '{print$1}'`; do /usr/sbin/exim -Mrm $line; done

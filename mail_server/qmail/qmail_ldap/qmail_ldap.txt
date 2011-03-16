@@ -1,0 +1,331 @@
+REF: http://www.qmail-ldap.org/wiki/Full_Installation_Guide_-_Basic_Qmail_Installation
+
+============================================================
+UCSPI
+============================================================
+
+mkdir -p /usr/local/src/tools
+cd /usr/local/src/tools
+wget http://cr.yp.to/ucspi-tcp/ucspi-tcp-0.88.tar.gz
+tar xvfz ucspi-tcp-0.88.tar.gz 
+cd ucspi-tcp-0.88 
+make
+make setup check 
+
+============================================================
+daemontools
+============================================================
+
+mkdir -p /package
+chmod 1755 /package
+cd /package
+wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz
+tar xvfz daemontools-0.76.tar.gz
+cd admin/daemontools-0.76
+package/install
+
+============================================================
+djbdns
+============================================================
+
+cd /usr/local/src
+fetch http://cr.yp.to/djbdns/djbdns-1.05.tar.gz
+tar xvfz djbdns-1.05.tar.gz
+cd djbdns-1.05
+make setup check
+
+============================================================
+qmail-conf
+============================================================
+
+cd /usr/local/src/
+fetch http://www.din.or.jp/~ushijima/qmail-conf/qmail-conf-0.60.tar.gz
+tar xvfz qmail-conf-0.60.tar.gz 
+cd qmail-conf-0.60
+make -f Makefile.ini  djbdns=../djbdns-1.05/
+make setup check
+
+
+============================================================
+maildrop
+============================================================
+
+cd /usr/local/src/
+wget http://internap.dl.sourceforge.net/sourceforge/courier/maildrop-1.8.1.tar.bz2
+tar xvfj maildrop-1.8.1.tar.bz2
+cd maildrop-1.8.1
+./configure --enable-maildirquota
+make
+make install
+
+
+============================================================
+OpenLDAP
+============================================================
+
+pkg_add -r openldap22-server
+
+
+============================================================
+Schemes
+============================================================
+
+Schemes in LDAP define registries or fields in the database. Something similar to tables in SQL databases. Qmail uses some schemes that come with OpenLDAP, but are not enabled by default. 
+
+To enable it add the following to 
+
+vi /usr/local/etc/openldap/slapd.conf
+
+include /usr/local/etc/openldap/schema/core.schema
+include /usr/local/etc/openldap/schema/cosine.schema
+include /usr/local/etc/openldap/schema/inetorgperson.schema
+include /usr/local/etc/openldap/schema/nis.schema
+
+============================================================
+Database
+============================================================
+
+You must define a database for OpenLDAP.
+
+To do it add the following to 
+
+vi /usr/local/etc/openldap/slapd.conf
+
+
+database        bdb
+suffix          "dc=isp,dc=net"
+rootdn          "cn=Manager,dc=isp,dc=net"
+rootpw          secret
+directory       /var/lib/ldap
+
+† In this and all suffix references replace isp.net for your domain or use any suffix you prefer.
+†† For FreeBSD use directory /usr/local/var/openldap-data 
+
+
+database        bdb
+suffix          "dc=isp,dc=net"
+rootdn          "cn=Manager,dc=isp,dc=net"
+rootpw          secret
+directory       /var/db/openldap-data
+
+============================================================
+Init script
+============================================================
+
+vi /etc/rc.conf
+
+slapd_enable="YES"
+slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap://0.0.0.0/"'
+slapd_sockets="/var/run/openldap/ldapi"
+
+/usr/local/etc/rc.d/slapd.sh restart
+
+============================================================
+Base root
+============================================================
+
+We create a directory to store ldif files: 
+
+mkdir /usr/local/src/ldif
+
+
+============================================================
+DN Creation
+============================================================
+vi /usr/local/src/ldif/create_dn.ldif
+
+
+dn: dc=isp,dc=net
+objectclass: dcObject
+objectclass: organization
+o: isp
+dc: isp
+dn: cn=Manager,dc=isp,dc=mx
+objectClass: organizationalRole
+cn: Manager
+
+
+This register is added to LDAP database with: 
+------------------------------------------------------------
+cd /usr/local/src/ldif/
+ldapadd -x -D "cn=Manager,dc=isp,dc=net" -W -f create_dn.ldif
+
+
+freebsd# ldapadd -x -D "cn=Manager,dc=isp,dc=net" -W -f create_dn.ldif
+Enter LDAP Password: secret
+adding new entry "dc=isp,dc=net"
+ldap_add: Undefined attribute type (17)
+        additional info: dn: attribute type undefined
+
+freebsd#
+
+we must enter the administration password(secret). 
+
+
+============================================================
+Clamav Antivirus
+============================================================
+
+pkg_add -r clamav
+
+
+vi /etc/rc.conf
+
+clamav_clamd_enable="YES"
+clamav_freshclam_enable="YES"
+
+/usr/local/etc/rc.d/clamav-clamd.sh start
+/usr/local/etc/rc.d/clamav-freshclam.sh start
+
+============================================================
+SpamAssassin
+============================================================
+cd /usr/ports/mail/p5-Mail-SpamAssassin
+make install clean
+rehash
+
+
+============================================================
+Uninstall sendmail
+============================================================
+
+vi /etc/rc.conf
+
+sendmail_enable="NONE"
+
+vi /etc/mail/mailer.conf
+
+sendmail        /var/qmail/bin/sendmail
+send-mail       /var/qmail/bin/sendmail
+mailq           /var/qmail/bin/sendmail
+newaliases      /var/qmail/bin/sendmail
+hoststat        /var/qmail/bin/sendmail
+purgestat       /var/qmail/bin/sendmail
+
+
+============================================================
+
+cd /usr/local/src
+tar xvfz qmail-1.03.tar.gz
+cd qmail-1.03
+zcat ../qmail-ldap-1.03-20060201.patch.gz | patch -p1
+
+============================================================
+vi Makefile
+============================================================
+
+Set following parameter values as shown below
+
+
+LDAPFLAGS=-DQLDAP_CLUSTER -DEXTERNAL_TODO -DDASH_EXT -DDATA_COMPRESS -DQMQP_COMPRESS -DSMTPEXECCHECK -DALTQUEUE
+LDAPLIBS=-L/usr/local/lib -lldap -llber
+LDAPINCLUDES=-I/usr/local/include
+ZLIB=-lz
+TLS=-DTLS_REMOTE -DTLS_SMTPD
+TLSINCLUDES=-I/usr/local/include
+TLSLIBS=-L/usr/local/lib -lssl -lcrypto
+OPENSSLBIN=/usr/bin/openssl
+MNW=-DMAKE_NETSCAPE_WORK
+MDIRMAKE=-DAUTOMAILDIRMAKE
+HDIRMAKE=-DAUTOHOMEDIRMAKE
+SHADOWLIBS=-lcrypt
+DEBUG=-DDEBUG
+
+
+
+============================================================
+
+cd /usr/local/src/qmail-1.03
+make setup check 
+
+
+
+============================================================
+Activating LDAP
+============================================================
+
+ls -l /usr/local/etc/openldap/schema/
+
+
+cd /usr/local/src/qmail-1.03
+cp qmail.schema /usr/local/etc/openldap/schema/
+
+
+-------------------------------------------------------------
+edit slapd.conf
+-------------------------------------------------------------
+
+
+vi /usr/local/etc/openldap/slapd.conf
+
+include /usr/local/etc/openldap/schema/qmail.schema
+
+
+vi /usr/local/etc/openldap/slapd.conf
+
+index   objectClass     eq
+index   mail,mailAlternateAddress,uid                   eq,sub
+index   accountStatus,mailHost,deliveryMode             eq
+index   default    sub
+
+
+
+============================================================
+Configuration
+============================================================
+
+echo "127.0.0.1" >/var/qmail/control/ldapserver
+echo "ou=users,dc=isp,dc=net" > /var/qmail/control/ldapbasedn
+echo "secret" >/var/qmail/control/ldappassword
+echo "cn=Manager,dc=isp,dc=net" >/var/qmail/control/ldaplogin
+echo qmailUser>/var/qmail/control/ldapobjectclass
+echo "0">/var/qmail/control/ldaplocaldelivery
+echo "0">/var/qmail/control/ldapcluster
+echo "10000000">/var/qmail/control/defaultquotasize
+echo "10000">/var/qmail/control/defaultquotacount
+echo "Tu buzon se esta saturando, haz espacio si quieres seguir recibiendo correos">/var/qmail/control/quotawarning
+echo "ldaponly">/var/qmail/control/ldapdefaultdotmode
+echo "/home/vmail">/var/qmail/control/ldapmessagestore
+echo "11184">/var/qmail/control/ldapuid
+echo "2110">/var/qmail/control/ldapgid
+echo "30">/var/qmail/control/ldaptimeout
+echo "Para mayor informacion escribir a soporte@domain.com"> /var/qmail/control/custombouncetext
+touch /var/qmail/control/rbllist
+echo "0.0.0.0">/var/qmail/control/outgoingip
+echo "./Maildir/">/var/qmail/control/defaultdelivery
+echo "domain.com" >/var/qmail/control/locals
+echo "domain.com" >/var/qmail/control/rcpthosts
+
+
+
+
+============================================================
+Init scripts with qmail-conf
+============================================================
+
+vi /var/qmail/rc
+
+
+#!/bin/sh
+# Taken from LWQ by Dave Sill
+# Using stdout for logging
+# Using control/defaultdelivery from qmail-local to deliver messages by default
+exec env - PATH="/var/qmail/bin:$PATH" \
+qmail-start "`cat /var/qmail/control/defaultdelivery`"
+
+
+chmod 755 /var/qmail/rc
+
+
+============================================================
+qmail-delivery service
+============================================================
+
+/var/qmail/bin/qmail-delivery-conf qmaill /var/qmail/service/qmail
+ln -s /var/qmail/service/qmail /service
+svstat /service/qmail
+
+
+============================================================
+
+http://www.qmail-ldap.org/wiki/Full_Installation_Guide_-_Basic_Qmail_Installation

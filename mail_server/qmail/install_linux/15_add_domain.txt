@@ -1,0 +1,15 @@
+===============================================================================
+Add Domain with vadddomain
+===============================================================================
+
+[root@server12 bin]# /home/vpopmail/bin/vadddomain domainstobuy.com passmein33
+[root@server12 bin]#
+
+
+===============================================================================
+Create Email with vadduser
+===============================================================================
+
+vadduser: usage: [options] email_address [passwd]
+
+/home/vpopmail/bin/vadduser info@domainstobuy.com edakunnu

@@ -1,0 +1,14 @@
+cd /downloads/qmailrocks
+tar zxvf qmailadmin-1.2.9.tar.gz
+cd qmailadmin-1.2.9
+./configure --enable-cgibindir=/var/www/cgi-bin --enable-htmldir=/var/www/html
+
+make && make install-strip
+
+
+
+That's it! Now browse to 
+
+http://www.yourdomain.com/cgi-bin/qmailadmin
+
+and you should see the login screen. Login with the postmaster account and password for the domain that you created a while back using Vqadmin. Pretty cool, isn't it? Go ahead and create some additional mailboxes for your domain(s).

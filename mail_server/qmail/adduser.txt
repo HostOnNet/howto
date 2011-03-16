@@ -1,0 +1,46 @@
+=============================================================================================
+vadduser
+=============================================================================================
+
+Create a New Email Account
+
+# /home/vpopmail/bin/vadduser boby@domainstobuy.com 123456
+
+
+=============================================================================================
+vuserinfo
+=============================================================================================
+
+
+# /home/vpopmail/bin/vuserinfo boby@domainstobuy.com
+name:   boby
+passwd: $1$wr6B/IxS$EOEQ0syDHGdiffVt/YrpV1
+clear passwd: 123456
+comment/gecos: boby
+uid:    0
+gid:    0
+flags:  0
+gecos: boby
+limits: No user limits set.
+dir:       /home/vpopmail/domains/domainstobuy.com/boby
+quota:     1073741824S
+usage:     0%
+account created: Mon May 30 14:39:07 2005
+last auth: Never logged in
+#
+
+=============================================================================================
+MYSQL
+=============================================================================================
+
+mysql> select * from vpopmail.domainstobuy_com;
++------------+------------------------------------+--------+--------+-----------------+----------------------------------------------------+-------------+-----------------+
+| pw_name    | pw_passwd                          | pw_uid | pw_gid | pw_gecos        | pw_dir                                             | pw_shell    | pw_clear_passwd |
++------------+------------------------------------+--------+--------+-----------------+----------------------------------------------------+-------------+-----------------+
+| postmaster | $1$aUoF.cLU$554bEYmxBhvu21dLLRomM/ |      0 |      0 | Postmaster      | /home/vpopmail/domains/domainstobuy.com/postmaster | 1073741824S | 123456          |
+| info       | $1$YvJwmTmN$/tR7QjhzLPVbiHcyETg370 |      0 |      0 | NetFreeHost.com | /home/vpopmail/domains/domainstobuy.com/info       | 1073741824S | stefin123       |
+| boby       | $1$wr6B/IxS$EOEQ0syDHGdiffVt/YrpV1 |      0 |      0 | boby            | /home/vpopmail/domains/domainstobuy.com/boby       | 1073741824S | 123456          |
++------------+------------------------------------+--------+--------+-----------------+----------------------------------------------------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+

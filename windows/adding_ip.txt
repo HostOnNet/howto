@@ -1,0 +1,30 @@
+<%
+Option Explicit
+
+Dim objNewMail
+
+'create an instance of NewMail Object
+Set objNewMail = Server.CreateObject("CDONTS.NewMail")
+
+' After an instance of NewMail Object has been created.
+' If you like you can use this one line of code to send the mail.
+' objNewMail.Send From, To, Subject, Message
+' or you can give every value seperate
+
+objNewMail.From = "emailfrom@yourdomain.com"
+objNewMail.To   = "emailto@yourdomain.com"
+
+' Please replace the "From" and "To" email addresses with your 
+' own valid email address.
+
+objNewMail.Subject = "This is a test Mail"
+objNewMail.Body    = "This is the Body text of this test mail."
+objNewMail.Send
+
+' After the Send method, NewMail Object become Invalid
+' You should set it to nothing to relase the memory
+
+Set objNewMail = Nothing
+
+' If you want to send another mail
+' you have to create a new instance of NewMail Object ag
