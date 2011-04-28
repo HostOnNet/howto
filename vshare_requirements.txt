@@ -104,10 +104,14 @@ cd /usr/local/src/a52dec*
 ./configure 
 make && make install
 
+# This create conflict on cpanel servers, as it have libjpeg installed from yum. So don't install jpegsrc
+# to see if libjpeg installed or not, run
+# rpm -qa | grep jpeg
+
 cd /usr/local/src
-wget -c http://www.ijg.org/files/jpegsrc.v7.tar.gz
-tar -zxvf jpegsrc.v7.tar.gz
-cd /usr/local/src/jpeg-7
+wget -c http://www.ijg.org/files/jpegsrc.v8c.tar.gz
+tar -zxvf jpegsrc.v8c.tar.gz
+cd /usr/local/src/jpeg-8
 ./configure  --prefix=/usr
 make
 make install
@@ -221,10 +225,17 @@ make && make install
 # ./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/
 # make && make install
 
+# cd /usr/local/src
+# wget http://www.mplayerhq.hu/MPlayer/releases/MPlayer-1.0rc4.tar.gz
+# tar zxvf MPlayer-1.0rc4.tar.gz
+# cd MPlayer-1.0rc4
+# ./configure --prefix=/usr --codecsdir=/usr/local/lib/codecs/
+# make && make install
+
 cd /usr/local/src
-wget -c http://downloads.sourceforge.net/sourceforge/yamdi/yamdi-1.4.tar.gz
-tar -zxvf yamdi-1.4.tar.gz
-cd /usr/local/src/yamdi-1.4
+wget -c http://downloads.sourceforge.net/project/yamdi/yamdi/1.8/yamdi-1.8.tar.gz
+tar -zxvf yamdi-1.8.tar.gz
+cd /usr/local/src/yamdi-1.8
 gcc yamdi.c -o yamdi -O2 -Wall
 mv yamdi /usr/bin/
 
