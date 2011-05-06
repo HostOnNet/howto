@@ -107,7 +107,9 @@ make && make install
 # This create conflict on cpanel servers, as it have libjpeg installed from yum. So don't install jpegsrc
 # to see if libjpeg installed or not, run
 # rpm -qa | grep jpeg
-
+=============================================
+DO NOT INSTALL IN CPANEL SERVER
+=============================================
 cd /usr/local/src
 wget -c http://www.ijg.org/files/jpegsrc.v8c.tar.gz
 tar -zxvf jpegsrc.v8c.tar.gz
@@ -115,7 +117,7 @@ cd /usr/local/src/jpeg-8
 ./configure  --prefix=/usr
 make
 make install
-
+=============================================
 cd /usr/local/src/
 wget -c http://ftp.penguin.cz/pub/users/utx/amr/amrnb-7.0.0.2.tar.bz2
 tar jxvf amrnb-7.0.0.2.tar.bz2
@@ -183,6 +185,9 @@ make clean && make distclean
 make dev
 make
 make install
+
+ls -l /usr/local/lib/libdc1394*
+
 
 # http://ffmpeg.org/download.html
 # ffmpeg moved to git repo
