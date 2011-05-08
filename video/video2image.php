@@ -69,7 +69,7 @@ for ($i = 1; $i <= $frames; $i ++)
     }*/
 }
 
-echo "\n" . 'Finished Creating Thumbnails' . "\n";
+echo "\n" . 'Finished Creating Thumbnails in folder : ' . "$folderName\n";
 
 function sec2hms($sec, $useColon = true)
 {
