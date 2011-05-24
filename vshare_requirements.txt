@@ -140,9 +140,9 @@ cd /usr/local/src/yasm-0.7.2
 make && make install
 
 cd /usr/local/src
-wget http://kernel.org/pub/software/scm/git/git-1.7.4.1.tar.bz2
-tar jxvf git-1.7.4.1.tar.bz2
-cd git-1.7.4.1
+wget http://kernel.org/pub/software/scm/git/git-1.7.5.2.tar.bz2
+tar jxvf git-1.7.5.2.tar.bz2
+cd git-1.7.5.2
 make clean && make distclean
 make configure
 ./configure --prefix=/usr
