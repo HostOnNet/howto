@@ -44,7 +44,7 @@ $folderName = strtolower($pathInfo['filename']);
 
 if (is_dir($folderName))
 {
-   // die("Directory already exists, please dlete diretory and try again\n\n rm -rf $folderName\n\n");
+    die("Directory already exists, please dlete diretory and try again\n\n rm -rf $folderName\n\n");
 }
 else
 {
@@ -55,19 +55,24 @@ else
 for ($i = 1; $i <= $frames; $i ++)
 {
     $seconds = $i * $interval;
-    $time = sec2hms($seconds);
-    $cmd = "mplayer $video -ss $time -nosound -vo jpeg:outdir=$folderName -frames 2";
+    $time_hhmmss = sec2hms($seconds);
+    $imageName = str_replace(':', '', $time_hhmmss);
+	$imageName = trim($imageName);
+
+	if (empty($imageName))
+	{
+		echo "Empty file name";
+		exit;
+	}
+
+//    $cmd = "mplayer $video -ss $time_hhmmss -nosound -vo jpeg:outdir=$folderName -frames 2";
+	$cmd = "ffmpeg  -ss $time_hhmmss  -i $video -f image2 -vframes 1 $folderName/out.jpg";
     @exec($cmd);
-    $imageName = str_replace(':', '', $time);
-    rename("$folderName/00000001.jpg", "$folderName/$imageName.jpeg");
+
+    rename("$folderName/out.jpg", "$folderName/$imageName.jpeg");
     $img = "<img src=$imageName.jpeg> $time <hr />";
     error_log("$img", 3, "$folderName/all.html");
     echo "#";
-    
-/*    if (($video == '20.avi') && ($i > 20))
-    {
-        exit();
-    }*/
 }
 
 echo "\n" . 'Finished Creating Thumbnails in folder : ' . "$folderName\n";
